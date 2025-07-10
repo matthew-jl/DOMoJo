@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "881793481957",
+    "project_id": "domojo-b6a80",
+    "storage_bucket": "domojo-b6a80.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881793481957:android:f57ad6d65699b9db50a80c",
+        "android_client_info": {
+          "package_name": "com.example.domojo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv47xtwrRfwMWpf2tkYERaUrWfYl_eMhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881793481957:android:17f3d8756b58872250a80c",
+        "android_client_info": {
+          "package_name": "edu.bluejack24_2.domojo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv47xtwrRfwMWpf2tkYERaUrWfYl_eMhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
