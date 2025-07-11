@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
         android:text="@string/login_title"
-        android:textColor="@android:color/black"
+        android:textColor="@color/color1"
         android:textSize="32sp"
         android:textStyle="bold" />
 
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_email"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:textSize="12sp"
         android:textStyle="bold" />
 
@@ -33,8 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:hint="DOMoJo@gmail.com"
-        app:boxStrokeColor="@android:color/holo_blue_dark"
-        app:hintTextColor="@android:color/holo_blue_dark">
+        app:boxStrokeColor="@color/color4"
+        app:hintTextColor="@color/color3">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_et"
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_password"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:textSize="12sp"
         android:textStyle="bold" />
 
@@ -58,8 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:hint="••••••••"
-        app:boxStrokeColor="@android:color/holo_blue_dark"
-        app:hintTextColor="@android:color/holo_blue_dark"
+        app:boxStrokeColor="@color/color4"
+        app:hintTextColor="@color/color3"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -76,9 +76,9 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
+        android:backgroundTint="@color/color4"
         android:text="@string/login_button"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -90,7 +90,7 @@
         android:focusable="true"
         android:minHeight="48dp"
         android:text="@string/login_link"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="@color/color5"
         android:textSize="16sp" />
 
 </LinearLayout>

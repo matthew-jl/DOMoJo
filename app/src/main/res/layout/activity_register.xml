@@ -30,7 +30,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="48dp"
                 android:text="@string/register_title"
-                android:textColor="@android:color/black"
+                android:textColor="@color/color1"
                 android:textSize="32sp"
                 android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/register_avatar"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -72,7 +72,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:strokeColor="@android:color/darker_gray"
+                        app:strokeColor="@color/black"
                         app:strokeWidth="1dp" />
 
                     <Button
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Error"
-                android:textColor="@android:color/red"
+                android:textColor="@color/red"
                 android:visibility="invisible"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -104,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/register_username"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -112,8 +112,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Domojo"
-                app:boxStrokeColor="@android:color/holo_blue_dark"
-                app:hintTextColor="@android:color/holo_blue_dark">
+                app:boxStrokeColor="@color/color4"
+                app:hintTextColor="@color/color3">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/username_et"
@@ -129,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Error"
-                android:textColor="@android:color/red"
+                android:textColor="@color/red"
                 android:visibility="invisible"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -138,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/register_email"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -146,8 +146,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="DOMoJo@gmail.com"
-                app:boxStrokeColor="@android:color/holo_blue_dark"
-                app:hintTextColor="@android:color/holo_blue_dark">
+                app:boxStrokeColor="@color/color4"
+                app:hintTextColor="@color/color3">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_et"
@@ -163,7 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Error"
-                android:textColor="@android:color/red"
+                android:textColor="@color/red"
                 android:visibility="invisible"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -172,7 +172,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/register_password"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -180,8 +180,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="••••••••"
-                app:boxStrokeColor="@android:color/holo_blue_dark"
-                app:hintTextColor="@android:color/holo_blue_dark"
+                app:boxStrokeColor="@color/color4"
+                app:hintTextColor="@color/color3"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -198,7 +198,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Error"
-                android:textColor="@android:color/red"
+                android:textColor="@color/red"
                 android:visibility="invisible"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -207,7 +207,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/register_confirm_password"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -215,8 +215,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="••••••••"
-                app:boxStrokeColor="@android:color/holo_blue_dark"
-                app:hintTextColor="@android:color/holo_blue_dark"
+                app:boxStrokeColor="@color/color4"
+                app:hintTextColor="@color/color3"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -233,7 +233,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Error"
-                android:textColor="@android:color/red"
+                android:textColor="@color/red"
                 android:layout_marginBottom="16dp"
                 android:visibility="invisible"
                 android:textSize="12sp"
@@ -244,9 +244,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginBottom="16dp"
-                android:backgroundTint="@android:color/holo_blue_dark"
+                android:backgroundTint="@color/color4"
                 android:text="@string/register_button"
-                android:textColor="@android:color/white"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -258,7 +258,7 @@
                 android:focusable="true"
                 android:minHeight="12dp"
                 android:text="@string/register_link"
-                android:textColor="@android:color/holo_blue_dark"
+                android:textColor="@color/color4"
                 android:textSize="16sp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
