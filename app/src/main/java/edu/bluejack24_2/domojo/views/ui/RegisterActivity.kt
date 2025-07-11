@@ -1,5 +1,6 @@
 package edu.bluejack24_2.domojo.views.ui
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,6 +15,8 @@ import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.databinding.ActivityRegisterBinding
 import edu.bluejack24_2.domojo.utils.CloudinaryClient
 import edu.bluejack24_2.domojo.viewmodels.RegisterViewModel
+import java.io.File
+import java.io.FileOutputStream
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -21,6 +24,16 @@ class RegisterActivity : AppCompatActivity() {
 
     private var selectedImageUri: Uri? = null
     private val PICK_IMAGE_REQUEST = 1001
+
+    fun getRealFileFromUri(context: Context, uri: Uri): File {
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val tempFile = File.createTempFile("upload_", ".jpg", context.cacheDir)
+        val outputStream = FileOutputStream(tempFile)
+        inputStream?.copyTo(outputStream)
+        inputStream?.close()
+        outputStream.close()
+        return tempFile
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +53,10 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.signupBtn.setOnClickListener {
+            val file = getRealFileFromUri(this, selectedImageUri!!)
             CloudinaryClient.uploadImage(
                 context = this,
-                uri = selectedImageUri!!,
+                Uri.fromFile(file),
                 onSuccess = { imageUrl ->
                     viewModel.onRegisterClicked(imageUrl)
                 },

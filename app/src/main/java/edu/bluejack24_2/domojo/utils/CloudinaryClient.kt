@@ -8,6 +8,8 @@ import com.cloudinary.android.callback.UploadCallback
 import com.cloudinary.android.callback.ErrorInfo
 
 object CloudinaryClient {
+    private var isCloudinaryInitialized = false
+
     fun uploadImage(
         context: Context,
         uri: Uri,
@@ -21,8 +23,15 @@ object CloudinaryClient {
         )
 
         try {
-            MediaManager.init(context.applicationContext, config)
+            if (!isCloudinaryInitialized) {
+                MediaManager.init(context.applicationContext, config)
+                isCloudinaryInitialized = true
+                Log.d("CLOUDINARY", "MediaManager initialized.")
+            } else {
+                Log.d("CLOUDINARY", "MediaManager already initialized (skipped init).")
+            }
 
+            Log.d("CLOUDINARY", "Starting upload for URI: $uri")
             MediaManager.get().upload(uri)
                 .callback(object : UploadCallback {
                     override fun onStart(requestId: String) {
