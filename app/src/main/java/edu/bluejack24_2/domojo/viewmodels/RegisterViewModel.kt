@@ -51,7 +51,7 @@ class RegisterViewModel : ViewModel() {
         }
 
         if (usernameValue.isNullOrBlank()) {
-            usernameError.value = "Name is required!"
+            usernameError.value = "Username is required!"
             return
         }
 

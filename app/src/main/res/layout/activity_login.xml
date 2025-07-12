@@ -20,19 +20,19 @@
         android:textSize="32sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/login_email"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/login_email"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="12sp"-->
+<!--        android:textStyle="bold" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="DOMoJo@gmail.com"
+        android:hint="@string/login_email"
         app:boxStrokeColor="@color/color4"
         app:hintTextColor="@color/color3">
 
@@ -45,19 +45,19 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/login_password"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/login_password"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="12sp"-->
+<!--        android:textStyle="bold" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:hint="••••••••"
+        android:hint="@string/login_password"
         app:boxStrokeColor="@color/color4"
         app:hintTextColor="@color/color3"
         app:passwordToggleEnabled="true">

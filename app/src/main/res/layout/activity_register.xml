@@ -100,18 +100,18 @@
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/register_username"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/register_username"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold" />-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Domojo"
+                android:hint="@string/register_username"
                 app:boxStrokeColor="@color/color4"
                 app:hintTextColor="@color/color3">
 
@@ -120,7 +120,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={viewModel.username}"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,18 +135,18 @@
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/register_email"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/register_email"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold" />-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="DOMoJo@gmail.com"
+                android:hint="@string/register_email"
                 app:boxStrokeColor="@color/color4"
                 app:hintTextColor="@color/color3">
 
@@ -154,7 +155,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={viewModel.email}"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -168,18 +170,18 @@
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/register_password"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/register_password"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold" />-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="••••••••"
+                android:hint="@string/register_password"
                 app:boxStrokeColor="@color/color4"
                 app:hintTextColor="@color/color3"
                 app:passwordToggleEnabled="true">
@@ -189,7 +191,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={viewModel.password}"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -203,18 +206,18 @@
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/register_confirm_password"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/register_confirm_password"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold" />-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="••••••••"
+                android:hint="@string/register_confirm_password"
                 app:boxStrokeColor="@color/color4"
                 app:hintTextColor="@color/color3"
                 app:passwordToggleEnabled="true">
@@ -224,7 +227,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={viewModel.confirmPassword}"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
