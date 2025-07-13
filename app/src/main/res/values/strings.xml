@@ -17,6 +17,13 @@
     <string name="register_terms">I agree with terms and conditions</string>
     <string name="register_link">Already have an account? Sign In!</string>
 
+    <string name="create_challenge_page_title">Create New Challenge</string>
+    <string name="create_challenge_title">Title</string>
+    <string name="create_challenge_category">Category</string>
+    <string name="create_challenge_description">Description</string>
+    <string name="create_challenge_icon">Icon</string>
+    <string name="create_challenge_banner">Banner</string>
+    <string name="create_challenge_button">Create Challenge</string>
 
     <string name="choose_file">Choose File</string>
 </resources>

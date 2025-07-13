@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -53,17 +54,29 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.signupBtn.setOnClickListener {
-            val file = getRealFileFromUri(this, selectedImageUri!!)
-            CloudinaryClient.uploadImage(
-                context = this,
-                Uri.fromFile(file),
-                onSuccess = { imageUrl ->
-                    viewModel.onRegisterClicked(imageUrl)
-                },
-                onError = { message ->
-                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-                }
-            )
+            binding.profileErrorTv.visibility = View.GONE
+            binding.usernameErrorTv.visibility = View.GONE
+            binding.emailErrorTv.visibility = View.GONE
+            binding.passwordErrorTv.visibility = View.GONE
+            binding.confirmErrorTv.visibility = View.GONE
+
+            if(selectedImageUri == null) {
+                binding.profileErrorTv.text = "Please select a profile picture"
+                binding.profileErrorTv.visibility = View.VISIBLE
+            }else{
+                val file = getRealFileFromUri(this, selectedImageUri!!)
+//                CloudinaryClient.uploadImage(
+//                    context = this,
+//                    Uri.fromFile(file),
+//                    onSuccess = { imageUrl ->
+//                        viewModel.onRegisterClicked(imageUrl)
+//                    },
+//                    onError = { message ->
+//                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+//                    }
+//                )
+                viewModel.onRegisterClicked(file)
+            }
         }
 
         binding.loginLink.setOnClickListener {
@@ -125,7 +138,7 @@ class RegisterActivity : AppCompatActivity() {
             if (navigateToHome) {
                 // Navigate to HomeActivity
                 Handler().postDelayed({
-                    val intent = Intent(this, LoginActivity::class.java)
+                    val intent = Intent(this, LandingActivity::class.java)
                     startActivity(intent)
                 }, 2500)
             }

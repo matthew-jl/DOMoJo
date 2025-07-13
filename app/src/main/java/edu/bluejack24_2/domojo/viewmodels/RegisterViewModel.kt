@@ -1,12 +1,16 @@
 package edu.bluejack24_2.domojo.viewmodels
 
+import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import edu.bluejack24_2.domojo.utils.CloudinaryClient
 import edu.bluejack24_2.domojo.views.ui.RegisterActivity
+import java.io.File
 
 class RegisterViewModel : ViewModel() {
     private val _navigateToHome = MutableLiveData<Boolean>()
@@ -31,7 +35,7 @@ class RegisterViewModel : ViewModel() {
         this.activity = activity
     }
 
-    fun onRegisterClicked(imageUrl: String){
+    fun onRegisterClicked(image: File){
         firebaseAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
@@ -44,11 +48,6 @@ class RegisterViewModel : ViewModel() {
         emailError.value = null
         passwordError.value = null
         confirmPasswordError.value = null
-
-        if(imageUrl.isEmpty()){
-            profilePicError.value = "Please select a profile picture"
-            return
-        }
 
         if (usernameValue.isNullOrBlank()) {
             usernameError.value = "Username is required!"
@@ -80,72 +79,79 @@ class RegisterViewModel : ViewModel() {
             return
         }
 
-        var isUsernameError = false
         firestore.collection("users").whereEqualTo("username", usernameValue)
             .get()
             .addOnSuccessListener { result ->
                 if (result.isEmpty) {
                     Log.d("USERNAME_NOT_FOUND", "Username is not in Firestore collection")
                 } else {
-                    isUsernameError = true
+                    usernameError.value = "Username must be unique!"
                     Log.d("USERNAME_FOUND", "Username is already in Firestore collection")
+                    return@addOnSuccessListener
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w("FIRESTORE_ERROR", "Error checking Firestore collection (username)", exception)
-                isUsernameError = true
+                return@addOnFailureListener
             }
 
-        var isEmailError = false
         firestore.collection("users").whereEqualTo("email", emailValue)
             .get()
             .addOnSuccessListener { result ->
                 if (result.isEmpty) {
                     Log.d("EMAIL_NOT_FOUND", "Email is not in Firestore collection")
                 } else {
-                    isEmailError = true
+                    emailError.value = "Email must be unique!"
                     Log.d("EMAIL_FOUND", "Email is already in Firestore collection")
+                    return@addOnSuccessListener
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w("FIRESTORE_ERROR", "Error checking Firestore collection (email)", exception)
-                isEmailError = true
+                return@addOnFailureListener
             }
 
-        if(isEmailError){
-            emailError.value = "Email must be unique!"
+        if(emailError.value != null){
             return
-        }else if(isUsernameError) {
-            usernameError.value = "Username must be unique!"
+        }else if(usernameError.value != null) {
             return
         }else{
-            firebaseAuth.createUserWithEmailAndPassword(emailValue, passwordValue)
-                .addOnCompleteListener(activity) { task ->
-                    if (task.isSuccessful) {
-                        Log.d("REGISTER_SUCCESS", "User registered successfully")
-                        val userId = firebaseAuth.currentUser?.uid
-                        userId?.let {
-                            val user = hashMapOf(
-                                "username" to usernameValue,
-                                "email" to emailValue,
-                                "avatar" to imageUrl,
-                            )
+            CloudinaryClient.uploadImage(
+                context = activity,
+                Uri.fromFile(image),
+                onSuccess = { result ->
+                    firebaseAuth.createUserWithEmailAndPassword(emailValue, passwordValue)
+                        .addOnCompleteListener(activity) { task ->
+                            if (task.isSuccessful) {
+                                Log.d("REGISTER_SUCCESS", "User registered successfully")
+                                val userId = firebaseAuth.currentUser?.uid
+                                userId?.let {
+                                    val user = hashMapOf(
+                                        "username" to usernameValue,
+                                        "email" to emailValue,
+                                        "avatar" to result,
+                                    )
 
-                        firestore.collection("users")
-                            .document(userId)
-                            .set(user)
-                            .addOnSuccessListener {
-                                Log.d("FIRESTORE_SUCCESS", "User data saved successfully")
-                                _navigateToHome.value = true
-                            }
-                            .addOnFailureListener { e ->
-                                Log.w("FIRESTORE_ERROR", "Error saving user data", e)
+                                    firestore.collection("users")
+                                        .document(userId)
+                                        .set(user)
+                                        .addOnSuccessListener {
+                                            Log.d("FIRESTORE_SUCCESS", "User data saved successfully")
+                                            _navigateToHome.value = true
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.w("FIRESTORE_ERROR", "Error saving user data", e)
+                                        }
+                                }
+                            } else {
+                                Log.w("REGISTER_ERROR", "User registration failed", task.exception)
                             }
                         }
-                    } else {
-                        Log.w("REGISTER_ERROR", "User registration failed", task.exception)
-                    }
+                },
+                onError = { message ->
+                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
                 }
+            )
         }
     }
 }
