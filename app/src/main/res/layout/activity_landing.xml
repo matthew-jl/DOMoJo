@@ -31,4 +31,16 @@
         android:textColor="@color/color2"
         android:textSize="16sp" />
 
+
+    <TextView
+        android:id="@+id/create_challenge_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:minHeight="12dp"
+        android:text="Create Challenge"
+        android:textColor="@color/color2"
+        android:textSize="16sp" />
+
 </LinearLayout>

@@ -62,7 +62,6 @@ class LoginViewModel : ViewModel() {
                 .addOnFailureListener { exception ->
                     Log.w("FIRESTORE_ERROR", "Error checking Firestore collection (email)", exception)
                 }
-
         }
     }
 }

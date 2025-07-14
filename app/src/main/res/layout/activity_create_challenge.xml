@@ -148,7 +148,7 @@
                         android:layout_marginBottom="16dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/default_avatar"
-                        app:layout_constraintBottom_toTopOf="@+id/icon_file_button"
+                        app:layout_constraintBottom_toTopOf="@+id/select_icon_button"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -156,7 +156,7 @@
                         app:strokeWidth="1dp" />
 
                     <Button
-                        android:id="@+id/icon_file_button"
+                        android:id="@+id/select_icon_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/choose_file"

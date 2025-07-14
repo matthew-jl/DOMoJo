@@ -1,6 +1,8 @@
 package edu.bluejack24_2.domojo.views.ui
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -11,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.databinding.ActivityLoginBinding
 import edu.bluejack24_2.domojo.viewmodels.LoginViewModel
+import java.io.File
+import java.io.FileOutputStream
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
