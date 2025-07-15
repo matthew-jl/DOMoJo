@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DOMoJo">
         <activity
-            android:name=".views.ui.Challenge"
+            android:name=".views.ui.ChallengeActivity"
             android:exported="false" />
         <activity
             android:name=".views.ui.CreateChallengeActivity"

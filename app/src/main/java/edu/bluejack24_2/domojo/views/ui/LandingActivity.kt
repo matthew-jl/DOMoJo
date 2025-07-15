@@ -34,5 +34,11 @@ class LandingActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        binding.challengeLink.setOnClickListener {
+            val intent = Intent(this, ChallengeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

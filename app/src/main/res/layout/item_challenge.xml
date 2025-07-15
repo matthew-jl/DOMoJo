@@ -31,9 +31,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{challenge.iconUrl}"
-                app:placeholder="@drawable/ic_default_challenge_icon"
-                app:error="@drawable/ic_image_error"
+                imageUrl="@{challenge.iconUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:contentDescription="@string/challenge_icon_placeholder"
@@ -116,16 +114,16 @@
                         android:src="@drawable/fire_icon"
                         android:contentDescription="@string/fire_icon_desc" />
 
-                    <TextView
-                        android:id="@+id/streak_count_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="@{String.valueOf(challenge.streakCount)}"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="@string/streak_info_placeholder" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/streak_count_text_view"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="4dp"-->
+<!--                        android:text="@{String.valueOf(challenge.streakCount)}"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        tools:text="@string/streak_info_placeholder" />-->
 
                 </LinearLayout>
 
