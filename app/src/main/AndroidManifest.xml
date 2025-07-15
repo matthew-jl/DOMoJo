@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DOMoJo">
         <activity
+            android:name=".views.ui.Challenge"
+            android:exported="false" />
+        <activity
             android:name=".views.ui.CreateChallengeActivity"
             android:exported="false" />
         <activity
@@ -34,7 +37,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

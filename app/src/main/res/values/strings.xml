@@ -26,4 +26,17 @@
     <string name="create_challenge_button">Create Challenge</string>
 
     <string name="choose_file">Choose File</string>
+
+    <string name="challenges_feed_title">Challenges</string>
+    <string name="search_hint">Search...</string>
+    <string name="search_icon_desc">Search icon</string>
+    <string name="sort_button_desc">Sort/Filter button</string>
+    <string name="add_challenge_fab_desc">Add new challenge</string>
+
+    <string name="challenge_icon_placeholder">Challenge icon</string>
+    <string name="default_challenge_title">Nama Challenge</string>
+    <string name="default_challenge_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="join_challenge_button">Join</string>
+    <string name="fire_icon_desc">Fire icon for streak</string>
+    <string name="streak_info_placeholder">5</string>
 </resources>
