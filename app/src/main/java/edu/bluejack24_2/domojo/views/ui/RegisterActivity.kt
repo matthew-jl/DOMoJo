@@ -45,8 +45,6 @@ class RegisterActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.setActivity(this)
-
         binding.selectFileButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
@@ -65,17 +63,7 @@ class RegisterActivity : AppCompatActivity() {
                 binding.profileErrorTv.visibility = View.VISIBLE
             }else{
                 val file = getRealFileFromUri(this, selectedImageUri!!)
-//                CloudinaryClient.uploadImage(
-//                    context = this,
-//                    Uri.fromFile(file),
-//                    onSuccess = { imageUrl ->
-//                        viewModel.onRegisterClicked(imageUrl)
-//                    },
-//                    onError = { message ->
-//                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-//                    }
-//                )
-                viewModel.onRegisterClicked(file)
+                viewModel.onRegisterClicked(this,file)
             }
         }
 
@@ -132,6 +120,11 @@ class RegisterActivity : AppCompatActivity() {
                 binding.confirmErrorTv.error = null
                 binding.confirmErrorTv.visibility = View.INVISIBLE
             }
+        })
+
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            binding.signupBtn.isEnabled = !isLoading
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         })
 
         viewModel.navigateToHome.observe(this, Observer { navigateToHome ->

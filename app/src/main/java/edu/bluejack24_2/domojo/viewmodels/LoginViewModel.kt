@@ -4,10 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import edu.bluejack24_2.domojo.views.ui.LoginActivity
+import edu.bluejack24_2.domojo.repositories.AuthRepository
+import edu.bluejack24_2.domojo.repositories.UserRepository
 
 class LoginViewModel : ViewModel() {
+    private val userRepository: UserRepository = UserRepository()
+    private val authRepository: AuthRepository = AuthRepository(userRepository)
+
     val _navigateToHome = MutableLiveData<Boolean>()
     val navigateToHome: LiveData<Boolean> get() = _navigateToHome
 
@@ -16,17 +19,9 @@ class LoginViewModel : ViewModel() {
 
     val emailError = MutableLiveData<String?>()
     val passwordError = MutableLiveData<String?>()
+    val isLoading = MutableLiveData<Boolean>()
 
-    private lateinit var activity: LoginActivity
-    private lateinit var firebaseAuth: FirebaseAuth
-
-    fun setActivity(activity: LoginActivity) {
-        this.activity = activity
-    }
-
-    fun onLoginClicked() {
-        firebaseAuth = FirebaseAuth.getInstance()
-
+    fun login() {
         val emailValue = email.value
         val passwordValue = password.value
 
@@ -38,7 +33,7 @@ class LoginViewModel : ViewModel() {
             return
         }
 
-        if(passwordValue.isNullOrBlank()){
+        if (passwordValue.isNullOrBlank()) {
             passwordError.value = "Password is required!"
             return
         }
@@ -52,16 +47,21 @@ class LoginViewModel : ViewModel() {
             emailError.value = null
             passwordError.value = null
 
-            firebaseAuth.signInWithEmailAndPassword(
-                email.value.toString(),
-                password.value.toString()
-            )
-                .addOnSuccessListener {
+            authRepository.loginUser(
+                email = emailValue,
+                password = passwordValue,
+                onSuccess = {
+                    isLoading.value = false
                     _navigateToHome.value = true
+                    Log.i("Login Success", "Login successful, navigating to home")
+                },
+                onFailure = { errorMessage ->
+                    isLoading.value = false
+                    passwordError.value = errorMessage
+                    _navigateToHome.value = false
+                    Log.e("Login Error", errorMessage)
                 }
-                .addOnFailureListener { exception ->
-                    Log.w("FIRESTORE_ERROR", "Error checking Firestore collection (email)", exception)
-                }
+            )
         }
     }
 }

@@ -2,29 +2,43 @@ package edu.bluejack24_2.domojo.views.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.google.firebase.firestore.FirebaseFirestore
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import edu.bluejack24_2.domojo.R
-import edu.bluejack24_2.domojo.adapters.ChallengeAdaptor
+import edu.bluejack24_2.domojo.adapters.ChallengeAdapter
 import edu.bluejack24_2.domojo.databinding.ActivityChallengeBinding
-import edu.bluejack24_2.domojo.models.Challenge
-import edu.bluejack24_2.domojo.viewmodels.LoginViewModel
+import edu.bluejack24_2.domojo.viewmodels.ChallengeViewModel
 
 class ChallengeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChallengeBinding
-    private lateinit var viewModel: LoginViewModel
-    private lateinit var challengeList: ArrayList<Challenge>
-    private lateinit var db: FirebaseFirestore
+    private lateinit var viewModel: ChallengeViewModel
+    private lateinit var challengeAdapter: ChallengeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_challenge)
 
-        db = FirebaseFirestore.getInstance()
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_challenge)
+        viewModel = ViewModelProvider(this).get(ChallengeViewModel::class.java)
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        challengeAdapter = ChallengeAdapter(ArrayList())
+        binding.challengesRecyclerView.adapter = challengeAdapter
+
+        binding.challengesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@ChallengeActivity) // Ensure LayoutManager is set
+            adapter = challengeAdapter // <--- THIS IS THE CRUCIAL MISSING LINE
+        }
+
+        viewModel.fetchChallenges()
+        viewModel.fetchAvailableCategories()
 
         binding.addChallengeFab.setOnClickListener{
             val intent = Intent(this, CreateChallengeActivity::class.java)
@@ -32,34 +46,65 @@ class ChallengeActivity : AppCompatActivity() {
             finish()
         }
 
-        db.collection("challenges")
-            .get()
-            .addOnSuccessListener { documents ->
-                if(documents.isEmpty) {
-                    Toast.makeText(
-                        this,
-                        "No challenges available at the moment.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@addOnSuccessListener
-                }else{
-                    challengeList = ArrayList()
-                    for (document in documents) {
-                        val challenge = document.toObject(Challenge::class.java)
-                        if(challenge != null){
-                            challengeList.add(challenge)
-                        }
-                    }
-                    val challengeAdapter = ChallengeAdaptor(challengeList)
-                    binding.challengesRecyclerView.adapter = challengeAdapter
+        binding.filterButton.setOnClickListener {
+            showCategoryFilterDialog()
+        }
+
+        viewModel.challengeList.observe(this, Observer { challenges ->
+            challengeAdapter.updateChallenges(challenges)
+            if (challenges.isEmpty() && viewModel.isLoading.value == false && viewModel.errorMessage.value == null) {
+                binding.errorTv.text = "No challenges found matching your criteria."
+                binding.errorTv.visibility = View.VISIBLE
+            } else {
+                binding.errorTv.visibility = View.INVISIBLE
+            }
+        })
+
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.searchEditText.isEnabled = !isLoading
+            binding.filterButton.isEnabled = !isLoading
+        })
+
+        viewModel.errorMessage.observe(this, Observer { error ->
+            if (error != null) {
+                binding.errorTv.text = error
+                binding.errorTv.visibility = View.VISIBLE
+            } else {
+                binding.errorTv.visibility = View.INVISIBLE
+            }
+        })
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchChallenges()
+        viewModel.fetchAvailableCategories()
+    }
+
+    private fun showCategoryFilterDialog() {
+        // Get categories from ViewModel
+        val categories = viewModel.availableCategories.value ?: emptyList()
+        val allCategoriesOption = "All Categories"
+
+        val dialogItems = mutableListOf(allCategoriesOption)
+        dialogItems.addAll(categories)
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Filter by Category")
+            .setItems(dialogItems.toTypedArray()) { dialog, which ->
+                val selected = dialogItems[which]
+                if (selected == allCategoriesOption) {
+                    viewModel.setCategoryFilter(null)
+                } else {
+                    viewModel.setCategoryFilter(selected)
                 }
+                dialog.dismiss()
             }
-            .addOnFailureListener { exception ->
-                Toast.makeText(
-                    this,
-                    "Failed to load challenges: ${exception.toString()}",
-                    Toast.LENGTH_SHORT
-                ).show()
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
             }
+            .show()
     }
 }

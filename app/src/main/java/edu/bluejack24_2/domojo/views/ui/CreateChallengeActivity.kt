@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -49,8 +50,6 @@ class CreateChallengeActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.setActivity(this)
-
         binding.selectIconButton.setOnClickListener{
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
@@ -79,7 +78,7 @@ class CreateChallengeActivity : AppCompatActivity() {
                 val iconFile = getRealFileFromUri(this, selectedIconUri!!)
                 val bannerFile = getRealFileFromUri(this, selectedBannerUri!!)
 
-                viewModel.onCreateClicked(iconFile, bannerFile)
+                viewModel.onCreateClicked(this, iconFile, bannerFile)
             }
         }
 
@@ -110,6 +109,20 @@ class CreateChallengeActivity : AppCompatActivity() {
             } else {
                 binding.challengeDescriptionErrorTv.error = null
                 binding.challengeDescriptionErrorTv.visibility = View.INVISIBLE
+            }
+        })
+
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            binding.createChallengeBtn.isEnabled = !isLoading
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        })
+
+        viewModel.navigateToChallenge.observe(this, Observer { navigateToChallenge ->
+            if (navigateToChallenge) {
+                Handler().postDelayed({
+                    val intent = Intent(this, ChallengeActivity::class.java)
+                    startActivity(intent)
+                }, 2500)
             }
         })
     }

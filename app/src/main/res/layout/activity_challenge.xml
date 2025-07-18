@@ -48,21 +48,21 @@
                     android:contentDescription="@string/search_icon_desc"
                     android:layout_marginEnd="8dp" />
 
-<!--                <EditText-->
-<!--                    android:id="@+id/search_edit_text"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:hint="@string/search_hint"-->
-<!--                    android:inputType="text"-->
-<!--                    android:maxLines="1"-->
-<!--                    android:paddingTop="8dp"-->
-<!--                    android:paddingBottom="8dp"-->
-<!--                    android:background="@android:color/transparent"-->
-<!--                    android:text="@={viewModel.searchQuery}" />-->
+                <EditText
+                    android:id="@+id/search_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/search_hint"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:background="@android:color/transparent"
+                    android:text="@={viewModel.searchQuery}" />
 
                 <ImageView
-                    android:id="@+id/sort_button"
+                    android:id="@+id/filter_button"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/filter_icon"
@@ -73,6 +73,26 @@
                     android:padding="4dp" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/error_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Error"
+                android:textColor="@color/red"
+                android:layout_marginBottom="16dp"
+                android:visibility="invisible"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:indeterminateTint="@color/color4"
+                android:textAlignment="center"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/challenges_recycler_view"

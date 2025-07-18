@@ -30,10 +30,8 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.setActivity(this)
-
         binding.loginBtn.setOnClickListener {
-            viewModel.onLoginClicked()
+            viewModel.login()
         }
 
         binding.signupLink.setOnClickListener {
@@ -64,14 +62,19 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            binding.loginBtn.isEnabled = !isLoading
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        })
+
         viewModel.navigateToHome.observe(this, Observer { navigateToHome ->
             if (navigateToHome) {
-                // Navigate to HomeActivity
                 Handler().postDelayed({
                     val intent = Intent(this, LandingActivity::class.java)
                     startActivity(intent)
                 }, 2500)
             }
         })
+
     }
 }

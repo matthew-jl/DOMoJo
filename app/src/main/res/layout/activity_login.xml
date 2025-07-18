@@ -78,12 +78,21 @@
             android:id="@+id/password_error_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
             android:text="Error"
             android:textColor="@color/red"
+            android:layout_marginBottom="16dp"
             android:textSize="12sp"
             android:textStyle="bold"
             android:visibility="invisible" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:indeterminateTint="@color/color4"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/login_btn"
@@ -95,6 +104,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
+
 
         <TextView
             android:id="@+id/signup_link"

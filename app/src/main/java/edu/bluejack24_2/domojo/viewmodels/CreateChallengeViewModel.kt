@@ -1,18 +1,23 @@
 package edu.bluejack24_2.domojo.viewmodels
 
+import android.content.Context
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import edu.bluejack24_2.domojo.models.Challenge
+import edu.bluejack24_2.domojo.repositories.ChallengeRepository
 import edu.bluejack24_2.domojo.utils.CloudinaryClient
-import edu.bluejack24_2.domojo.views.ui.CreateChallengeActivity
-import edu.bluejack24_2.domojo.views.ui.RegisterActivity
 import java.io.File
 
 class CreateChallengeViewModel : ViewModel() {
+
+    private val _navigateToChallenge = MutableLiveData<Boolean>()
+    val navigateToChallenge: LiveData<Boolean> get() = _navigateToChallenge
+
+    val challengeRepository: ChallengeRepository = ChallengeRepository()
     val challengeTitle = MutableLiveData<String>()
     val challengeCategory = MutableLiveData<String>()
     val challengeDescription = MutableLiveData<String>()
@@ -20,16 +25,10 @@ class CreateChallengeViewModel : ViewModel() {
     val challengeTitleError = MutableLiveData<String?>()
     val challengeCategoryError = MutableLiveData<String?>()
     val challengeDescriptionError = MutableLiveData<String?>()
-    private lateinit var firestore: FirebaseFirestore
 
-    private lateinit var activity: CreateChallengeActivity
+    val isLoading = MutableLiveData<Boolean>()
 
-    fun setActivity(activity: CreateChallengeActivity) {
-        this.activity = activity
-    }
-
-    fun onCreateClicked(icon: File, banner: File){
-        firestore = FirebaseFirestore.getInstance()
+    fun onCreateClicked(context: Context, icon: File, banner: File) {
 
         val challengeTitleValue = challengeTitle.value
         val challengeCategoryValue = challengeCategory.value
@@ -49,44 +48,36 @@ class CreateChallengeViewModel : ViewModel() {
             return
         }
 
-        if(challengeDescriptionValue.isNullOrBlank()) {
+        if (challengeDescriptionValue.isNullOrBlank()) {
             challengeDescriptionError.value = "Description is required!"
             return
         }
 
-        CloudinaryClient.uploadImage(
-            context = activity,
-            Uri.fromFile(icon),
-            onSuccess = { resultIcon ->
-                CloudinaryClient.uploadImage(
-                    context = activity,
-                    Uri.fromFile(banner),
-                    onSuccess = { resultBanner ->
-                        val challenge = hashMapOf(
-                            "title" to challengeTitleValue,
-                            "category" to challengeCategoryValue,
-                            "description" to challengeDescriptionValue,
-                            "iconUrl" to resultIcon,
-                            "bannerUrl" to resultBanner,
-                        )
+        isLoading.value = true
 
-                        firestore.collection("challenges")
-                            .document()
-                            .set(challenge)
-                            .addOnSuccessListener {
-                                Log.d("FIRESTORE_SUCCESS", "Challenge data added successfully")
-                            }
-                            .addOnFailureListener { e ->
-                                Log.w("FIRESTORE_ERROR", "Error add challenge data", e)
-                            }
-                    },
-                    onError = { message ->
-                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-                    })
-                },
-                onError = { message ->
-                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-                }
-            )
-        }
+        val challengeToCreate = Challenge(
+            title = challengeTitleValue,
+            category = challengeCategoryValue,
+            description = challengeDescriptionValue,
+            iconUrl = "",
+            bannerUrl = "",
+        )
+
+        challengeRepository.createChallenge(
+            context = context,
+            challenge = challengeToCreate,
+            iconFile = icon,
+            bannerFile = banner,
+            onSuccess = {
+                isLoading.value = false
+                _navigateToChallenge.value = true
+                Log.i("Create Challenge Success", "Challenge added successfully, navigating to challenge feed")
+            },
+            onFailure = { errorMessage ->
+                isLoading.value = false
+                Log.e("Create Challenge Error", "Create Challenge failed")
+                Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+            }
+        )
     }
+}
