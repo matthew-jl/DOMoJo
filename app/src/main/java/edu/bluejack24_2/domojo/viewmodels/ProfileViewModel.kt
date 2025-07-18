@@ -14,6 +14,12 @@ class ProfileViewModel : ViewModel() {
     private val _currentUser = MutableLiveData<User?>()
     val currentUser: LiveData<User?> get() = _currentUser
 
+    private val _logoutSuccess = MutableLiveData<Boolean>()
+    val logoutSuccess: LiveData<Boolean> get() = _logoutSuccess
+
+    private val _logoutError = MutableLiveData<String?>()
+    val logoutError: LiveData<String?> get() = _logoutError
+
     init {
         loadCurrentUser()
     }
@@ -27,6 +33,20 @@ class ProfileViewModel : ViewModel() {
 //                TODO: Default Avatar
                 _currentUser.value = user?.copy(avatar = "DEFAULT_AVATAR_URL")
             }
+        }
+    }
+
+    fun logout() {
+        try {
+            val success = userRepository.logout()
+            if (success) {
+                _logoutSuccess.value = true
+                _currentUser.value = null
+            } else {
+                _logoutError.value = "Logout failed"
+            }
+        } catch (e: Exception) {
+            _logoutError.value = e.message
         }
     }
 

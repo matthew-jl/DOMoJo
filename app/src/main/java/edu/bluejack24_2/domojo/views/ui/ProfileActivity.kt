@@ -1,12 +1,12 @@
 package edu.bluejack24_2.domojo.views.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import edu.bluejack24_2.domojo.R
@@ -73,7 +73,42 @@ class ProfileActivity : AppCompatActivity() {
 //        binding.settingChangeBadge.root.setOnClickListener {
 //            startActivity(Intent(this, ChangeBadgeActivity::class.java))
 //        }
+        binding.settingLogout.materialCardConstraint.setOnClickListener {
+            Log.d(TAG, "Click")
+            showLogoutConfirmationDialog()
+        }
 
-        binding.settingChangeBadge.settingIcon
+//         Observe logout results
+        viewModel.logoutSuccess.observe(this) { success ->
+            if (success) {
+                navigateToLogin()
+            }
+        }
+
+        viewModel.logoutError.observe(this) { error ->
+            error?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+    private fun showLogoutConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.logout_confirmation_title))
+            .setMessage(getString(R.string.logout_confirmation_message))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.logout()
+            }
+            .setNegativeButton(getString(R.string.no), null)
+            .show()
+    }
+
+    private fun navigateToLogin() {
+        val intent = Intent(this, LoginActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+        finish()
     }
 }

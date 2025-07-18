@@ -10,6 +10,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/material_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -19,6 +20,7 @@
         app:strokeWidth="0.5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/material_card_constraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
