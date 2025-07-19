@@ -65,5 +65,8 @@
 
     <string name="setting_title_delete_account">Delete Account</string>
     <string name="setting_description_delete_account">Permanently delete your account.</string>
+    <string name="delete_account_confirmation_title">Delete Account</string>
+    <string name="delete_account_confirmation_message">Are you sure you want to delete your account? This action cannot be undone.</string>
+    <string name="account_deleted_successfully">Account deleted successfully</string>
 
 </resources>

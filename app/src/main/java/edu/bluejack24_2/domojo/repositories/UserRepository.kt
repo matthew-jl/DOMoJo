@@ -26,4 +26,14 @@ class UserRepository {
                 onFailure(e.localizedMessage ?: "Failed to fetch user data.")
             }
     }
+
+    fun deleteUser(uid: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+        firestore.collection("users").document(uid).delete()
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener { e ->
+                onFailure(e.localizedMessage ?: "Failed to delete user data from Firestore.")
+            }
+    }
 }

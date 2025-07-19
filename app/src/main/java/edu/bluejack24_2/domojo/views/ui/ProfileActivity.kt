@@ -77,15 +77,32 @@ class ProfileActivity : AppCompatActivity() {
             Log.d(TAG, "Click")
             showLogoutConfirmationDialog()
         }
+        binding.settingDeleteAccount.materialCardConstraint.setOnClickListener {
+            showDeleteAccountConfirmationDialog()
+        }
 
 //         Observe logout results
         viewModel.logoutSuccess.observe(this) { success ->
             if (success) {
-                navigateToLogin()
+                navigateToLanding()
+            }
+        }
+        viewModel.logoutError.observe(this) { error ->
+            error?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
         }
 
-        viewModel.logoutError.observe(this) { error ->
+        // Observe delete account results
+        viewModel.deleteSuccess.observe(this) { success ->
+            if (success) {
+                Toast.makeText(this,
+                    getString(R.string.account_deleted_successfully),
+                    Toast.LENGTH_SHORT).show()
+                navigateToLanding()
+            }
+        }
+        viewModel.deleteError.observe(this) { error ->
             error?.let {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
@@ -104,8 +121,19 @@ class ProfileActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun navigateToLogin() {
-        val intent = Intent(this, LoginActivity::class.java).apply {
+    private fun showDeleteAccountConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.delete_account_confirmation_title))
+            .setMessage(getString(R.string.delete_account_confirmation_message))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.deleteAccount()
+            }
+            .setNegativeButton(getString(R.string.no), null)
+            .show()
+    }
+
+    private fun navigateToLanding() {
+        val intent = Intent(this, LandingActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         startActivity(intent)

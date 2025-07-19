@@ -5,12 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import edu.bluejack24_2.domojo.models.User
-import edu.bluejack24_2.domojo.models.UserRepository
+import edu.bluejack24_2.domojo.repositories.AuthRepository
+import edu.bluejack24_2.domojo.repositories.UserRepository
 
 private const val TAG = "ProfileFlow"
 
 class ProfileViewModel : ViewModel() {
     private val userRepository = UserRepository()
+    private val authRepository = AuthRepository(userRepository)
     private val _currentUser = MutableLiveData<User?>()
     val currentUser: LiveData<User?> get() = _currentUser
 
@@ -20,13 +22,19 @@ class ProfileViewModel : ViewModel() {
     private val _logoutError = MutableLiveData<String?>()
     val logoutError: LiveData<String?> get() = _logoutError
 
+    private val _deleteSuccess = MutableLiveData<Boolean>()
+    val deleteSuccess: LiveData<Boolean> get() = _deleteSuccess
+
+    private val _deleteError = MutableLiveData<String?>()
+    val deleteError: LiveData<String?> get() = _deleteError
+
     init {
         loadCurrentUser()
     }
 
     private fun loadCurrentUser() {
         Log.d(TAG, "Loading current user from repository")
-        userRepository.getCurrentUser().observeForever { user ->
+        authRepository.getCurrentUser().observeForever { user ->
             _currentUser.value = user
             Log.d(TAG, "Repository returned user: ${user?.toString().orEmpty()}")
             if (user?.avatar.isNullOrEmpty()) {
@@ -38,7 +46,7 @@ class ProfileViewModel : ViewModel() {
 
     fun logout() {
         try {
-            val success = userRepository.logout()
+            val success = authRepository.logout()
             if (success) {
                 _logoutSuccess.value = true
                 _currentUser.value = null
@@ -50,11 +58,15 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    fun updateProfile(username: String) {
-        _currentUser.value?.let { current ->
-            val updatedUser = current.copy(username = username)
-            userRepository.updateUser(updatedUser)
-            _currentUser.value = updatedUser
-        }
+    fun deleteAccount() {
+        authRepository.deleteCurrentUser(
+            onSuccess = {
+                _deleteSuccess.postValue(true)
+                _currentUser.postValue(null)
+            },
+            onFailure = { error ->
+                _deleteError.postValue(error)
+            }
+        )
     }
 }

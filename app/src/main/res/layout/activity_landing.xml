@@ -88,16 +88,6 @@
             android:backgroundTint="@android:color/transparent"
             android:strokeColor="@color/color4"
             style="?attr/materialButtonOutlinedStyle"/>
-    <TextView
-        android:id="@+id/challenge_link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:minHeight="12dp"
-        android:text="Challenge Feed"
-        android:textColor="@color/color2"
-        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/profile_link"
