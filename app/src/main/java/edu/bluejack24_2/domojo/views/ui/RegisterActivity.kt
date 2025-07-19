@@ -131,7 +131,7 @@ class RegisterActivity : AppCompatActivity() {
             if (navigateToHome) {
                 // Navigate to HomeActivity
                 Handler().postDelayed({
-                    val intent = Intent(this, LandingActivity::class.java)
+                    val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 }, 2500)
             }

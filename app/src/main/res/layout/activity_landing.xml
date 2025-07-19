@@ -1,58 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".views.ui.LandingActivity"
-    android:gravity="center">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/register_link"
+    <data>
+        <variable
+            name="viewModel"
+            type="edu.bluejack24_2.domojo.viewmodels.LandingViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/main_landing_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:minHeight="12dp"
-        android:text="@string/login_link"
-        android:textColor="@color/color4"
-        android:textSize="16sp" />
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp"
+        tools:context=".views.ui.LandingActivity">
 
-    <TextView
-        android:id="@+id/login_link"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/default_avatar"
+            android:contentDescription="App Logo"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DOMoJo"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome to DOMoJo, your personal streak app!"
+            android:textSize="14sp"
+            android:textColor="@color/color4"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="48dp" />
+
+        <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager_carousel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:minHeight="12dp"
-        android:text="@string/register_link"
-        android:textColor="@color/color2"
-        android:textSize="16sp" />
+        android:layout_height="200dp"
+        android:layout_marginBottom="16dp" />
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="32dp"
+            app:tabBackground="@drawable/tab_indicator_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="scrollable"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingEnd="0dp"
+            app:tabPaddingTop="0dp"
+            app:tabPaddingBottom="0dp" />
 
-    <TextView
-        android:id="@+id/create_challenge_link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:minHeight="12dp"
-        android:text="Create Challenge"
-        android:textColor="@color/color2"
-        android:textSize="16sp" />
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/login"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/color4"
+            android:layout_marginBottom="16dp" />
 
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/register"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color4"
+            android:backgroundTint="@android:color/transparent"
+            android:strokeColor="@color/color4"
+            style="?attr/materialButtonOutlinedStyle"/>
 
-    <TextView
-        android:id="@+id/challenge_link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:minHeight="12dp"
-        android:text="Challenge Feed"
-        android:textColor="@color/color2"
-        android:textSize="16sp" />
-
-</LinearLayout>
+    </LinearLayout>
+</layout>

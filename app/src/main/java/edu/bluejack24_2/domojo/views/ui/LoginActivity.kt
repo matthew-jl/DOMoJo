@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel.navigateToHome.observe(this, Observer { navigateToHome ->
             if (navigateToHome) {
                 Handler().postDelayed({
-                    val intent = Intent(this, LandingActivity::class.java)
+                    val intent = Intent(this, ChallengeActivity::class.java)
                     startActivity(intent)
                 }, 2500)
             }
