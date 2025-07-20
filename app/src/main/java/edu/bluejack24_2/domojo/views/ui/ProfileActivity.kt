@@ -73,6 +73,9 @@ class ProfileActivity : AppCompatActivity() {
 //        binding.settingChangeBadge.root.setOnClickListener {
 //            startActivity(Intent(this, ChangeBadgeActivity::class.java))
 //        }
+        binding.settingAboutUs.materialCardConstraint.setOnClickListener {
+            startActivity(Intent(this, AboutUsActivity::class.java))
+        }
         binding.settingLogout.materialCardConstraint.setOnClickListener {
             Log.d(TAG, "Click")
             showLogoutConfirmationDialog()

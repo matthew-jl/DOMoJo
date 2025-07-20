@@ -57,6 +57,16 @@
 
     <string name="setting_title_about_us">About Us</string>
     <string name="setting_description_about_us">Detailed information about DOMoJo.</string>
+    <string name="back_button_desc">Navigate back</string>
+    <string name="about_us_heading">About Us</string>
+    <string name="logo_desc">DOMoJo Logo</string>
+    <string name="app_description">DOMoJo, created by MJ DO, is a streak challenge app where you can join challenges, track streaks, and compete on real-time leaderboards. Stay motivated through real-time reminders. Do more, DOMoJo.</string>
+    <string name="contact_subheading">Contact DOMoJo</string>
+    <string name="support_email">support@domojo.app</string>
+    <string name="support_phone">+62-803-2637-1838</string>
+    <string name="location_subheading">DOMoJo\'s Location</string>
+    <string name="map_desc">Map showing DOMoJo\'s location</string>
+    <string name="domojo_address">Jl. Jalur Sutera Bar. No.Kavling 17, Panunggangan Timur, Kecamatan Pinang, Kota Tangerang, Banten</string>
 
     <string name="setting_title_logout">Log out</string>
     <string name="setting_description_logout">Log out of your account.</string>
