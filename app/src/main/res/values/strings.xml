@@ -3,6 +3,7 @@
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="back_button_desc">Navigate back</string>
 
     <string name="login">Login</string>
     <string name="login_title">Welcome Back!</string>
@@ -48,6 +49,18 @@
     <string name="profile_title">Profile</string>
     <string name="profile_button_edit">Edit Profile</string>
     <string name="profile_picture_placeholder">Profile Picture</string>
+    <string name="edit_profile_title">Edit Profile</string>
+    <string name="change_avatar">Change avatar</string>
+    <string name="your_information">Your Information</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="username_error">Please enter a valid username</string>
+    <string name="email_error">Please enter a valid email</string>
+    <string name="password_error">Password must be at least 6 characters</string>
+    <string name="confirm_password_error">Passwords do not match</string>
 
     <string name="setting_title_change_badge">Change Badge</string>
     <string name="setting_description_change_badge">Choose your preferred profile badge!</string>
@@ -57,7 +70,6 @@
 
     <string name="setting_title_about_us">About Us</string>
     <string name="setting_description_about_us">Detailed information about DOMoJo.</string>
-    <string name="back_button_desc">Navigate back</string>
     <string name="about_us_heading">About Us</string>
     <string name="logo_desc">DOMoJo Logo</string>
     <string name="app_description">DOMoJo, created by MJ DO, is a streak challenge app where you can join challenges, track streaks, and compete on real-time leaderboards. Stay motivated through real-time reminders. Do more, DOMoJo.</string>

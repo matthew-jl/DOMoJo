@@ -42,6 +42,11 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
+//        Setup Edit Profile button
+        binding.editProfileButton.setOnClickListener {
+            startActivity(Intent(this, EditProfileActivity::class.java))
+        }
+
 //        Setup Setting Item values
         binding.settingChangeBadge.setting = SettingItem(
             icon = ContextCompat.getDrawable(this, R.drawable.ic_setting_badge)!!,

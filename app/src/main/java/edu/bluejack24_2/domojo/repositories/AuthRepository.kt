@@ -52,6 +52,89 @@ class AuthRepository(private val userRepository: UserRepository) {
         }
     }
 
+    fun updateCurrentUser(
+        context: Context,
+        newUsername: String,
+        newPassword: String? = null,
+        newAvatarFile: File? = null,
+        onSuccess: (User) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser == null) {
+            onFailure("No user is currently logged in")
+            return
+        }
+
+        fun getCurrentAvatarUrl(onSuccess: (String?) -> Unit, onFailure: (String) -> Unit) {
+            userRepository.getUser(
+                currentUser.uid,
+                onSuccess = { user ->
+                    onSuccess(user?.avatar)
+                },
+                onFailure = { error ->
+                    onFailure("Failed to fetch current avatar: $error")
+                }
+            )
+        }
+
+        // Function to handle the final user update
+        fun updateUserData(avatarUrl: String? = null) {
+            getCurrentAvatarUrl(
+                onSuccess = { currentAvatarUrl ->
+                    val updatedUser = User(
+                        id = currentUser.uid,
+                        avatar = avatarUrl ?: currentAvatarUrl ?: "",
+                        email = currentUser.email ?: "",
+                        username = newUsername
+                    )
+
+                    // Update in Firestore
+                    userRepository.updateUser(
+                        updatedUser,
+                        onSuccess = {
+                            // Update password if provided
+                            newPassword?.let { password ->
+                                currentUser.updatePassword(password)
+                                    .addOnSuccessListener {
+                                        onSuccess(updatedUser)
+                                    }
+                                    .addOnFailureListener { e ->
+                                        e.message?.let { Log.d("AuthRepository", it) }
+                                        onFailure("Password update failed: ${e.localizedMessage}")
+                                    }
+                            } ?: run {
+                                onSuccess(updatedUser)
+                            }
+                        },
+                        onFailure = { error ->
+                            onFailure("User data update failed: $error")
+                        }
+                    )
+                },
+                onFailure = { error ->
+                    onFailure(error)
+                }
+            )
+        }
+
+        // Handle avatar upload if provided
+        newAvatarFile?.let { file ->
+            CloudinaryClient.uploadImage(
+                context = context,
+                uri = Uri.fromFile(file), // Convert File to Uri here
+                onSuccess = { imageUrl ->
+                    updateUserData(imageUrl)
+                },
+                onError = { message ->
+                    onFailure("Avatar upload failed: $message")
+                }
+            )
+        } ?: run {
+            updateUserData()
+        }
+    }
+
     fun deleteCurrentUser(
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit

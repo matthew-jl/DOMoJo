@@ -27,6 +27,22 @@ class UserRepository {
             }
     }
 
+    fun updateUser(user: User, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+        if (user.id.isEmpty()) {
+            onFailure("User ID cannot be empty")
+            return
+        }
+
+        firestore.collection("users").document(user.id)
+            .set(user)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener { e ->
+                onFailure(e.localizedMessage ?: "Failed to update user data")
+            }
+    }
+
     fun deleteUser(uid: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         firestore.collection("users").document(uid).delete()
             .addOnSuccessListener {

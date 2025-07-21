@@ -32,7 +32,7 @@
                 android:layout_marginBottom="24dp"
                 android:gravity="center_horizontal"
                 android:text="@string/about_us_heading"
-                android:textColor="@color/black"
+                android:textColor="@color/color1"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
