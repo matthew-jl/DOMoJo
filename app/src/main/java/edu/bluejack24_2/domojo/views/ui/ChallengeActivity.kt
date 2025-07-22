@@ -29,7 +29,11 @@ class ChallengeActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        challengeAdapter = ChallengeAdapter(ArrayList())
+        challengeAdapter = ChallengeAdapter(ArrayList()).apply {
+            setOnJoinClickListener { challengeId ->
+                viewModel.onJoinChallengeClicked(challengeId)
+            }
+        }
         binding.challengesRecyclerView.adapter = challengeAdapter
 
         binding.challengesRecyclerView.apply {
