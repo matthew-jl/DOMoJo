@@ -83,6 +83,14 @@
         <item>English</item>
     </string-array>
 
+    <string name="language_automatic">Otomatis</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_english">English</string>
+    <string name="restart_required">Perlu Restart</string>
+    <string name="restart_app_to_apply_changes">Silakan restart aplikasi untuk menerapkan perubahan bahasa</string>
+    <string name="restart_now">Restart Sekarang</string>
+    <string name="later">Nanti</string>
+
     <string name="setting_title_about_us">Tentang Kami</string>
     <string name="setting_description_about_us">Informasi detail tentang DOMoJo.</string>
     <string name="about_us_heading">Tentang Kami</string>

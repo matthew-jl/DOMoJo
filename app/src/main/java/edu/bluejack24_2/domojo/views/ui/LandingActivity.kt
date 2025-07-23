@@ -15,7 +15,7 @@ import edu.bluejack24_2.domojo.adapters.CarouselPagerAdapter
 import edu.bluejack24_2.domojo.databinding.ActivityLandingBinding
 import edu.bluejack24_2.domojo.viewmodels.LandingViewModel
 
-class LandingActivity : AppCompatActivity() {
+class LandingActivity : BaseActivity() {
     private lateinit var binding: ActivityLandingBinding
     private lateinit var viewModel: LandingViewModel // Declare ViewModel
     private lateinit var carouselPagerAdapter: CarouselPagerAdapter

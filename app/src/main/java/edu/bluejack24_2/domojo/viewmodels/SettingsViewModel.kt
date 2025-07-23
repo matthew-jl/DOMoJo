@@ -1,17 +1,20 @@
 package edu.bluejack24_2.domojo.viewmodels
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import edu.bluejack24_2.domojo.R
+import edu.bluejack24_2.domojo.utils.LocaleHelper
 
-class SettingsViewModel : ViewModel() {
+class SettingsViewModel() : ViewModel() {
     // Setting states
     val notificationsEnabled = MutableLiveData<Boolean>(true)
     val darkModeEnabled = MutableLiveData<Boolean>(false)
     val selectedLanguage = MutableLiveData<String>(null)
 
-    fun updateSelectedLanguage(language: String) {
-        selectedLanguage.value = language
+    fun updateSelectedLanguage(displayLanguage: String) {
+        selectedLanguage.value = displayLanguage
     }
 
     // Loading state
@@ -24,12 +27,8 @@ class SettingsViewModel : ViewModel() {
 
     fun onSaveSettings() {
         _isLoading.value = true
-        // Here you would save to SharedPreferences or backend
-        // Simulate network delay
-        android.os.Handler().postDelayed({
-            _isLoading.value = false
-            _navigateBack.value = true
-        }, 1000)
+        _isLoading.value = false
+        _navigateBack.value = true
     }
 
     fun onNavigationComplete() {

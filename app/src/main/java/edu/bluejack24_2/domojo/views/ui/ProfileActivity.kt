@@ -17,7 +17,7 @@ import edu.bluejack24_2.domojo.viewmodels.ProfileViewModel
 
 private const val TAG = "ProfileFlow"
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : BaseActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var viewModel: ProfileViewModel
 
