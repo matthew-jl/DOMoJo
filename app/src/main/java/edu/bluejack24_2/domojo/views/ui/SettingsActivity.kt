@@ -1,8 +1,10 @@
 package edu.bluejack24_2.domojo.views.ui
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.databinding.ActivitySettingsBinding
 import edu.bluejack24_2.domojo.utils.LocaleHelper
+import edu.bluejack24_2.domojo.utils.ThemeHelper
 import edu.bluejack24_2.domojo.viewmodels.SettingsViewModel
 
 class SettingsActivity : BaseActivity() {
@@ -26,8 +29,33 @@ class SettingsActivity : BaseActivity() {
         binding.lifecycleOwner = this
 
         setupLanguageDropdown()
+        setupDarkModeSwitch()
         setupClickListeners()
         setupObservers()
+
+    }
+
+    private fun setupDarkModeSwitch() {
+        // Initial state
+        val currentTheme = ThemeHelper.getSavedTheme(this)
+        binding.darkModeSwitch.isChecked = when (currentTheme) {
+            ThemeHelper.THEME_DARK -> true
+            ThemeHelper.THEME_LIGHT -> false
+            else -> isSystemInDarkMode()
+        }
+        Log.d("SettingsActivity", "setupDarkModeSwitch currentTheme: $currentTheme")
+
+        // Handle toggle changes
+        binding.darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.updateDarkModeEnabled(this, isChecked)
+        }
+    }
+
+    private fun isSystemInDarkMode(): Boolean {
+        return when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_YES -> true
+            else -> false
+        }
     }
 
     private fun setupLanguageDropdown() {
