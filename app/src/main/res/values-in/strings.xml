@@ -1,0 +1,109 @@
+<resources>
+    <string name="app_name">DOMoJo</string>
+
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="back_button_desc">Kembali</string>
+
+    <string name="landing_tagline">Selamat datang ke DOMoJo, aplikasi streak personal Anda!</string>
+
+    <string name="login">Masuk</string>
+    <string name="login_title">Selamat Datang Kembali!</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Kata Sandi</string>
+    <string name="login_button">Masuk</string>
+    <string name="login_link">Belum punya akun? Daftar!</string>
+
+    <string name="register">Daftar</string>
+    <string name="register_title">Daftar Akun!</string>
+    <string name="register_avatar">Foto Profil</string>
+    <string name="register_username">Nama Pengguna</string>
+    <string name="register_email">Email</string>
+    <string name="register_password">Kata Sandi</string>
+    <string name="register_confirm_password">Konfirmasi Kata Sandi</string>
+    <string name="register_button">Daftar</string>
+    <string name="register_terms">Saya setuju dengan syarat dan ketentuan</string>
+    <string name="register_link">Sudah punya akun? Masuk!</string>
+
+    <string name="create_challenge_page_title">Buat Tantangan Baru</string>
+    <string name="create_challenge_title">Judul</string>
+    <string name="create_challenge_category">Kategori</string>
+    <string name="create_challenge_description">Deskripsi</string>
+    <string name="create_challenge_icon">Ikon</string>
+    <string name="create_challenge_banner">Banner</string>
+    <string name="create_challenge_button">Buat Tantangan</string>
+
+    <string name="choose_file">Pilih File</string>
+
+    <string name="challenges_feed_title">Tantangan</string>
+    <string name="search_hint">Cari...</string>
+    <string name="search_icon_desc">Ikon pencarian</string>
+    <string name="sort_button_desc">Tombol urut/filter</string>
+    <string name="add_challenge_fab_desc">Tambah tantangan baru</string>
+
+    <string name="challenge_icon_placeholder">Ikon tantangan</string>
+    <string name="default_challenge_title">Nama Tantangan</string>
+    <string name="default_challenge_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="join_challenge_button">Ikuti</string>
+    <string name="fire_icon_desc">Ikon api untuk streak</string>
+    <string name="streak_info_placeholder">5</string>
+
+    <string name="profile_title">Profil</string>
+    <string name="profile_button_edit">Edit Profil</string>
+    <string name="profile_picture_placeholder">Foto Profil</string>
+    <string name="edit_profile_title">Edit Profil</string>
+    <string name="change_avatar">Ubah avatar</string>
+    <string name="your_information">Informasi Anda</string>
+    <string name="username">Nama Pengguna</string>
+    <string name="email">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="confirm_password">Konfirmasi Kata Sandi</string>
+    <string name="save_changes">Simpan Perubahan</string>
+    <string name="username_error">Masukkan nama pengguna yang valid</string>
+    <string name="email_error">Masukkan email yang valid</string>
+    <string name="password_error">Kata sandi minimal 6 karakter</string>
+    <string name="confirm_password_error">Kata sandi tidak cocok</string>
+
+    <string name="setting_title_change_badge">Ubah Lencana</string>
+    <string name="setting_description_change_badge">Pilih lencana profil yang Anda inginkan!</string>
+
+    <string name="setting_title_main">Pengaturan</string>
+    <string name="setting_description_main">Konfigurasi notifikasi, tema, dan pengaturan bahasa.</string>
+    <string name="notifications_subheading">Notifikasi</string>
+    <string name="enable_notifications">Aktifkan Notifikasi</string>
+    <string name="theme_subheading">Tema</string>
+    <string name="dark_mode">Mode Gelap</string>
+    <string name="language_subheading">Bahasa</string>
+    <string name="choose_language">Pilih Bahasa</string>
+    <string name="save_settings">Simpan Pengaturan</string>
+
+    <string-array name="language_options">
+        <item>Otomatis</item>
+        <item>Bahasa Indonesia</item>
+        <item>English</item>
+    </string-array>
+
+    <string name="setting_title_about_us">Tentang Kami</string>
+    <string name="setting_description_about_us">Informasi detail tentang DOMoJo.</string>
+    <string name="about_us_heading">Tentang Kami</string>
+    <string name="logo_desc">Logo DOMoJo</string>
+    <string name="app_description">DOMoJo, dibuat oleh MJ DO, adalah aplikasi tantangan streak di mana Anda bisa mengikuti tantangan, melacak streak, dan bersaing di papan peringkat real-time. Tetap termotivasi melalui pengingat real-time. Lakukan lebih banyak, DOMoJo.</string>
+    <string name="contact_subheading">Hubungi DOMoJo</string>
+    <string name="support_email">support@domojo.app</string>
+    <string name="support_phone">+62-803-2637-1838</string>
+    <string name="location_subheading">Lokasi DOMoJo</string>
+    <string name="map_desc">Peta menunjukkan lokasi DOMoJo</string>
+    <string name="domojo_address">Jl. Jalur Sutera Bar. No.Kavling 17, Panunggangan Timur, Kecamatan Pinang, Kota Tangerang, Banten</string>
+
+    <string name="setting_title_logout">Keluar</string>
+    <string name="setting_description_logout">Keluar dari akun Anda.</string>
+    <string name="logout_confirmation_title">Keluar</string>
+    <string name="logout_confirmation_message">Apakah Anda yakin ingin keluar?</string>
+
+    <string name="setting_title_delete_account">Hapus Akun</string>
+    <string name="setting_description_delete_account">Hapus akun Anda secara permanen.</string>
+    <string name="delete_account_confirmation_title">Hapus Akun</string>
+    <string name="delete_account_confirmation_message">Apakah Anda yakin ingin menghapus akun Anda? Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="account_deleted_successfully">Akun berhasil dihapus</string>
+
+</resources>

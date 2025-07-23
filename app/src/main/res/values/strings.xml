@@ -5,6 +5,8 @@
     <string name="no">No</string>
     <string name="back_button_desc">Navigate back</string>
 
+    <string name="landing_tagline">Welcome to DOMoJo, your personal streak app!</string>
+
     <string name="login">Login</string>
     <string name="login_title">Welcome Back!</string>
     <string name="login_email">Email</string>
@@ -67,6 +69,19 @@
 
     <string name="setting_title_main">Settings</string>
     <string name="setting_description_main">Configure notification, theme, and language settings.</string>
+    <string name="notifications_subheading">Notifications</string>
+    <string name="enable_notifications">Enable Notifications</string>
+    <string name="theme_subheading">Theme</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="language_subheading">Language</string>
+    <string name="choose_language">Choose Language</string>
+    <string name="save_settings">Save Settings</string>
+
+    <string-array name="language_options">
+        <item>Automatic</item>
+        <item>Bahasa Indonesia</item>
+        <item>English</item>
+    </string-array>
 
     <string name="setting_title_about_us">About Us</string>
     <string name="setting_description_about_us">Detailed information about DOMoJo.</string>
