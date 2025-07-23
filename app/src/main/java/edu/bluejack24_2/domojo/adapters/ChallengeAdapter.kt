@@ -8,16 +8,27 @@ import edu.bluejack24_2.domojo.models.Challenge
 
 class ChallengeAdapter (private val challenges: ArrayList<Challenge>) : RecyclerView.Adapter<ChallengeAdapter.ChallengeViewHolder>() {
     private var onJoinClickListener: ((String) -> Unit)? = null
+    private var onItemClickListener: ((String) -> Unit)? = null
 
     fun setOnJoinClickListener(listener: (String) -> Unit) {
         this.onJoinClickListener = listener
     }
 
-    class ChallengeViewHolder (public val binding: ItemChallengeBinding, private val onJoinClickListener: ((String) -> Unit)?) : RecyclerView.ViewHolder(binding.root){
+    fun setOnItemClickListener(listener: (String) -> Unit) {
+        this.onItemClickListener = listener
+    }
+
+    class ChallengeViewHolder (public val binding: ItemChallengeBinding, private val onJoinClickListener: ((String) -> Unit)?, private val onItemClickListener: ((String) -> Unit)?) : RecyclerView.ViewHolder(binding.root){
         init{
             binding.joinButton.setOnClickListener{
                 binding.challenge?.id?.let { challengeId ->
                     onJoinClickListener?.invoke(challengeId)
+                }
+            }
+
+            itemView.setOnClickListener {
+                binding.challenge?.id?.let { challengeId ->
+                    onItemClickListener?.invoke(challengeId)
                 }
             }
         }
@@ -36,7 +47,7 @@ class ChallengeAdapter (private val challenges: ArrayList<Challenge>) : Recycler
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChallengeViewHolder {
         val view = ItemChallengeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ChallengeViewHolder(view, onJoinClickListener)
+        return ChallengeViewHolder(view, onJoinClickListener, onItemClickListener)
     }
 
     override fun getItemCount(): Int {

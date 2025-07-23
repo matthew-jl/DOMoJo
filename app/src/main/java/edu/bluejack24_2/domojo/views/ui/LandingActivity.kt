@@ -51,4 +51,16 @@ class LandingActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
+    override fun onStart(){
+        super.onStart()
+        // Check if user is already logged in
+        if (viewModel.isUserLoggedIn()) {
+            // If user is logged in, navigate to ChallengeActivity
+            val intent = Intent(this, ChallengeActivity::class.java)
+            startActivity(intent)
+            finish() // Close LoginActivity
+        }
+    }
 }

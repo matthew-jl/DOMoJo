@@ -18,6 +18,9 @@ class ChallengeViewModel: ViewModel() {
     private val _navigateToCreateChallenge = MutableLiveData<Boolean>()
     val navigateToCreateChallenge: LiveData<Boolean> get() = _navigateToCreateChallenge
 
+    private val _navigateToChallengeDetail = MutableLiveData<String>() // Holds the challengeId
+    val navigateToChallengeDetail: LiveData<String> get() = _navigateToChallengeDetail
+
     private val _challengeList = MutableLiveData<List<Challenge>>()
     val challengeList: LiveData<List<Challenge>> get() = _challengeList
 
@@ -152,6 +155,15 @@ class ChallengeViewModel: ViewModel() {
                 _allChallenges.value = emptyList()
             }
         )
+    }
+
+    fun onChallengeItemClicked(challengeId: String) {
+        _navigateToChallengeDetail.value = challengeId // Set the ID to trigger navigation
+    }
+
+    // NEW: Method to be called by Activity after navigation to detail page is handled
+    fun onNavigationToChallengeDetailHandled() {
+        _navigateToChallengeDetail.value = null // Clear the ID to prevent re-triggering
     }
 
     fun onJoinChallengeClicked(challengeId: String) {

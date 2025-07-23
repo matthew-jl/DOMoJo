@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 @BindingAdapter("imageUrl")
-public fun loadImage(imageView: ImageView, url: String){
+public fun loadImage(imageView: ImageView, url: String?){
     Glide.with(imageView.context)
         .load(url)
         .placeholder(android.R.drawable.ic_menu_gallery) // Placeholder image

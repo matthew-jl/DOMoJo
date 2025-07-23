@@ -1,6 +1,7 @@
 package edu.bluejack24_2.domojo.models
 
 import com.google.firebase.firestore.DocumentId
+import java.util.Date
 
 data class ChallengeMember(
     @DocumentId
@@ -21,5 +22,6 @@ data class ChallengeMember(
     val isActiveMember: Boolean = true,
 
     // True if user has posted a streak update for the current day, false otherwise
-    val hasCompleted: Boolean = false
+    val hasCompleted: Boolean = false,
+    var lastActivityDate: Date? = null // Default to null for new members
 )

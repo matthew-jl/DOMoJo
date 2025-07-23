@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="post"
+            type="edu.bluejack24_2.domojo.models.Post" />
+        <variable
+            name="user"
+            type="edu.bluejack24_2.domojo.models.User" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:strokeColor="@color/color3"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/post_user_avatar_image_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/default_avatar"
+                imageUrl="@{user.avatar}"
+                android:contentDescription="User Avatar" />
+
+            <TextView
+                android:id="@+id/post_username_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{user.username}" android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/post_user_avatar_image_view"
+                app:layout_constraintTop_toTopOf="@id/post_user_avatar_image_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                tools:text="Username"/>
+
+            <TextView
+                android:id="@+id/post_date_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="20 menit yang lalu" android:textColor="@color/color5"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/post_user_avatar_image_view"
+                app:layout_constraintTop_toBottomOf="@id/post_username_text_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0" />
+
+            <TextView
+                android:id="@+id/post_content_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@{post.content}"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/post_user_avatar_image_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
+
+            <ImageView
+                android:id="@+id/post_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:background="@android:color/darker_gray"
+                app:imageUrl="@{post.imageUrl}"
+                app:layout_constraintTop_toBottomOf="@id/post_content_text_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="Post Image"
+                android:visibility="@{post.imageUrl != null &amp;&amp; !post.imageUrl.empty ? View.VISIBLE : View.GONE}"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/streak_awarded_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/fire_icon"
+                android:contentDescription="Streak Awarded"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="@{post.streakAwarded ? View.VISIBLE : View.GONE}"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

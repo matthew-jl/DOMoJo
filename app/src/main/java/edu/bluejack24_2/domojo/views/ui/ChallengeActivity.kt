@@ -33,6 +33,9 @@ class ChallengeActivity : AppCompatActivity() {
             setOnJoinClickListener { challengeId ->
                 viewModel.onJoinChallengeClicked(challengeId)
             }
+            setOnItemClickListener { challengeId ->
+                viewModel.onChallengeItemClicked(challengeId)
+            }
         }
         binding.challengesRecyclerView.adapter = challengeAdapter
 
@@ -76,6 +79,16 @@ class ChallengeActivity : AppCompatActivity() {
                 binding.errorTv.visibility = View.VISIBLE
             } else {
                 binding.errorTv.visibility = View.INVISIBLE
+            }
+        })
+
+        viewModel.navigateToChallengeDetail.observe(this, Observer { challengeId ->
+            challengeId?.let { id -> // Check if challengeId is not null
+                val intent = Intent(this, ChallengeDetailActivity::class.java).apply {
+                    putExtra(ChallengeDetailActivity.EXTRA_CHALLENGE_ID, id) // Pass the challenge ID
+                }
+                startActivity(intent)
+                viewModel.onNavigationToChallengeDetailHandled() // Reset the flag
             }
         })
 

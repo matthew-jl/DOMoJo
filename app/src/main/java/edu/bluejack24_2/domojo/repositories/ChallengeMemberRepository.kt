@@ -3,11 +3,14 @@ package edu.bluejack24_2.domojo.repositories
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
 import edu.bluejack24_2.domojo.models.Challenge
 import edu.bluejack24_2.domojo.models.ChallengeMember
+import java.util.Date
 
-class ChallengeMemberRepository {
+class ChallengeMemberRepository() {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -87,4 +90,75 @@ class ChallengeMemberRepository {
             }
     }
 
+    /**
+     * Updates an existing ChallengeMember's streak data and activity status after a post.
+     */
+    fun updateStreak(
+        challengeMemberId: String,
+        newCurrentStreak: Int,
+        newLongestStreak: Int,
+        newIsActive: Boolean,
+        newHasCompleted: Boolean,
+        lastActivityDate: Date?,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val updates = hashMapOf(
+            "currentStreak" to newCurrentStreak,
+            "longestStreak" to newLongestStreak,
+            "isActiveMember" to newIsActive,
+            "hasCompleted" to newHasCompleted,
+            "lastActivityDate" to lastActivityDate
+        )
+        firestore.collection("challenge_members").document(challengeMemberId)
+            .update(updates as Map<String, Any>) // Cast needed for HashMap type safety
+            .addOnSuccessListener {
+                Log.d(TAG, "Updated streak for ChallengeMember $challengeMemberId. Current: $newCurrentStreak, Longest: $newLongestStreak")
+                onSuccess()
+            }
+            .addOnFailureListener { e ->
+                val errorMessage = e.localizedMessage ?: "Failed to update streak."
+                Log.e(TAG, "Error updating streak for ChallengeMember $challengeMemberId: $errorMessage", e)
+                onFailure(errorMessage)
+            }
+    }
+
+
+    /**
+     * Provides a real-time leaderboard for a specific challenge.
+     * Uses addSnapshotListener for real-time updates.
+     */
+    fun getLeaderboard(
+        challengeId: String,
+        onData: (List<ChallengeMember>) -> Unit,
+        onError: (String) -> Unit
+    ): ListenerRegistration {
+        return firestore.collection("challenge_members")
+            .whereEqualTo("challengeId", challengeId)
+            .orderBy("longestStreak", Query.Direction.DESCENDING) // Order by longest streak
+            .limit(10) // Optional: limit to top 10
+            .addSnapshotListener { querySnapshot, e ->
+                if (e != null) {
+                    val errorMessage = e.localizedMessage ?: "Failed to get real-time leaderboard."
+                    Log.w(TAG, "Listen failed on leaderboard for $challengeId: $errorMessage", e)
+                    onError(errorMessage)
+                    return@addSnapshotListener
+                }
+
+                val leaderboard = mutableListOf<ChallengeMember>()
+                if (querySnapshot != null) {
+                    for (doc in querySnapshot.documents) {
+                        val member = doc.toObject<ChallengeMember>()
+                        if (member != null) {
+                            leaderboard.add(member.copy(id = doc.id)) // Ensure ID is set
+                        }
+                    }
+                    Log.d(TAG, "Leaderboard for $challengeId updated. Size: ${leaderboard.size}")
+                    onData(leaderboard)
+                } else {
+                    Log.d(TAG, "Leaderboard for $challengeId is null (no data).")
+                    onData(emptyList())
+                }
+            }
+    }
 }

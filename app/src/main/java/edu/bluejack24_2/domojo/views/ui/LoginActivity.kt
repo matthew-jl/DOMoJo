@@ -75,6 +75,5 @@ class LoginActivity : AppCompatActivity() {
                 }, 2500)
             }
         })
-
     }
 }

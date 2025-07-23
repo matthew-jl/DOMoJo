@@ -41,4 +41,14 @@
     <string name="join_challenge_button">Join</string>
     <string name="fire_icon_desc">Fire icon for streak</string>
     <string name="streak_info_placeholder">5</string>
+
+    <string name="longest_streak_leaderboard">Longest Streak: %1$d</string>
+    <string name="make_post_button">Create Post</string>
+    <string name="top_user">Top Users</string>
+    <string name="your_current_streak">2</string>
+    <string name="your_longest_streak">Your longest streak: %1$d</string>
+
+    <string name="post_activity_button">Post Today\'s Activity</string>
+    <string name="posts_pengguna_lain">Posts pengguna lain</string>
+    <string name="pengguna_teratas">Pengguna Teratas</string>
 </resources>

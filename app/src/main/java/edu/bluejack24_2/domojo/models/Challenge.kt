@@ -4,12 +4,12 @@ import com.google.firebase.firestore.DocumentId
 
 data class Challenge(
     @DocumentId
-    val id: String = "",
-    val title: String = "",
-    val category: String = "",
-    val description: String = "",
-    val iconUrl: String = "",
-    val bannerUrl: String = "",
+    var id: String = "",
+    var title: String = "",
+    var category: String = "",
+    var description: String = "",
+    var iconUrl: String = "",
+    var bannerUrl: String = "",
 
     var isJoined: Boolean = false,
     var userCurrentStreak: Int = 0,
