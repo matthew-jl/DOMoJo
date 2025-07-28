@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DOMoJo">
         <activity
+            android:name=".views.ui.AllCommentsActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.ui.ChallengeDetailActivity"
             android:exported="false" />
         <activity

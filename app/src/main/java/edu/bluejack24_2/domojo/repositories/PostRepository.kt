@@ -9,10 +9,9 @@ import edu.bluejack24_2.domojo.models.Post
 import java.util.Calendar
 import java.util.Date
 
-class PostRepository(
-    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance(),
+class PostRepository() {
+    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-) {
     private val TAG = "ChallengePostRepo"
     private val postsCollection = firestore.collection("challenge_activity_posts")
 

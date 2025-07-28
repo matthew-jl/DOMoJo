@@ -51,4 +51,6 @@
     <string name="post_activity_button">Post Today\'s Activity</string>
     <string name="posts_pengguna_lain">Posts pengguna lain</string>
     <string name="pengguna_teratas">Pengguna Teratas</string>
+
+    <string name="see_all_comments">See more...</string>
 </resources>

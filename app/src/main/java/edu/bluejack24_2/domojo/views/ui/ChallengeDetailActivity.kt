@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -19,6 +20,7 @@ import com.google.android.material.tabs.TabLayoutMediator // Import for TabLayou
 import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.adapters.ChallengeDetailPagerAdapter
 import edu.bluejack24_2.domojo.databinding.ActivityChallengeDetailBinding
+import edu.bluejack24_2.domojo.databinding.DialogCommentBinding
 import edu.bluejack24_2.domojo.databinding.DialogPostBinding // <--- THIS IS THE IMPORT YOU NEEDED
 import edu.bluejack24_2.domojo.utils.CloudinaryClient // For image upload in post dialog
 import edu.bluejack24_2.domojo.viewmodels.ChallengeDetailViewModel
@@ -35,6 +37,9 @@ class ChallengeDetailActivity : AppCompatActivity() {
     // Constant for passing Challenge ID via Intent
     companion object {
         const val EXTRA_CHALLENGE_ID = "extra_challenge_id"
+        const val EXTRA_POST_ID = "extra_post_id"
+        const val EXTRA_COMMENT_COUNT = "extra_comment_count"
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,11 +76,8 @@ class ChallengeDetailActivity : AppCompatActivity() {
             }
         }.attach() // Attaches the mediator, which creates and manages tabs/indicators
 
-
         // Load challenge details into the ViewModel
         viewModel.loadChallengeDetails(challengeId)
-
-        // --- Observe LiveData from ViewModel ---
 
         // Observe challengeDetails for potential UI updates (e.g., toolbar title)
         viewModel.challengeDetails.observe(this, Observer { challenge ->
@@ -109,6 +111,36 @@ class ChallengeDetailActivity : AppCompatActivity() {
             }
         })
 
+
+        // --- Observe LiveData from ViewModel ---
+        viewModel.showAddCommentDialog.observe(this, Observer { event ->
+//            Log.d("ChallengeDetailActivity", "showAddCommentDialog event received with postId: $postId")
+//            postId?.let {
+//                showAddCommentDialog(it) // Call dialog function with postId
+//                viewModel.onAddCommentDialogShown() // Consume event
+//            }
+
+            event?.getContentIfNotHandled()?.let { postId ->
+                Log.d("ChallengeDetailActivity", "showAddCommentDialog event received with postId: $postId")
+                showAddCommentDialog(postId)
+                viewModel.onAddCommentDialogShown()
+            }
+        })
+
+
+        viewModel.navigateToAllComments.observe(this, Observer { pair ->
+            pair?.let { (postId, commentCount) ->
+                Log.d("ChallengeDetailActivity", "Navigating to AllCommentsActivity with postId: $postId, commentCount: $commentCount")
+                val intent = Intent(this, AllCommentsActivity::class.java).apply {
+                    putExtra(EXTRA_POST_ID, postId)
+                    putExtra(EXTRA_COMMENT_COUNT, commentCount)
+                }
+                startActivity(intent)
+                viewModel.onNavigationToAllCommentsHandled()
+            }
+        })
+
+
         // Observe selectedPostImageUri from ViewModel to update the image preview in the post dialog.
         // This observer handles reactivity if the dialog is still open when onActivityResult returns.
         viewModel.selectedPostImageUri.observe(this, Observer { uri ->
@@ -118,6 +150,30 @@ class ChallengeDetailActivity : AppCompatActivity() {
 
         // The action button's onClick is handled via DataBinding in XML
         // android:onClick="@{() -> viewModel.challengeDetails.isJoined ? viewModel.onPostActivityClicked() : viewModel.onJoinChallengeClicked(viewModel.challengeDetails)}"
+    }
+
+    private fun showAddCommentDialog(postId: String) {
+        Log.d("Showing Comment Dialog", "Post ID: $postId")
+        val dialogBinding: DialogCommentBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(this), R.layout.dialog_comment, null, false
+        )
+        val builder = AlertDialog.Builder(this)
+            .setView(dialogBinding.root)
+            .setCancelable(false)
+
+        val dialog = builder.create()
+
+        dialogBinding.submitCommentButton.setOnClickListener {
+            val commentContent = dialogBinding.commentContentEditText.text.toString()
+            viewModel.submitComment(postId, commentContent) // Call ViewModel to submit
+            dialog.dismiss()
+        }
+
+        dialogBinding.cancelCommentButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     // Handles results from other activities (like image picker)

@@ -28,5 +28,9 @@ data class Post(
     // True if this post was counted towards the user's daily streak for this challenge.
     var streakAwarded: Boolean = false,
     @ServerTimestamp
-    var createdAt: Date? = null
+    var createdAt: Date? = null,
+
+    var likeCount: Int = 0, // Number of likes on this post
+    var dislikeCount: Int = 0, // Number of dislikes on this post
+    var commentCount: Int = 0 // Total number of comments on this post
 )

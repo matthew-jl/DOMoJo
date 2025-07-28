@@ -5,5 +5,6 @@ data class User(
     val avatar: String = "",
     val email: String = "",
     val username: String = "",
-    var earnedBadges: List<String> = emptyList()
+    var earnedBadges: List<String> = emptyList(),
+    var activeBadges: String = "",
 )

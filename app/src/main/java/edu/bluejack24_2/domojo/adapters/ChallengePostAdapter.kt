@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack24_2.domojo.databinding.ItemPostBinding
 import edu.bluejack24_2.domojo.models.Post
 import edu.bluejack24_2.domojo.repositories.UserRepository
+import edu.bluejack24_2.domojo.viewmodels.ChallengeDetailViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -35,9 +36,12 @@ class ChallengePostAdapter(private var posts: List<Post>) :
         // Date formatter for display
         private val dateFormatter = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault())
         private val userRepository: UserRepository = UserRepository()
+        private val viewModel: ChallengeDetailViewModel = ChallengeDetailViewModel()
+
 
         fun bind(post: Post) {
             binding.post = post // Bind the ChallengeActivityPost object
+            binding.viewModel = viewModel
             binding.executePendingBindings()
 
             userRepository.getUser(post.userId,

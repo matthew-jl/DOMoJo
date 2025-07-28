@@ -11,6 +11,10 @@
         <variable
             name="user"
             type="edu.bluejack24_2.domojo.models.User" />
+        <variable
+            name="viewModel"
+            type="edu.bluejack24_2.domojo.viewmodels.ChallengeDetailViewModel" />
+        <import type="edu.bluejack24_2.domojo.R"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -35,8 +39,8 @@
                 android:background="@android:color/darker_gray"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:imageUrl="@{user.avatar}"
                 tools:src="@drawable/default_avatar"
-                imageUrl="@{user.avatar}"
                 android:contentDescription="User Avatar" />
 
             <TextView
@@ -44,7 +48,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@{user.username}" android:textColor="@color/black"
+                android:text="@{user.username}"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/post_user_avatar_image_view"
@@ -58,8 +63,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="20 menit yang lalu" android:textColor="@color/color5"
-                android:textSize="12sp"
+                android:text="20 menit yang lalu"
+                android:textColor="@color/color5" android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@id/post_user_avatar_image_view"
                 app:layout_constraintTop_toBottomOf="@id/post_username_text_view"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -104,6 +109,118 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:visibility="@{post.streakAwarded ? View.VISIBLE : View.GONE}"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/post_actions_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/post_image_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageButton
+                    android:id="@+id/like_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@{viewModel.getPostUserAction(post.id).equals(&quot;like&quot;) ? R.drawable.ic_like_filled : R.drawable.ic_like_outline}"
+                    android:contentDescription="Like Post"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:onClick="@{() -> viewModel.onLikeClicked(post.id, &quot;like&quot;)}"
+                    android:clickable="true"
+                    android:focusable="true"
+                    tools:src="@drawable/ic_like_outline"/>
+
+                <TextView
+                    android:id="@+id/like_count_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(post.likeCount)}"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="16dp"
+                    tools:text="123"/>
+
+                <ImageButton
+                    android:id="@+id/dislike_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@{viewModel.getPostUserAction(post.id).equals(&quot;dislike&quot;) ? R.drawable.ic_dislike_filled : R.drawable.ic_dislike_outline}"
+                    android:contentDescription="Dislike Post"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:onClick="@{() -> viewModel.onLikeClicked(post.id, &quot;dislike&quot;)}"
+                    android:clickable="true"
+                    android:focusable="true"
+                    tools:src="@drawable/ic_dislike_outline"/>
+
+                <TextView
+                    android:id="@+id/dislike_count_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(post.dislikeCount)}"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="16dp"
+                    tools:text="5"/>
+
+                <!--android:onClick="@{() -> viewModel.onCommentClicked(post.id, post.commentCount)}"-->
+                <ImageButton
+                    android:id="@+id/comment_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_comment_outline"
+                    android:contentDescription="View Comments"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:onClick="@{() -> viewModel.onViewAllCommentsClicked(post.id)}"
+                    android:clickable="true"
+                    android:focusable="true"
+                    tools:src="@drawable/ic_comment_outline"/>
+
+                <TextView
+                    android:id="@+id/comment_count_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(post.commentCount)}"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    tools:text="20" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comments_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="@{post.commentCount > 0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintTop_toBottomOf="@id/post_actions_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:nestedScrollingEnabled="false"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_comment" />
+
+            <TextView
+                android:id="@+id/see_more_comments_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/see_all_comments"
+                android:textColor="@color/color2" android:textSize="14sp"
+                android:layout_marginTop="8dp"
+                android:onClick="@{() -> viewModel.onViewAllCommentsClicked(post.id)}"
+                android:layout_gravity="end"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="@{post.commentCount > 3 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintTop_toBottomOf="@id/comments_recycler_view"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
