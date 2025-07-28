@@ -1,13 +1,19 @@
 package edu.bluejack24_2.domojo.views.ui
 
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import edu.bluejack24_2.domojo.R
@@ -30,9 +36,108 @@ class SettingsActivity : BaseActivity() {
 
         setupLanguageDropdown()
         setupDarkModeSwitch()
+        setupNotificationSwitch()
         setupClickListeners()
         setupObservers()
 
+    }
+
+    private fun setupNotificationSwitch() {
+        // Initialize switch state from SharedPreferences
+        val prefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        binding.notificationsSwitch.isChecked = prefs.getBoolean("notifications_enabled", true)
+
+        // Handle toggle changes
+        binding.notificationsSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                checkAndRequestNotificationPermission()
+            } else {
+                saveNotificationPreference(false)
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun checkAndRequestNotificationPermission() {
+        when {
+            ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // Permission already granted
+                saveNotificationPreference(true)
+            }
+
+            ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                android.Manifest.permission.POST_NOTIFICATIONS
+            ) -> {
+                // Explain why permission is needed
+                showPermissionExplanationDialog()
+            }
+
+            else -> {
+                // Request the permission
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    NOTIFICATION_PERMISSION_REQUEST_CODE
+                )
+            }
+        }
+    }
+
+    private fun showPermissionExplanationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.notification_permission_title)
+            .setMessage(R.string.notification_permission_message)
+            .setPositiveButton(R.string.continue_text) { _, _ ->
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                        NOTIFICATION_PERMISSION_REQUEST_CODE
+                    )
+                }
+            }
+            .setNegativeButton(R.string.cancel) { dialog, _ ->
+                dialog.dismiss()
+                binding.notificationsSwitch.isChecked = false
+            }
+            .show()
+    }
+
+    private fun saveNotificationPreference(enabled: Boolean) {
+        getSharedPreferences("AppSettings", Context.MODE_PRIVATE).edit()
+            .putBoolean("notifications_enabled", enabled)
+            .apply()
+        viewModel.notificationsEnabled.value = enabled
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+            NOTIFICATION_PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted
+                    saveNotificationPreference(true)
+                } else {
+                    // Permission denied
+                    binding.notificationsSwitch.isChecked = false
+                    saveNotificationPreference(false)
+                }
+            }
+        }
+    }
+
+    companion object {
+        private const val NOTIFICATION_PERMISSION_REQUEST_CODE = 1001
     }
 
     private fun setupDarkModeSwitch() {

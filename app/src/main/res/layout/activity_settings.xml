@@ -71,7 +71,6 @@
                     android:id="@+id/notifications_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@={viewModel.notificationsEnabled}"
                     android:theme="@style/Theme.MaterialComponents.Switch"
                     app:trackColor="@color/color4"/>
             </LinearLayout>

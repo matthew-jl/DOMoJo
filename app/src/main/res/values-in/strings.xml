@@ -71,6 +71,11 @@
     <string name="setting_description_main">Konfigurasi notifikasi, tema, dan pengaturan bahasa.</string>
     <string name="notifications_subheading">Notifikasi</string>
     <string name="enable_notifications">Aktifkan Notifikasi</string>
+    <string name="notification_permission_title">Izin Notifikasi Diperlukan</string>
+    <string name="notification_permission_message">Untuk menerima notifikasi, harap izinkan akses notifikasi.</string>
+    <string name="continue_text">Lanjutkan</string>
+    <string name="cancel">Batal</string>
+
     <string name="theme_subheading">Tema</string>
     <string name="dark_mode">Mode Gelap</string>
     <string name="language_subheading">Bahasa</string>

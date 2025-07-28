@@ -12,6 +12,10 @@ class SettingsViewModel() : ViewModel() {
     val darkModeEnabled = MutableLiveData<Boolean>(false)
     val selectedLanguage = MutableLiveData<String>(null)
 
+    fun updateNotificationPreference(enabled: Boolean) {
+        notificationsEnabled.value = enabled
+    }
+
     fun updateSelectedLanguage(displayLanguage: String) {
         selectedLanguage.value = displayLanguage
     }

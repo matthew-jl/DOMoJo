@@ -71,6 +71,11 @@
     <string name="setting_description_main">Configure notification, theme, and language settings.</string>
     <string name="notifications_subheading">Notifications</string>
     <string name="enable_notifications">Enable Notifications</string>
+    <string name="notification_permission_title">Notification Permission Needed</string>
+    <string name="notification_permission_message">To receive notifications, please allow the notification permission.</string>
+    <string name="continue_text">Continue</string>
+    <string name="cancel">Cancel</string>
+
     <string name="theme_subheading">Theme</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="language_subheading">Language</string>
