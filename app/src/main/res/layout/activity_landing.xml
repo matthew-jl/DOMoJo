@@ -22,7 +22,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/default_avatar"
+            android:src="@drawable/ic_launcher_foreground"
             android:contentDescription="App Logo"
             android:scaleType="fitCenter" />
 
