@@ -14,7 +14,7 @@ import edu.bluejack24_2.domojo.adapters.ChallengeAdapter
 import edu.bluejack24_2.domojo.databinding.ActivityChallengeBinding
 import edu.bluejack24_2.domojo.viewmodels.ChallengeViewModel
 
-class ChallengeActivity : AppCompatActivity() {
+class ChallengeActivity : BaseActivity() {
     private lateinit var binding: ActivityChallengeBinding
     private lateinit var viewModel: ChallengeViewModel
     private lateinit var challengeAdapter: ChallengeAdapter

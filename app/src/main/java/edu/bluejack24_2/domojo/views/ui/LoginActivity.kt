@@ -12,7 +12,7 @@ import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.databinding.ActivityLoginBinding
 import edu.bluejack24_2.domojo.viewmodels.LoginViewModel
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
 

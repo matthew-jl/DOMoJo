@@ -16,7 +16,7 @@ import edu.bluejack24_2.domojo.viewmodels.CreateChallengeViewModel
 import java.io.File
 import java.io.FileOutputStream
 
-class CreateChallengeActivity : AppCompatActivity() {
+class CreateChallengeActivity : BaseActivity() {
     private lateinit var binding: ActivityCreateChallengeBinding
     private lateinit var viewModel: CreateChallengeViewModel
 

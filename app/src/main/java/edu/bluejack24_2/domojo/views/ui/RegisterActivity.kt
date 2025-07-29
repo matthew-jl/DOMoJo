@@ -16,7 +16,7 @@ import edu.bluejack24_2.domojo.viewmodels.RegisterViewModel
 import java.io.File
 import java.io.FileOutputStream
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : BaseActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var viewModel: RegisterViewModel
 
