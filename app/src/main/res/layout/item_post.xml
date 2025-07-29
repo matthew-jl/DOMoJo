@@ -177,7 +177,7 @@
                     android:contentDescription="View Comments"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="8dp"
-                    android:onClick="@{() -> viewModel.onViewAllCommentsClicked(post.id)}"
+                    android:onClick="@{() -> viewModel.onCommentClicked(post.id)}"
                     android:clickable="true"
                     android:focusable="true"
                     tools:src="@drawable/ic_comment_outline"/>
@@ -193,12 +193,13 @@
 
             </LinearLayout>
 
+<!--            @{post.commentCount > 0 ? View.VISIBLE : View.GONE}-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/comments_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:visibility="@{post.commentCount > 0 ? View.VISIBLE : View.GONE}"
+                android:visibility="visible"
                 app:layout_constraintTop_toBottomOf="@id/post_actions_layout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

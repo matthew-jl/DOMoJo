@@ -25,6 +25,8 @@ class PostCommentAdapter(
         Log.d(TAG, "updateComments called with ${newComments.size} new items.")
         this.comments = newComments
         notifyDataSetChanged()
+        Log.d(TAG, "notifyDataSetChanged called. Adapter has ${itemCount} items.") // Add this
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostCommentViewHolder {
@@ -38,6 +40,7 @@ class PostCommentAdapter(
         holder.bind(comments[position])
     }
 
+    // In PostCommentAdapter.kt
     class PostCommentViewHolder(
         private val binding: ItemCommentBinding,
         private val userRepository: UserRepository,
@@ -46,23 +49,24 @@ class PostCommentAdapter(
 
         private val TAG = "PostCommentAdapter"
         fun bind(comment: PostComment) {
-            binding.comment = comment // Bind the comment object
-            binding.executePendingBindings() // Crucial for immediate binding
+            binding.comment = comment // Binds the comment object to the XML variable
+            binding.executePendingBindings() // Immediately processes the binding for 'comment' related views
 
             // Fetch user data for the comment author
             userRepository.getUser(comment.userId,
                 onSuccess = { user ->
                     if (user != null) {
-                        binding.user = user // Pass User object to XML for binding
+                        binding.user = user // Binds the user object to the XML variable
+                        binding.executePendingBindings() // Important: Re-execute after 'user' is set
                     } else {
                         binding.commentUsername.text = "[Unknown User]"
-                        // Optionally set default avatar: Glide.with(binding.root.context).load(R.drawable.default_avatar).into(binding.commentUserAvatar)
+                        // Consider setting a default avatar here using Glide or Picasso if imageUrl binding fails
                     }
                 },
                 onFailure = { errorMessage ->
                     binding.commentUsername.text = "[Error User]"
                     Log.e(TAG, "Failed to fetch user for comment ${comment.id}: $errorMessage")
-                    // Optionally set default avatar on error
+                    // Consider setting a default avatar on error as well
                 }
             )
 

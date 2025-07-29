@@ -113,18 +113,18 @@ class ChallengeDetailActivity : AppCompatActivity() {
 
 
         // --- Observe LiveData from ViewModel ---
-        viewModel.showAddCommentDialog.observe(this, Observer { event ->
+        viewModel.showAddCommentDialog.observe(this, Observer { postId ->
 //            Log.d("ChallengeDetailActivity", "showAddCommentDialog event received with postId: $postId")
-//            postId?.let {
-//                showAddCommentDialog(it) // Call dialog function with postId
-//                viewModel.onAddCommentDialogShown() // Consume event
-//            }
-
-            event?.getContentIfNotHandled()?.let { postId ->
-                Log.d("ChallengeDetailActivity", "showAddCommentDialog event received with postId: $postId")
-                showAddCommentDialog(postId)
-                viewModel.onAddCommentDialogShown()
+            postId?.let {
+                showAddCommentDialog(it) // Call dialog function with postId
+                viewModel.onAddCommentDialogShown() // Consume event
             }
+
+//            event?.getContentIfNotHandled()?.let { postId ->
+//                Log.d("ChallengeDetailActivity", "showAddCommentDialog event received with postId: $postId")
+//                showAddCommentDialog(postId)
+//                viewModel.onAddCommentDialogShown()
+//            }
         })
 
 

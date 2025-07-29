@@ -31,15 +31,17 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="5"
             tools:listitem="@layout/item_leaderboard"
-            android:nestedScrollingEnabled="false" /> <TextView
-        android:id="@+id/no_leaderboard_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Belum ada anggota di leaderboard ini."
-        android:textColor="@color/color5"
-        android:gravity="center"
-        android:visibility="@{viewModel.leaderboard.empty &amp;&amp; !viewModel.isLoading ? View.VISIBLE : View.GONE}"
-        tools:visibility="gone" />
+            android:nestedScrollingEnabled="false" />
+
+        <TextView
+            android:id="@+id/no_leaderboard_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Belum ada anggota di leaderboard ini."
+            android:textColor="@color/color5"
+            android:gravity="center"
+            android:visibility="@{viewModel.leaderboard.empty &amp;&amp; !viewModel.isLoading ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone" />
 
     </LinearLayout>
 </layout>

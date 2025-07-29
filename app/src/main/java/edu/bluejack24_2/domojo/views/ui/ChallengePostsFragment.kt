@@ -69,7 +69,7 @@ class ChallengePostsFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner // Set lifecycle owner for LiveData observation
 
         // Setup RecyclerView for posts
-        postAdapter = ChallengePostAdapter(emptyList()) // Initialize with empty list
+        postAdapter = ChallengePostAdapter(emptyList(), viewModel) // Initialize with empty list
         binding.challengePostsRecyclerView.apply {
             layoutManager = LinearLayoutManager(context) // Set layout manager
             adapter = postAdapter // Set adapter

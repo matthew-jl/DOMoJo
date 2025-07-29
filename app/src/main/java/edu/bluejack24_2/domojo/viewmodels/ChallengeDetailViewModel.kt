@@ -21,7 +21,6 @@ import edu.bluejack24_2.domojo.repositories.PostLikeRepository // Repository for
 import edu.bluejack24_2.domojo.repositories.PostCommentRepository // Repository for comment actions
 import edu.bluejack24_2.domojo.repositories.UserRepository
 import edu.bluejack24_2.domojo.utils.CloudinaryClient
-import edu.bluejack24_2.domojo.utils.Event
 import java.io.File
 import java.util.Calendar
 import java.util.Date
@@ -90,12 +89,17 @@ class ChallengeDetailViewModel : ViewModel() {
     // --- NEW: LiveData for Post Actions (Likes/Comments) ---
     // Maps postId to the current user's like/dislike action ("like", "dislike", or "none").
     // Used to set the correct drawable for like/dislike buttons.
+    // In ChallengeDetailViewModel.kt
     private val _postUserActions = MutableLiveData<MutableMap<String, String>>(mutableMapOf())
+    // Add this line to expose it publicly as LiveData
+    val postUserActions: LiveData<MutableMap<String, String>> get() = _postUserActions // <--- ADD THIS LINE
+
     fun getPostUserAction(postId: String): String = _postUserActions.value?.get(postId) ?: "none"
 
-    // Maps postId to its list of recent comments (limited, for nested RecyclerViews).
+    // FIX: Make _recentCommentsMap publicly accessible as LiveData
     private val _recentCommentsMap = MutableLiveData<MutableMap<String, List<PostComment>>>(mutableMapOf())
-    fun getRecentCommentsForPost(postId: String): List<PostComment> = _recentCommentsMap.value?.get(postId) ?: emptyList()
+    val recentCommentsMap: LiveData<MutableMap<String, List<PostComment>>> get() = _recentCommentsMap // Make this publicly observable
+
 
     // Triggers navigation to a separate "All Comments" screen/dialog, passing post ID and total comment count.
     private val _navigateToAllComments = MutableLiveData<Pair<String, Int>?>()
@@ -105,8 +109,8 @@ class ChallengeDetailViewModel : ViewModel() {
 //    val showAddCommentDialog: LiveData<String?> get() = _showAddCommentDialog
 
 
-    private val _showAddCommentDialog = MutableLiveData<Event<String>>()
-    val showAddCommentDialog: LiveData<Event<String>> = _showAddCommentDialog
+    private val _showAddCommentDialog = MutableLiveData<String>()
+    val showAddCommentDialog: LiveData<String> = _showAddCommentDialog
 
     // --- Initialization Block ---
     init {
@@ -225,6 +229,7 @@ class ChallengeDetailViewModel : ViewModel() {
                             onSuccess = { action ->
                                 val currentActions = _postUserActions.value?.toMutableMap() ?: mutableMapOf()
                                 currentActions[post.id] = action // Store user's action for this post
+                                Log.d(TAG, "User action for post ${post.id}: $action")
                                 _postUserActions.value = currentActions // Trigger redraw for button icon
                             },
                             onFailure = { Log.e(TAG, "Failed to get user action for post ${post.id}: $it") }
@@ -499,11 +504,14 @@ class ChallengeDetailViewModel : ViewModel() {
         )
     }
 
+
+
     /**
      * Helper to update like/dislike counts for a specific post within the ViewModel's lists.
      * Triggers UI updates for `_posts` and `_usersTodayPost`.
      */
     private fun updatePostCountsInList(postId: String, newLikeCount: Int, newDislikeCount: Int) {
+        Log.d("ChallengeDetailViewModel", "updatePostCountsInList: postId=$postId, newLikeCount=$newLikeCount, newDislikeCount=$newDislikeCount")
         val currentPosts = _posts.value?.toMutableList() ?: mutableListOf()
         val index = currentPosts.indexOfFirst { it.id == postId }
         if (index != -1) {
@@ -531,15 +539,15 @@ class ChallengeDetailViewModel : ViewModel() {
      * @param postId The ID of the post.
      * @param totalCommentCount The total count of comments on the post.
      */
-    fun onCommentClicked(postId: String, totalCommentCount: Int) {
-        Log.d(TAG, "onCommentClicked: postId=$postId, totalCommentCount=$totalCommentCount")
-        Log.d(TAG, "Comment button clicked for post: $postId. Previous=${_showAddCommentDialog.value}\"")
-        // You can use totalCommentCount if you want to pass it to the dialog
-        // or just rely on postId.
-//        _showAddCommentDialog.value = null
-//        _showAddCommentDialog.value = postId // Set the postId to trigger the dialog
-        _showAddCommentDialog.value = Event(postId)
+    fun onCommentClicked(postId: String) {
+        val currentUserId = firebaseAuth.currentUser?.uid
+        if (currentUserId.isNullOrBlank()) {
+            _showToast.value = "Please log in to add a comment."
+            return
+        }
+        _showAddCommentDialog.value = postId // This is the crucial line to trigger the observer in Activity
         _showToast.value = null // Clear any pending toast
+        Log.d(TAG, "onShowAddCommentDialogClicked: Setting _showAddCommentDialog.value to $postId")
     }
 
     fun clearErrorMessage() {
@@ -573,11 +581,21 @@ class ChallengeDetailViewModel : ViewModel() {
             onSuccess = {
                 _isLoading.value = false
                 _showToast.value = "Comment added successfully!"
-                // Refresh relevant data to update UI
-                // This is critical for recent comments and total comment count to update
+                // 1. Immediately update the _recentCommentsMap with the new comment (optimistic update)
+                val currentMap = _recentCommentsMap.value?.toMutableMap() ?: mutableMapOf()
+                val currentCommentsForPost = currentMap[postId]?.toMutableList() ?: mutableListOf()
+                // Add the new comment. Consider adding it at the beginning for reverse chronological order.
+                currentCommentsForPost.add(0, newComment) // Add to top
+                currentMap[postId] = currentCommentsForPost.take(3) // Only keep recent X comments if you have a limit
+
+                _recentCommentsMap.value = null
+                _recentCommentsMap.value = currentMap // Trigger LiveData update
+
+                // 2. Refresh ALL posts to get updated comment counts, etc.
+                // This will also indirectly cause fetchRecentCommentsForPost to be called again
+                // when the posts RecyclerView rebinds.
                 _challengeDetails.value?.id?.let { challengeId ->
-                    fetchChallengePosts(challengeId) // Refresh all posts to update counts
-                    fetchRecentCommentsForPost(postId) // Refresh recent comments for this specific post
+                    fetchChallengePosts(challengeId) // This fetches posts and also calls fetchRecentCommentsForPost for ALL posts
                 }
             },
             onFailure = { errorMessage ->
@@ -596,34 +614,29 @@ class ChallengeDetailViewModel : ViewModel() {
         _navigateToAllComments.value = null // Clear the navigation event
     }
 
-    /**
-     * Fetches recent comments for a specific post.
-     * This is called by `ChallengePostAdapter.ChallengePostViewHolder.bind()` to populate
-     * the nested RecyclerView for comments within a post item.
-     * @param postId The ID of the post to fetch comments for.
-     */
     fun fetchRecentCommentsForPost(postId: String) {
-        // Prevent redundant fetches if comments for this post are already in the map
-        if (_recentCommentsMap.value?.containsKey(postId) == true) {
-            return
-        }
+        // Don't 'return' if already contains the key, always update to ensure freshness
+        // if (_recentCommentsMap.value?.containsKey(postId) == true) { return } // REMOVE THIS LINE
+
         postCommentRepository.getRecentComments(
             postId, 3, // Fetch up to 3 recent comments
             onSuccess = { comments ->
                 val currentMap = _recentCommentsMap.value?.toMutableMap() ?: mutableMapOf()
                 currentMap[postId] = comments // Store comments in the map keyed by postId
+                _recentCommentsMap.value = null // Temporarily set to null
                 _recentCommentsMap.value = currentMap // Update LiveData, triggering redraw
                 Log.d(TAG, "Fetched ${comments.size} recent comments for post $postId (limited to 3).")
             },
             onFailure = { errorMessage ->
                 Log.e(TAG, "Failed to fetch recent comments for post $postId: $errorMessage")
-                // On failure, ensure the map entry for this post is empty
                 val currentMap = _recentCommentsMap.value?.toMutableMap() ?: mutableMapOf()
                 currentMap[postId] = emptyList()
+                _recentCommentsMap.value = null // Temporarily set to null
                 _recentCommentsMap.value = currentMap
             }
         )
     }
+
 
     /**
      * Handles "See all comments..." click.
