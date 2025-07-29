@@ -4,9 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
+        android:configChanges="locale|layoutDirection"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -14,6 +18,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DOMoJo">
+        <activity
+            android:name=".views.ui.ChangeBadgeActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".utils.MyFirebaseMessagingService"
+            android:exported="false"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher_foreground" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/color1" />
+
+        <activity
+            android:name=".views.ui.SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.ui.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.ui.AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.ui.ProfileActivity"
+            android:exported="false" />
         <activity
             android:name=".views.ui.ChallengeActivity"
             android:exported="false" />
