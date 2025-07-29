@@ -75,9 +75,9 @@ class ProfileActivity : BaseActivity() {
         )
 
 //        Set Setting Item navigation
-//        binding.settingChangeBadge.root.setOnClickListener {
-//            startActivity(Intent(this, ChangeBadgeActivity::class.java))
-//        }
+        binding.settingChangeBadge.materialCardConstraint.setOnClickListener {
+            startActivity(Intent(this, ChangeBadgeActivity::class.java))
+        }
         binding.settingMain.materialCardConstraint.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }

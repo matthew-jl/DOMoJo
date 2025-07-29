@@ -1,5 +1,6 @@
 package edu.bluejack24_2.domojo.repositories
 
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import edu.bluejack24_2.domojo.models.User
 
@@ -50,6 +51,24 @@ class UserRepository {
             }
             .addOnFailureListener { e ->
                 onFailure(e.localizedMessage ?: "Failed to delete user data from Firestore.")
+            }
+    }
+
+    fun updateUserBadge(uid: String, badge: String?, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+        val updates = hashMapOf<String, Any>()
+        if (badge != null) {
+            updates["badge"] = badge
+        } else {
+            updates["badge"] = FieldValue.delete()
+        }
+
+        firestore.collection("users").document(uid)
+            .update(updates)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener { e ->
+                onFailure(e.localizedMessage ?: "Failed to update badge")
             }
     }
 }

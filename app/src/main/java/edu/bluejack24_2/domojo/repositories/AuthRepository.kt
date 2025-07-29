@@ -135,6 +135,31 @@ class AuthRepository(private val userRepository: UserRepository) {
         }
     }
 
+    fun updateCurrentUserBadge(
+        newBadge: String?,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser == null) {
+            onFailure("No user is currently logged in")
+            return
+        }
+
+        userRepository.updateUserBadge(
+            currentUser.uid,
+            newBadge,
+            onSuccess = {
+                Log.d("AuthRepository", "Successfully updated badge to: $newBadge")
+                onSuccess()
+            },
+            onFailure = { error ->
+                Log.e("AuthRepository", "Failed to update badge: $error")
+                onFailure("Failed to update badge: $error")
+            }
+        )
+    }
+
     fun deleteCurrentUser(
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
@@ -213,7 +238,8 @@ class AuthRepository(private val userRepository: UserRepository) {
                                 id = uid,
                                 avatar = imageUrl,
                                 email = email,
-                                username = username
+                                username = username,
+                                badge = null,
                             )
 
                             userRepository.addUser(

@@ -66,6 +66,9 @@
 
     <string name="setting_title_change_badge">Change Badge</string>
     <string name="setting_description_change_badge">Choose your preferred profile badge!</string>
+    <string name="preview_subheading">Preview</string>
+    <string name="select_badge_subheading">Select New Badge</string>
+    <string name="badge_image_desc">Badge image</string>
 
     <string name="setting_title_main">Settings</string>
     <string name="setting_description_main">Configure notification, theme, and language settings.</string>
