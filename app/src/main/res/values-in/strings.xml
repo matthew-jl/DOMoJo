@@ -152,8 +152,19 @@
     <string name="setting_title_change_badge">Ubah Lencana</string>
     <string name="setting_description_change_badge">Pilih lencana profil yang Anda inginkan!</string>
     <string name="preview_subheading">Pratinjau</string>
-    <string name="select_badge_subheading">Pilih Lencana Baru</string>
-    <string name="badge_image_desc">Gambar lencana</string>
+    <string name="select_badge_subheading">Pilih Badge Baru</string>
+    <string name="badge_image_desc">Gambar Badge</string>
+    <string name="badge_bronze_name">Lencana Perunggu</string>
+    <string name="badge_silver_name">Lencana Perak</string>
+    <string name="badge_gold_name">Lencana Emas</string>
+    <string name="badge_diamond_name">Lencana Berlian</string>
+    <string name="badge_purple_name">Lencana Ungu</string>
+    <string name="badge_bronze_desc">Tanda dedikasi awal Anda. Diraih setelah mempertahankan streak 10 hari.</string>
+    <string name="badge_silver_desc">Bukti komitmen yang berkembang. Diraih setelah mempertahankan streak 30 hari.</string>
+    <string name="badge_gold_desc">Simbol ketekunan sejati. Diraih setelah mempertahankan streak 50 hari.</string>
+    <string name="badge_diamond_desc">Permata dari usaha yang konsisten. Diraih setelah mempertahankan streak 100 hari.</string>
+    <string name="badge_purple_desc">Mahkota dedikasi tanpa henti. Diraih setelah mempertahankan streak 365 hari.</string>
+    <string name="badge_toast_success">Lencana berhasil diubah</string>
 
     <string name="notifications_subheading">Notifikasi</string>
     <string name="enable_notifications">Aktifkan Notifikasi</string>
@@ -188,7 +199,7 @@
     <string name="setting_description_about_us">Informasi detail tentang DOMoJo.</string>
     <string name="about_us_heading">Tentang Kami</string>
     <string name="logo_desc">Logo DOMoJo</string>
-    <string name="app_description">DOMoJo, dibuat oleh MJ DO, adalah aplikasi tantangan streak di mana Anda bisa mengikuti tantangan, melacak streak, dan bersaing di papan peringkat real-time. Tetap termotivasi melalui pengingat real-time. Lakukan lebih banyak, DOMoJo.</string>
+    <string name="app_description">DOMoJo, dibuat oleh MJ DO, adalah aplikasi tantangan streak di mana Anda bisa mengikuti tantangan, melacak streak, dan bersaing di papan peringkat real-time. Tetap termotivasi melalui pengingat real-time. Do more, DOMoJo.</string>
     <string name="contact_subheading">Hubungi DOMoJo</string>
     <string name="support_email">support@domojo.app</string>
     <string name="support_phone">+62-803-2637-1838</string>

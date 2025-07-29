@@ -155,6 +155,17 @@
     <string name="preview_subheading">Preview</string>
     <string name="select_badge_subheading">Select New Badge</string>
     <string name="badge_image_desc">Badge image</string>
+    <string name="badge_bronze_name">Bronze Badge</string>
+    <string name="badge_silver_name">Silver Badge</string>
+    <string name="badge_gold_name">Gold Badge</string>
+    <string name="badge_diamond_name">Diamond Badge</string>
+    <string name="badge_purple_name">Purple Badge</string>
+    <string name="badge_bronze_desc">A mark of your early dedication. Earned after maintaining a 10-day streak.</string>
+    <string name="badge_silver_desc">Proof of your growing commitment. Earned after maintaining a 30-day streak.</string>
+    <string name="badge_gold_desc">A symbol of true perseverance. Earned after maintaining a 50-day streak.</string>
+    <string name="badge_diamond_desc">The jewel of consistent effort. Earned after maintaining a 100-day streak.</string>
+    <string name="badge_purple_desc">The crown of unwavering dedication. Earned after maintaining a 365-day streak.</string>
+    <string name="badge_toast_success">Badge updated successfully</string>
 
     <string name="notifications_subheading">Notifications</string>
     <string name="enable_notifications">Enable Notifications</string>

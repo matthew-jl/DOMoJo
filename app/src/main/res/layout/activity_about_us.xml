@@ -44,7 +44,7 @@
                 android:layout_marginBottom="24dp"
                 android:contentDescription="@string/logo_desc"
                 android:scaleType="fitCenter"
-                android:src="@drawable/default_avatar" />
+                android:src="@drawable/ic_launcher_foreground" />
 
             <!-- App Description -->
             <TextView

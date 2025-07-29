@@ -37,60 +37,68 @@ class ChangeBadgeViewModel : ViewModel() {
 
     init {
         loadCurrentUser()
-        initializeBadges()
     }
 
     private fun loadCurrentUser() {
         authRepository.getCurrentUser().observeForever { user ->
             _currentUser.value = user
-            // Set initial selected badge based on user's current badge
-            user?.badge?.let { currentBadgeId ->
-                val badgesList = _badges.value ?: return@observeForever
-                val index = badgesList.indexOfFirst { it.id == currentBadgeId }.coerceAtLeast(0)
-                _selectedBadgeIndex.value = index
-                _currentBadge.value = badgesList.getOrNull(index)
-            } ?: run {
-                // If user has no badge or badge is null, default to first badge
-                _selectedBadgeIndex.value = 0
-                _currentBadge.value = _badges.value?.firstOrNull()
+            _badges.value?.let { badges ->
+                // Set initial selected badge based on user's current badge
+                user?.badge?.let { currentBadgeId ->
+//                    val badgesList = _badges.value ?: return@observeForever
+                    val index = badges.indexOfFirst { it.id == currentBadgeId }.coerceAtLeast(0)
+                    _selectedBadgeIndex.value = index
+                    _currentBadge.value = badges.getOrNull(index)
+                } ?: run {
+                    // If user has no badge or badge is null, default to first badge
+                    _selectedBadgeIndex.value = 0
+                    _currentBadge.value = badges.firstOrNull()
+                }
             }
         }
     }
 
-    private fun initializeBadges() {
-        val badgeList = listOf(
-            Badge(
-                id = "bronze",
-                name = "Bronze Badge",
-                description = "Earned after 10 days of activity",
-                imageRes = R.drawable.ic_badge_bronze
-            ),
-            Badge(
-                id = "silver",
-                name = "Silver Badge",
-                description = "Earned after 30 days of activity",
-                imageRes = R.drawable.ic_badge_silver
-            ),
-            Badge(
-                id = "gold",
-                name = "Gold Badge",
-                description = "Earned after 50 days of activity",
-                imageRes = R.drawable.ic_badge_gold
-            ),
-            Badge(
-                id = "diamond",
-                name = "Diamond Badge",
-                description = "Earned after 100 days of activity",
-                imageRes = R.drawable.ic_badge_diamond
-            ),
-            Badge(
-                id = "purple",
-                name = "Purple Badge",
-                description = "Earned after 365 days of activity",
-                imageRes = R.drawable.ic_badge_purple
-            )
-        )
+//    private fun initializeBadges() {
+//        val badgeList = listOf(
+//            Badge(
+//                id = "bronze",
+//                name = getString(R.string.badge_bronze_name),
+//                description = getString(R.string.badge_bronze_desc),
+//                imageRes = R.drawable.ic_badge_bronze
+//            ),
+//            Badge(
+//                id = "silver",
+//                name = getString(R.string.badge_silver_name),
+//                description = getString(R.string.badge_silver_desc),
+//                imageRes = R.drawable.ic_badge_silver
+//            ),
+//            Badge(
+//                id = "gold",
+//                name = getString(R.string.badge_gold_name),
+//                description = getString(R.string.badge_gold_desc),
+//                imageRes = R.drawable.ic_badge_gold
+//            ),
+//            Badge(
+//                id = "diamond",
+//                name = getString(R.string.badge_diamond_name),
+//                description = getString(R.string.badge_diamond_desc),
+//                imageRes = R.drawable.ic_badge_diamond
+//            ),
+//            Badge(
+//                id = "purple",
+//                name = getString(R.string.badge_purple_name),
+//                description = getString(R.string.badge_purple_desc),
+//                imageRes = R.drawable.ic_badge_purple
+//            )
+//        )
+//        _badges.value = badgeList
+//    }
+
+    fun setBadges(badgeList: List<Badge>) {
         _badges.value = badgeList
+        if (_currentBadge.value == null) {
+            _currentBadge.value = badgeList.firstOrNull()
+        }
     }
 
     fun selectNextBadge() {

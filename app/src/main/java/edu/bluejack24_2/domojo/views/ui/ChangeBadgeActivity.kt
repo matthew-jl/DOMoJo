@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.databinding.ActivityChangeBadgeBinding
+import edu.bluejack24_2.domojo.models.Badge
 import edu.bluejack24_2.domojo.models.User
 import edu.bluejack24_2.domojo.viewmodels.ChangeBadgeViewModel
 
@@ -19,6 +20,41 @@ class ChangeBadgeActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_change_badge)
         binding.user = User()
         viewModel = ViewModelProvider(this).get(ChangeBadgeViewModel::class.java)
+
+        // Initialize badges
+        val badgeList = listOf(
+            Badge(
+                id = "bronze",
+                name = getString(R.string.badge_bronze_name),
+                description = getString(R.string.badge_bronze_desc),
+                imageRes = R.drawable.ic_badge_bronze
+            ),
+            Badge(
+                id = "silver",
+                name = getString(R.string.badge_silver_name),
+                description = getString(R.string.badge_silver_desc),
+                imageRes = R.drawable.ic_badge_silver
+            ),
+            Badge(
+                id = "gold",
+                name = getString(R.string.badge_gold_name),
+                description = getString(R.string.badge_gold_desc),
+                imageRes = R.drawable.ic_badge_gold
+            ),
+            Badge(
+                id = "diamond",
+                name = getString(R.string.badge_diamond_name),
+                description = getString(R.string.badge_diamond_desc),
+                imageRes = R.drawable.ic_badge_diamond
+            ),
+            Badge(
+                id = "purple",
+                name = getString(R.string.badge_purple_name),
+                description = getString(R.string.badge_purple_desc),
+                imageRes = R.drawable.ic_badge_purple
+            )
+        )
+        viewModel.setBadges(badgeList)
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -46,7 +82,7 @@ class ChangeBadgeActivity : BaseActivity() {
 
         viewModel.updateSuccess.observe(this) { success ->
             if (success) {
-                Toast.makeText(this, "Badge updated successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.badge_toast_success), Toast.LENGTH_SHORT).show()
                 finish()
             }
         }
