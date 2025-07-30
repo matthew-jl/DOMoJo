@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Back Button -->
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/back_button_desc"
+                android:src="@drawable/ic_arrow_left" />
+
+            <!-- Heading -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="center_horizontal"
+                android:text="@string/about_us_heading"
+                android:textColor="@color/color1"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <!-- Logo -->
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:contentDescription="@string/logo_desc"
+                android:scaleType="fitCenter"
+                android:src="@drawable/default_avatar" />
+
+            <!-- App Description -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/app_description"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <!-- Contact Subheading -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/contact_subheading"
+                android:textColor="@color/color5"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Email Button -->
+            <Button
+                android:id="@+id/email_button"
+                style="@style/AboutUsButtonStyle"
+                android:layout_marginBottom="8dp"
+                app:icon="@drawable/ic_email"
+                android:text="@string/support_email" />
+
+            <!-- Phone Button -->
+            <Button
+                android:id="@+id/phone_button"
+                style="@style/AboutUsButtonStyle"
+                android:layout_marginBottom="32dp"
+                app:icon="@drawable/ic_phone"
+                android:text="@string/support_phone" />
+
+            <!-- Location Subheading -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/location_subheading"
+                android:textColor="@color/color5"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Map Screenshot -->
+            <ImageView
+                android:id="@+id/map_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="@string/map_desc"
+                android:scaleType="centerCrop"
+                android:src="@drawable/map_screenshot" />
+
+            <!-- Address Button -->
+            <Button
+                android:id="@+id/address_button"
+                style="@style/AboutUsButtonStyle"
+                app:icon="@drawable/ic_location"
+                android:text="@string/domojo_address" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

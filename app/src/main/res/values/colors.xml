@@ -4,10 +4,16 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="gray">#BEBEBE</color>
-
+  
     <color name="color1">#4A4063</color>
     <color name="color2">#BFACC8</color>
     <color name="color3">#C8C6D7</color>
     <color name="color4">#783F8E</color>
     <color name="color5">#4F1271</color>
+
+    <color name="primary_dark">#BFACC8</color>
+    <color name="secondary_dark">#C8C6D7</color>
+    <color name="surface_dark">#1E1B24</color>
+    <color name="accent_dark">#783F8E</color>
+    <color name="primary_light_dark">#4A4063</color>
 </resources>
