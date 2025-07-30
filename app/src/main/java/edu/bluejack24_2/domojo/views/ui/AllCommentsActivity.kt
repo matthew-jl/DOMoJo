@@ -13,7 +13,7 @@ import edu.bluejack24_2.domojo.adapters.PostCommentAdapter
 import edu.bluejack24_2.domojo.databinding.ActivityAllCommentsBinding
 import edu.bluejack24_2.domojo.viewmodels.AllCommentsViewModel
 
-class AllCommentsActivity : AppCompatActivity() {
+class AllCommentsActivity : BaseActivity() {
     private lateinit var binding: ActivityAllCommentsBinding
     private lateinit var viewModel: AllCommentsViewModel
     private lateinit var commentsAdapter: PostCommentAdapter

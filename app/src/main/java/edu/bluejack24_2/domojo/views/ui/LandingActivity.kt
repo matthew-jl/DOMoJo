@@ -38,11 +38,6 @@ class LandingActivity : BaseActivity() {
 
         loadCarouselItems()
 
-        // Observe carouselItems from ViewModel to update the adapter
-//        viewModel.carouselItems.observe(this, Observer { items ->
-//            carouselPagerAdapter.updateItems(items) // Update adapter with new data
-//        })
-
         binding.registerButton.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
@@ -53,11 +48,6 @@ class LandingActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        binding.profileLink.setOnClickListener{
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
     }
 
 

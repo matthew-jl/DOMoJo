@@ -8,7 +8,6 @@
     <string name="back_button_desc">Navigate back</string>
 
     <!-- Landing Page -->
-    <string name="landing_tagline">Welcome to DOMoJo, your personal streak app!</string>
     <string name="carousel_heading_1">Discover New Challenges</string>
     <string name="carousel_description_1">Join exciting challenges across various categories and grow your streak every day!</string>
 
@@ -96,7 +95,6 @@
     <string name="all_comments_title">All Comments</string>
     <string name="add_comment_hint">Add a comment...</string>
     <string name="submit_comment">Submit</string>
-    <string name="cancel">Cancel</string>
     <string name="no_comments_message">No comments yet. Be the first to comment!</string>
 
     <!-- Common UI -->
