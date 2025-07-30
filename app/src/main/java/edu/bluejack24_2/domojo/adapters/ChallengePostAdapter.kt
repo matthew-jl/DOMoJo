@@ -143,6 +143,8 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
                                 }
                             }
                         }
+
+
                     }
                 }
 
@@ -155,6 +157,8 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
                 }
             })
         }
+
+
 
         // The bind method is now purely for setting data, not for lifecycle-dependent observer registration
         fun bind(post: Post) {
@@ -180,7 +184,6 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
             } ?: run {
                 binding.postDateTextView.text = "Date Unavailable"
             }
-
 
             binding.executePendingBindings()
         }

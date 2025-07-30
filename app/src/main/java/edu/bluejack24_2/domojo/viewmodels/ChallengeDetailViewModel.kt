@@ -585,6 +585,7 @@ class ChallengeDetailViewModel : ViewModel() {
                 val currentMap = _recentCommentsMap.value?.toMutableMap() ?: mutableMapOf()
                 val currentCommentsForPost = currentMap[postId]?.toMutableList() ?: mutableListOf()
                 // Add the new comment. Consider adding it at the beginning for reverse chronological order.
+                newComment.createdAt = Date()
                 currentCommentsForPost.add(0, newComment) // Add to top
                 currentMap[postId] = currentCommentsForPost.take(3) // Only keep recent X comments if you have a limit
 

@@ -6,11 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment // Import the Fragment base class
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.bluejack24_2.domojo.adapters.ChallengePostAdapter // Your adapter for posts
+import edu.bluejack24_2.domojo.adapters.PostCommentAdapter
 import edu.bluejack24_2.domojo.databinding.FragmentChallengePostsBinding // Your XML binding class
+import edu.bluejack24_2.domojo.databinding.ItemPostBinding
+import edu.bluejack24_2.domojo.models.Post
+import edu.bluejack24_2.domojo.repositories.UserRepository
 import edu.bluejack24_2.domojo.viewmodels.ChallengeDetailViewModel // Shared ViewModel
 
 class ChallengePostsFragment : Fragment() {
@@ -101,7 +106,67 @@ class ChallengePostsFragment : Fragment() {
             // You might call viewModel.fetchChallengePosts(id) here if posts are specific to this fragment's lifecycle
             // but for sharing a ViewModel with Activity, Activity usually triggers main fetches.
         } ?: Log.e("ChallengePostsFragment", "Challenge ID is null for posts fragment!")
+
+        viewModel.usersTodayPost.observe(viewLifecycleOwner) { post ->
+            if (post != null) {
+                Log.d("ChallengePostsFragment", "User's today post: ${post.id}")
+                val userPostBinding = binding.usersTodayPostItem
+                userPostBinding.post = post
+                userPostBinding.viewModel = viewModel
+                setupPostUI(userPostBinding, post, viewModel, viewLifecycleOwner)
+            }
+        }
     }
+
+    // New function to encapsulate "Post-mu" setup
+    fun setupPostUI(
+        binding: ItemPostBinding,
+        post: Post,
+        viewModel: ChallengeDetailViewModel,
+        lifecycleOwner: LifecycleOwner
+    ) {
+        val commentAdapter = PostCommentAdapter(emptyList(), UserRepository())
+        binding.commentsRecyclerView.adapter = commentAdapter
+        binding.commentsRecyclerView.layoutManager = LinearLayoutManager(binding.root.context)
+
+        binding.likeButton.setOnClickListener {
+            viewModel.onLikeClicked(post.id, "like")
+        }
+
+        binding.dislikeButton.setOnClickListener {
+            viewModel.onLikeClicked(post.id, "dislike")
+        }
+
+        binding.commentButton.setOnClickListener {
+            viewModel.onCommentClicked(post.id)
+        }
+
+        viewModel.recentCommentsMap.observe(lifecycleOwner) { commentsMap ->
+            val recentComments = commentsMap?.get(post.id) ?: emptyList()
+
+            commentAdapter.updateComments(recentComments)
+        }
+
+        viewModel.postUserActions.observe(lifecycleOwner) { actionsMap ->
+            when (actionsMap[post.id]) {
+                "like" -> {
+                    binding.likeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_like_filled)
+                    binding.dislikeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_dislike_outline)
+                }
+                "dislike" -> {
+                    binding.likeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_like_outline)
+                    binding.dislikeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_dislike_filled)
+                }
+                else -> {
+                    binding.likeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_like_outline)
+                    binding.dislikeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_dislike_outline)
+                }
+            }
+        }
+
+        viewModel.fetchRecentCommentsForPost(post.id)
+    }
+// ...
 
     // --- CRUCIAL FIX: Call fetch methods in onResume ---
     override fun onResume() {

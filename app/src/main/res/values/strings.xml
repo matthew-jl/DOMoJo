@@ -45,12 +45,29 @@
     <string name="longest_streak_leaderboard">Longest Streak: %1$d</string>
     <string name="make_post_button">Create Post</string>
     <string name="top_user">Top Users</string>
-    <string name="your_current_streak">2</string>
+    <string name="your_current_streak">%1$d</string>
     <string name="your_longest_streak">Your longest streak: %1$d</string>
 
     <string name="post_activity_button">Post Today\'s Activity</string>
-    <string name="posts_pengguna_lain">Posts pengguna lain</string>
-    <string name="pengguna_teratas">Pengguna Teratas</string>
 
-    <string name="see_all_comments">See more...</string>
+    <!-- Post related strings -->
+    <string name="user_avatar_desc">User Avatar</string>
+    <string name="username_placeholder">Username</string>
+    <string name="post_time_placeholder">20 menit yang lalu</string>
+    <string name="post_content_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="post_image_desc">Post Image</string>
+    <string name="streak_awarded_desc">Streak Awarded</string>
+    <string name="like_post_desc">Like Post</string>
+    <string name="dislike_post_desc">Dislike Post</string>
+    <string name="view_comments_desc">View Comments</string>
+    <string name="like_count_placeholder">123</string>
+    <string name="dislike_count_placeholder">5</string>
+    <string name="comment_count_placeholder">20</string>
+    <string name="see_all_comments">See all comments</string>
+    <string name="error_text">Error</string>
+
+    <!-- Additional colors needed -->
+    <color name="avatar_background">@android:color/darker_gray</color>
+    <color name="post_image_background">@android:color/darker_gray</color>
+
 </resources>

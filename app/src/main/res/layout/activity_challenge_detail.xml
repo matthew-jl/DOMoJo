@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:text="@{viewModel.challengeDetails.isJoined ? @string/post_activity_button : @string/join_challenge_button}"
-                    android:backgroundTint="@color/color2"
+                    android:backgroundTint="@color/color4"
                     android:textColor="@android:color/white"
                     android:onClick="@{() -> viewModel.challengeDetails.isJoined ? viewModel.onPostActivityClicked() : viewModel.onJoinChallengeClicked(viewModel.challengeDetails)}"
                     />
