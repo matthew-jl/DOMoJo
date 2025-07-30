@@ -30,6 +30,8 @@ class LandingActivity : BaseActivity() {
         carouselPagerAdapter = CarouselPagerAdapter()
         binding.viewPagerCarousel.adapter = carouselPagerAdapter
 
+        binding.tabLayoutDots.setSelectedTabIndicatorHeight(0)
+
         TabLayoutMediator(binding.tabLayoutDots, binding.viewPagerCarousel) { tab, position ->
         }.attach()
 

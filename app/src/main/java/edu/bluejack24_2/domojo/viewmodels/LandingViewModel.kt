@@ -18,19 +18,19 @@ class LandingViewModel : ViewModel() {
     private fun loadCarouselItems() {
         val items = listOf(
             CarouselItem(
-                imageUrl = "https://res.cloudinary.com/dr09lvoly/image/upload/v1743751700/hhfaqrmyu7akmn92dwzk.jpg", // Replace with your actual image URLs
+                imageUrl = "https://res.cloudinary.com/dbllc6nd9/image/upload/v1753852984/carousel_1_thg7z4.png",
                 heading = "Discover New Challenges",
-                description = "Join exciting challenges across various categories and push your limits!"
+                description = "Join exciting challenges across various categories and grow your streak every day!"
             ),
             CarouselItem(
-                imageUrl = "https://res.cloudinary.com/dr09lvoly/image/upload/v1752805832/vm4xyyii67vn0prypesa.jpg", // Replace
-                heading = "Connect & Collaborate",
-                description = "Team up with friends or find new partners to conquer goals together."
+                imageUrl = "https://res.cloudinary.com/dbllc6nd9/image/upload/v1753865713/carousel_2_q0mbag.png",
+                heading = "Connect with Communities",
+                description = "Share your progress with friends and be a part of a community that conquers goals together."
             ),
             CarouselItem(
-                imageUrl = "https://res.cloudinary.com/dr09lvoly/image/upload/v1752851976/aj1lrums7xiajy1td8df.jpg", // Replace
+                imageUrl = "https://res.cloudinary.com/dbllc6nd9/image/upload/v1753865713/carousel_3_kobnm7.png",
                 heading = "Track Your Progress",
-                description = "Monitor your achievements, earn rewards, and celebrate your success."
+                description = "Monitor your streaks, earn cosmetic badges, and celebrate your success."
             )
         )
         _carouselItems.value = items

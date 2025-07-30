@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="edu.bluejack24_2.domojo.viewmodels.LandingViewModel" />
@@ -14,9 +13,9 @@
         android:id="@+id/main_landing_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:gravity="center_horizontal"
+        android:background="?attr/colorSurface"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:padding="24dp"
         tools:context=".views.ui.LandingActivity">
 
@@ -30,60 +29,68 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:text="@string/app_name"
-            android:textColor="@color/color1"
             android:textSize="28sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/landing_tagline"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurface"
             android:gravity="center_horizontal"
-            android:text="@string/app_welcome_message"
-            android:textColor="@color/color4"
-            android:textSize="14sp" />
+            android:layout_marginBottom="24dp" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager_carousel"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/rounded_corner_background"
-            />
+        android:id="@+id/view_pager_carousel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout_dots"
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:layout_marginBottom="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@android:color/transparent"
             app:tabBackground="@drawable/tab_indicator_selector"
             app:tabGravity="center"
+            app:tabIndicator="@null"
+            app:tabIndicatorColor="@android:color/transparent"
+            app:tabMode="scrollable"
+            app:tabPaddingTop="0dp"
+            app:tabPaddingBottom="0dp"
+            app:tabMaxWidth="12dp"
+            app:tabRippleColor="@null"
             />
 
         <Button
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/color4"
             android:text="@string/login"
-            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/color4"
+            android:layout_marginBottom="8dp" />
 
         <Button
             android:id="@+id/register_button"
-            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:text="@string/register"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color4"
             android:backgroundTint="@android:color/transparent"
             android:strokeColor="@color/color4"
-            android:text="@string/register"
-            android:textColor="@color/color4"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="?attr/materialButtonOutlinedStyle"/>
 
     <TextView
         android:id="@+id/profile_link"
