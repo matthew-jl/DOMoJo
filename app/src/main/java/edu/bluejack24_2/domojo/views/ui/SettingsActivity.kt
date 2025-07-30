@@ -1,5 +1,6 @@
 package edu.bluejack24_2.domojo.views.ui
 
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -19,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.databinding.ActivitySettingsBinding
 import edu.bluejack24_2.domojo.utils.LocaleHelper
+import edu.bluejack24_2.domojo.utils.NotificationScheduler
 import edu.bluejack24_2.domojo.utils.ThemeHelper
 import edu.bluejack24_2.domojo.viewmodels.SettingsViewModel
 
@@ -37,9 +39,37 @@ class SettingsActivity : BaseActivity() {
         setupLanguageDropdown()
         setupDarkModeSwitch()
         setupNotificationSwitch()
+        setupTimePicker()
         setupClickListeners()
         setupObservers()
+    }
 
+    private fun setupTimePicker() {
+        // Load saved time
+        val prefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val hour = prefs.getInt("notification_hour", 8)
+        val minute = prefs.getInt("notification_minute", 0)
+        viewModel.setNotificationTime(hour, minute)
+
+        binding.btnSetTime.setOnClickListener {
+            showTimePickerDialog()
+        }
+    }
+
+    private fun showTimePickerDialog() {
+        val hour = viewModel.getNotificationHour()
+        val minute = viewModel.getNotificationMinute()
+
+        TimePickerDialog(
+            this,
+            { _, selectedHour, selectedMinute ->
+                viewModel.setNotificationTime(selectedHour, selectedMinute)
+                NotificationScheduler.scheduleDailyNotification(this, selectedHour, selectedMinute)
+            },
+            hour,
+            minute,
+            true // 24-hour format
+        ).show()
     }
 
     private fun setupNotificationSwitch() {
@@ -51,8 +81,14 @@ class SettingsActivity : BaseActivity() {
         binding.notificationsSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 checkAndRequestNotificationPermission()
+                // Schedule notification with saved time
+                val prefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+                val hour = prefs.getInt("notification_hour", 8)
+                val minute = prefs.getInt("notification_minute", 0)
+                NotificationScheduler.scheduleDailyNotification(this, hour, minute)
             } else {
                 saveNotificationPreference(false)
+                NotificationScheduler.cancelDailyNotification(this)
             }
         }
     }
@@ -212,6 +248,7 @@ class SettingsActivity : BaseActivity() {
         }
 
         binding.saveSettingsButton.setOnClickListener {
+            viewModel.saveNotificationTime(this)
             showRestartDialog()
         }
     }

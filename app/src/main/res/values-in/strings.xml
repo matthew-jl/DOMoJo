@@ -7,6 +7,14 @@
     <string name="no">Tidak</string>
     <string name="back_button_desc">Kembali</string>
 
+    <string name="carousel_heading_1">Temukan Tantangan Baru</string>
+    <string name="carousel_description_1">Ikuti tantangan seru di berbagai kategori dan pertahankan streak Anda setiap hari!</string>
+
+    <string name="carousel_heading_2">Bergabung dengan Komunitas</string>
+    <string name="carousel_description_2">Bagikan kemajuan Anda dengan teman dan jadilah bagian dari komunitas yang berjuang bersama.</string>
+
+    <string name="carousel_heading_3">Lacak Progres Anda</string>
+    <string name="carousel_description_3">Pantau streak Anda, dapatkan lencana kosmetik, dan rayakan produktivitas Anda.</string>
     <!-- Landing Page -->
     <string name="landing_tagline">Selamat datang ke DOMoJo, aplikasi streak personal Anda!</string>
     <string name="app_welcome_message">Selamat datang ke DOMoJo, aplikasi streak personal Anda!</string>
@@ -170,6 +178,11 @@
     <string name="enable_notifications">Aktifkan Notifikasi</string>
     <string name="notification_permission_title">Izin Notifikasi Diperlukan</string>
     <string name="notification_permission_message">Untuk menerima notifikasi, harap izinkan akses notifikasi.</string>
+
+    <string name="daily_reminder_time">Waktu pengingat harian</string>
+    <string name="set_time">Pilih Waktu</string>
+    <string name="daily_reminder_title">Pengingat Streak</string>
+    <string name="daily_reminder_message">Waktunya melanjutkan streak hari ini!</string>
 
     <string name="continue_text">Lanjutkan</string>
 

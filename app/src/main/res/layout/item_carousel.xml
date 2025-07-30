@@ -45,7 +45,8 @@
             android:textSize="14sp"
             android:textColor="?attr/colorSecondary"
             android:gravity="center_horizontal"
-            tools:text="Description Text"/>
+            tools:text="Description Text"
+            android:paddingHorizontal="16dp"/>
 
     </LinearLayout>
 </layout>

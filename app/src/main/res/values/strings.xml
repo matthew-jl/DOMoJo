@@ -9,6 +9,14 @@
 
     <!-- Landing Page -->
     <string name="landing_tagline">Welcome to DOMoJo, your personal streak app!</string>
+    <string name="carousel_heading_1">Discover New Challenges</string>
+    <string name="carousel_description_1">Join exciting challenges across various categories and grow your streak every day!</string>
+
+    <string name="carousel_heading_2">Connect with Communities</string>
+    <string name="carousel_description_2">Share your progress with friends and be a part of a community that conquers goals together.</string>
+
+    <string name="carousel_heading_3">Track Your Progress</string>
+    <string name="carousel_description_3">Monitor your streaks, earn cosmetic badges, and celebrate your success.</string>
     <string name="app_welcome_message">Welcome to DOMoJo, your personal streak app!</string>
     <string name="get_started">Get Started</string>
     <string name="app_logo_desc">App Logo</string>
@@ -172,7 +180,13 @@
     <string name="notification_permission_title">Notification Permission Needed</string>
     <string name="notification_permission_message">To receive notifications, please allow the notification permission.</string>
 
+    <string name="daily_reminder_time">Daily reminder time</string>
+    <string name="set_time">Set Time</string>
+    <string name="daily_reminder_title">Streak Reminder</string>
+    <string name="daily_reminder_message">It\'s time to continue your streaks for today!</string>
+
     <string name="continue_text">Continue</string>
+    <string name="cancel">Cancel</string>
 
     <string name="theme_subheading">Theme</string>
     <string name="dark_mode">Dark Mode</string>
