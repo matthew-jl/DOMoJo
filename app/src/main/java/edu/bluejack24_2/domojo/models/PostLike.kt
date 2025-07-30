@@ -6,10 +6,10 @@ import java.util.Date
 
 data class PostLike(
     @DocumentId
-    var id: String = "", // Firestore document ID for this like/dislike entry
-    var postId: String = "", // ID of the post that was liked/disliked
-    var userId: String = "", // ID of the user who performed the action
-    var type: String = "", // "like" or "dislike"
+    var id: String = "",
+    var postId: String = "",
+    var userId: String = "",
+    var type: String = "",
     @ServerTimestamp
-    var createdAt: Date? = null // Timestamp when the interaction occurred
+    var createdAt: Date? = null
 )

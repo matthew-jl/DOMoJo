@@ -17,7 +17,7 @@ import edu.bluejack24_2.domojo.viewmodels.LandingViewModel
 
 class LandingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLandingBinding
-    private lateinit var viewModel: LandingViewModel // Declare ViewModel
+    private lateinit var viewModel: LandingViewModel
     private lateinit var carouselPagerAdapter: CarouselPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,22 +25,18 @@ class LandingActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_landing)
 
         viewModel = ViewModelProvider(this).get(LandingViewModel::class.java)
-        binding.lifecycleOwner = this // Important for LiveData observation
+        binding.lifecycleOwner = this
 
-        // Initialize Carousel Adapter
         carouselPagerAdapter = CarouselPagerAdapter()
-        binding.viewPagerCarousel.adapter = carouselPagerAdapter // Set adapter to ViewPager2
+        binding.viewPagerCarousel.adapter = carouselPagerAdapter
 
         TabLayoutMediator(binding.tabLayoutDots, binding.viewPagerCarousel) { tab, position ->
-            // You don't need to set text/icon for dots, just attach
         }.attach()
 
-        // Observe carouselItems from ViewModel to update the adapter
         viewModel.carouselItems.observe(this, Observer { items ->
-            carouselPagerAdapter.updateItems(items) // Update adapter with new data
+            carouselPagerAdapter.updateItems(items)
         })
 
-        // Set click listeners for the buttons
         binding.registerButton.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
@@ -55,12 +51,10 @@ class LandingActivity : AppCompatActivity() {
 
     override fun onStart(){
         super.onStart()
-        // Check if user is already logged in
         if (viewModel.isUserLoggedIn()) {
-            // If user is logged in, navigate to ChallengeActivity
             val intent = Intent(this, ChallengeActivity::class.java)
             startActivity(intent)
-            finish() // Close LoginActivity
+            finish()
         }
     }
 }

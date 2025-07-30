@@ -3,18 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
+    <color name="gray">#BEBEBE</color>
+
     <color name="color1">#4A4063</color>
     <color name="color2">#BFACC8</color>
     <color name="color3">#C8C6D7</color>
     <color name="color4">#783F8E</color>
     <color name="color5">#4F1271</color>
-
-    <!-- Background colors -->
-    <color name="avatar_background">#D3D3D3</color>
-    <color name="post_image_background">#D3D3D3</color>
-
-    <!-- Text colors -->
-    <color name="text_primary">@color/black</color>
-    <color name="text_secondary">@color/color5</color>
-    <color name="accent_text">@color/color2</color>
 </resources>

@@ -2,19 +2,16 @@ package edu.bluejack24_2.domojo.repositories
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue // Import FieldValue for increments
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
-import edu.bluejack24_2.domojo.models.Post // Your main Post model (ChallengeActivityPost renamed to Post)
-import edu.bluejack24_2.domojo.models.PostLike // The new PostLike model
+import edu.bluejack24_2.domojo.models.PostLike
 
 class PostLikeRepository() {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val TAG = "PostLikeRepo"
-    private val likesCollection = firestore.collection("post_likes") // Firestore collection for likes/dislikes
-    private val postsCollection = firestore.collection("challenge_activity_posts") // Your main posts collection
+    private val likesCollection = firestore.collection("post_likes")
+    private val postsCollection = firestore.collection("challenge_activity_posts")
 
     fun toggleLike(
         postId: String,
@@ -52,7 +49,6 @@ class PostLikeRepository() {
                             transaction.delete(existingLikeRef)
                             if (type == "like") currentLikes-- else currentDislikes--
                             currentUserAction = "none"
-                            Log.d(TAG, "User $userId toggled off $type on post $postId (WORKAROUND)")
                         } else {
                             transaction.update(existingLikeRef, "type", type)
                             if (type == "like") {
@@ -64,13 +60,11 @@ class PostLikeRepository() {
                                 currentDislikes++
                                 currentUserAction = "dislike"
                             }
-                            Log.d(TAG, "User $userId changed interaction from $existingType to $type on post $postId (WORKAROUND)")
                         }
                     } else {
                         transaction.set(likesCollection.document(), PostLike(postId = postId, userId = userId, type = type))
                         if (type == "like") currentLikes++ else currentDislikes++
                         currentUserAction = type
-                        Log.d(TAG, "User $userId added new $type on post $postId (WORKAROUND)")
                     }
 
                     transaction.update(postRef, "likeCount", currentLikes)

@@ -9,12 +9,12 @@ import edu.bluejack24_2.domojo.views.ui.ChallengePostsFragment
 class ChallengeDetailPagerAdapter (activity: AppCompatActivity,
                                    private val challengeId: String): FragmentStateAdapter(activity) {
 
-    override fun getItemCount(): Int = 2 // We have 2 tabs: Posts and Leaderboard
+    override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ChallengePostsFragment.newInstance(challengeId) // For "Posts" tab
-            1 -> ChallengeLeaderboardFragment.newInstance(challengeId) // For "Leaderboard" tab
+            0 -> ChallengePostsFragment.newInstance(challengeId)
+            1 -> ChallengeLeaderboardFragment.newInstance(challengeId)
             else -> throw IllegalStateException("Invalid position $position")
         }
     }

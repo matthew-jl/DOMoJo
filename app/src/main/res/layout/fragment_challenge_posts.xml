@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="edu.bluejack24_2.domojo.viewmodels.ChallengeDetailViewModel" />
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
@@ -19,9 +21,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
             android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
             android:padding="8dp"
             android:visibility="@{viewModel.challengeDetails.isJoined &amp;&amp; viewModel.usersTodayPost != null ? View.VISIBLE : View.GONE}"
             tools:visibility="visible">
@@ -29,12 +31,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My-Post"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:layout_marginBottom="8dp"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:text="@string/my_post"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <include
                 android:id="@+id/users_today_post_item"
@@ -48,38 +50,38 @@
             android:id="@+id/no_post_today_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kamu belum membuat post hari ini!"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal"
+            android:text="@string/no_posts_today"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="16dp"
             android:visibility="@{viewModel.challengeDetails.isJoined &amp;&amp; viewModel.usersTodayPost == null ? View.VISIBLE : View.GONE}"
             tools:visibility="visible" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Posts pengguna lain"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:text="@string/other_user_posts"
             android:textColor="@color/black"
-            android:layout_marginBottom="8dp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/challenge_posts_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:nestedScrollingEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_post"
-            android:nestedScrollingEnabled="false" />
+            tools:listitem="@layout/item_post" />
 
         <TextView
             android:id="@+id/no_posts_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Belum ada posts untuk tantangan ini."
-            android:textColor="@color/color5"
             android:gravity="center"
+            android:text="@string/no_challenge_posts"
+            android:textColor="@color/color5"
             android:visibility="@{viewModel.posts.empty &amp;&amp; !viewModel.isLoading &amp;&amp; viewModel.usersTodayPost == null ? View.VISIBLE : View.GONE}"
             tools:visibility="gone" />
 

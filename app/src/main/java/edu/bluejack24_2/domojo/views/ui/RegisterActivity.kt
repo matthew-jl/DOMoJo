@@ -5,16 +5,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.databinding.ActivityRegisterBinding
-import edu.bluejack24_2.domojo.utils.CloudinaryClient
 import edu.bluejack24_2.domojo.viewmodels.RegisterViewModel
 import java.io.File
 import java.io.FileOutputStream

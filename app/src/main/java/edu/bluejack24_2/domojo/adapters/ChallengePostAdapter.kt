@@ -2,10 +2,9 @@ package edu.bluejack24_2.domojo.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View // Import View
+import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.findViewTreeLifecycleOwner // Make sure this is imported
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack24_2.domojo.databinding.ItemPostBinding
@@ -32,10 +31,7 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
 
     override fun onBindViewHolder(holder: ChallengePostViewHolder, position: Int) {
         holder.binding.lifecycleOwner = holder.itemView.findViewTreeLifecycleOwner()
-        Log.d("ChallengePostAdapter", "Lifecycle owner set for post at position $position: ${holder.binding.lifecycleOwner?.javaClass?.simpleName}")
         holder.bind(posts[position])
-        // The lifecycleOwner for the binding is already set by the onViewAttachedToWindow listener
-        // You can remove this line now: holder.binding.lifecycleOwner = holder.itemView.findViewTreeLifecycleOwner() as LifecycleOwner?
     }
 
     class ChallengePostViewHolder(val binding: ItemPostBinding,
@@ -44,14 +40,14 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
 
         private val dateFormatter = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault())
         private val userRepository: UserRepository = UserRepository()
-        private val commentAdapter: PostCommentAdapter // Declare here, initialize in init
+        private val commentAdapter: PostCommentAdapter
 
         init {
-            commentAdapter = PostCommentAdapter(comments = emptyList(), userRepository) // Initialize here
+            commentAdapter = PostCommentAdapter(comments = emptyList(), userRepository)
 
             binding.commentsRecyclerView.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = commentAdapter // Set the adapter
+                adapter = commentAdapter
                 isNestedScrollingEnabled = false
             }
 
@@ -63,8 +59,7 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
 
             binding.dislikeButton.setOnClickListener {
                 binding.post?.id?.let { postId ->
-                    // Assuming you have onDislikeClicked in your ViewModel
-                    viewModel.onLikeClicked(postId, "dislike") // Use onLikeClicked with "dislike" type
+                    viewModel.onLikeClicked(postId, "dislike")
                 }
             }
 
@@ -74,60 +69,45 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
                 }
             }
 
-            // Move the LiveData observers here, inside the init block
-            // because onViewAttachedToWindow provides the lifecycleOwner
-            // AND guarantees that the view (and its adapter) are attached.
             itemView.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
                 override fun onViewAttachedToWindow(v: View) {
                     val lifecycleOwner = v.findViewTreeLifecycleOwner()
-                    binding.lifecycleOwner = lifecycleOwner // Set for data binding directly
+                    binding.lifecycleOwner = lifecycleOwner
 
-                    // First, fetch the comments BEFORE setting up observers
                     val postId = binding.post?.id
                     if (postId != null) {
                         viewModel.fetchRecentCommentsForPost(postId)
                     }
 
-
                     if (lifecycleOwner != null) {
-                        // Always clear previous observers for this lifecycle owner (important in RecyclerView)
                         viewModel.recentCommentsMap.removeObservers(lifecycleOwner)
 
                         viewModel.recentCommentsMap.observe(lifecycleOwner) { commentsMap ->
                             val comments = commentsMap[binding.post?.id] ?: emptyList()
-                            Log.d("ChallengePostAdapter", "Observed ${comments.size} comments for post ${binding.post?.id}")
                             commentAdapter.updateComments(comments)
                         }
                     }
 
                     lifecycleOwner?.let { owner ->
-                        Log.d("ChallengePostAdapter", "Lifecycle owner attached: ${owner.javaClass.simpleName}")
-
-                        // Observe recent comments map
-                        viewModel.recentCommentsMap.removeObservers(owner) // Always remove old observers
+                        viewModel.recentCommentsMap.removeObservers(owner)
                         viewModel.recentCommentsMap.observe(owner) { commentsMap ->
 
                             if (commentsMap == null) {
-                                Log.w("ChallengePostAdapter", "recentCommentsMap delivered a null map for post: ${binding.post?.id}")
-                                commentAdapter.updateComments(emptyList()) // Update with empty list if map is null
-                                return@observe // Exit early
+                                commentAdapter.updateComments(emptyList())
+                                return@observe
                             }
 
                             val postId = binding.post?.id ?: return@observe
                             val recentComments = commentsMap[postId] ?: emptyList()
 
-                            // **No need for the cast 'as PostCommentAdapter' now**
-                            // Because 'commentAdapter' is directly accessible and is known type
                             commentAdapter.updateComments(recentComments)
                             Log.d("Challenge Post Adapter", "Updated comments for post $postId: ${recentComments.size}")
                         }
 
-                        // Observe post user actions
-                        viewModel.postUserActions.removeObservers(owner) // Always remove old observers
+                        viewModel.postUserActions.removeObservers(owner)
                         viewModel.postUserActions.observe(owner) { actionsMap ->
-                            val postId = binding.post?.id ?: return@observe // Get postId from bound post
+                            val postId = binding.post?.id ?: return@observe
                             val userAction = actionsMap[postId] ?: "none"
-                            Log.d("ChallengePostAdapter", "Post ${postId} user action changed to: $userAction - Updating image resources.")
                             when (userAction) {
                                 "like" -> {
                                     binding.likeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_like_filled)
@@ -149,18 +129,11 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
                 }
 
                 override fun onViewDetachedFromWindow(v: View) {
-                    // LiveData observers tied to 'owner' will automatically stop when 'owner' is destroyed.
-                    // However, if the ViewHolder is just recycled, 'owner' might still be active.
-                    // For safety, you might want to manually remove observers that are *not* tied to the item's own lifecycle,
-                    // but usually, LiveData's lifecycle awareness handles this correctly for the attached owner.
                     Log.d("ChallengePostAdapter", "View detached from window for post: ${binding.post?.id}")
                 }
             })
         }
 
-
-
-        // The bind method is now purely for setting data, not for lifecycle-dependent observer registration
         fun bind(post: Post) {
             binding.post = post
             binding.viewModel = viewModel

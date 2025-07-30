@@ -81,27 +81,20 @@ class ChallengeRepository() {
             }
     }
 
-    /**
-     * Fetches a single Challenge document by its ID.
-     * Used for the Challenge Detail page.
-     */
     fun getChallenge(challengeId: String, onSuccess: (Challenge?) -> Unit, onFailure: (String) -> Unit) {
-        Log.d(TAG, "getChallenge: Attempting to fetch challenge with ID: $challengeId")
         firestore.collection("challenges").document(challengeId).get()
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot.exists()) {
-                    val challenge = documentSnapshot.toObject<Challenge>() // Use toObject<T>()
+                    val challenge = documentSnapshot.toObject<Challenge>()
                     if (challenge != null) {
-                        challenge.id = documentSnapshot.id // Ensure ID is set
-                        Log.d(TAG, "getChallenge: Successfully fetched challenge: ${challenge.title} (ID: ${challenge.id})")
+                        challenge.id = documentSnapshot.id
                         onSuccess(challenge)
                     } else {
                         Log.w(TAG, "getChallenge: Failed to parse document ${documentSnapshot.id} to Challenge object (returned null).")
-                        onSuccess(null) // Document exists but couldn't be parsed
+                        onSuccess(null)
                     }
                 } else {
-                    Log.d(TAG, "getChallenge: Challenge with ID $challengeId does not exist.")
-                    onSuccess(null) // Challenge does not exist
+                    onSuccess(null)
                 }
             }
             .addOnFailureListener { exception ->

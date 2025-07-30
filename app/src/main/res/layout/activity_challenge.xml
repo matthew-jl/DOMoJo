@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="edu.bluejack24_2.domojo.viewmodels.ChallengeViewModel" />
@@ -23,54 +24,54 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/challenges_feed_title"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:paddingStart="24dp"
-                android:paddingEnd="24dp"
                 android:paddingTop="16dp"
-                android:paddingBottom="16dp" />
+                android:paddingEnd="24dp"
+                android:paddingBottom="16dp"
+                android:text="@string/challenges_feed_title"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:layout_marginBottom="16dp">
+                android:paddingEnd="24dp">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/search_icon"
+                    android:layout_marginEnd="8dp"
                     android:contentDescription="@string/search_icon_desc"
-                    android:layout_marginEnd="8dp" />
+                    android:src="@drawable/search_icon" />
 
                 <EditText
                     android:id="@+id/search_edit_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@android:color/transparent"
                     android:hint="@string/search_hint"
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
-                    android:background="@android:color/transparent"
                     android:text="@={viewModel.searchQuery}" />
 
                 <ImageView
                     android:id="@+id/filter_button"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/filter_icon"
-                    android:contentDescription="@string/sort_button_desc"
-                    android:clickable="true"
-                    android:focusable="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="4dp" />
+                    android:clickable="true"
+                    android:contentDescription="@string/sort_button_desc"
+                    android:focusable="true"
+                    android:padding="4dp"
+                    android:src="@drawable/filter_icon" />
 
             </LinearLayout>
 
@@ -78,12 +79,12 @@
                 android:id="@+id/error_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Error"
-                android:textColor="@color/red"
                 android:layout_marginBottom="16dp"
-                android:visibility="invisible"
+                android:text="@string/error_text"
+                android:textColor="@color/red"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="invisible" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -99,10 +100,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:clipToPadding="false"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:clipToPadding="false"
-                android:paddingBottom="80dp" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:paddingBottom="80dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_challenge" />
 
         </LinearLayout>
@@ -114,10 +116,10 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:clickable="true"
-            android:focusable="true"
             android:contentDescription="@string/add_challenge_fab_desc"
-            app:srcCompat="@drawable/plus_icon"
-            app:backgroundTint="@color/color2" />
+            android:focusable="true"
+            app:backgroundTint="@color/color2"
+            app:srcCompat="@drawable/plus_icon" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

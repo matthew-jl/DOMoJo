@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 public fun loadImage(imageView: ImageView, url: String?){
     Glide.with(imageView.context)
         .load(url)
-        .placeholder(android.R.drawable.ic_menu_gallery) // Placeholder image
-        .error(android.R.drawable.ic_menu_close_clear_cancel) // Error image
+        .placeholder(android.R.drawable.ic_menu_gallery)
+        .error(android.R.drawable.ic_menu_close_clear_cancel)
         .into(imageView)
 }

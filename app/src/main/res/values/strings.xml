@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DOMoJo</string>
 
+    <!-- Authentication Section -->
     <string name="login">Login</string>
     <string name="login_title">Welcome Back!</string>
     <string name="login_email">Email</string>
@@ -19,6 +21,7 @@
     <string name="register_terms">I agree with terms and conditions</string>
     <string name="register_link">Already have an account? Sign In!</string>
 
+    <!-- Challenge Creation Section -->
     <string name="create_challenge_page_title">Create New Challenge</string>
     <string name="create_challenge_title">Title</string>
     <string name="create_challenge_category">Category</string>
@@ -26,34 +29,34 @@
     <string name="create_challenge_icon">Icon</string>
     <string name="create_challenge_banner">Banner</string>
     <string name="create_challenge_button">Create Challenge</string>
-
     <string name="choose_file">Choose File</string>
 
+    <!-- Challenges Feed Section -->
     <string name="challenges_feed_title">Challenges</string>
     <string name="search_hint">Search...</string>
     <string name="search_icon_desc">Search icon</string>
     <string name="sort_button_desc">Sort/Filter button</string>
     <string name="add_challenge_fab_desc">Add new challenge</string>
 
+    <!-- Challenge Detail Section -->
     <string name="challenge_icon_placeholder">Challenge icon</string>
-    <string name="default_challenge_title">Nama Challenge</string>
+    <string name="default_challenge_title">Challenge Name</string>
     <string name="default_challenge_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="join_challenge_button">Join</string>
     <string name="fire_icon_desc">Fire icon for streak</string>
     <string name="streak_info_placeholder">5</string>
-
     <string name="longest_streak_leaderboard">Longest Streak: %1$d</string>
     <string name="make_post_button">Create Post</string>
     <string name="top_user">Top Users</string>
+    <string name="progress">Your Progress</string>
     <string name="your_current_streak">%1$d</string>
     <string name="your_longest_streak">Your longest streak: %1$d</string>
-
     <string name="post_activity_button">Post Today\'s Activity</string>
 
-    <!-- Post related strings -->
+    <!-- Post Section -->
     <string name="user_avatar_desc">User Avatar</string>
     <string name="username_placeholder">Username</string>
-    <string name="post_time_placeholder">20 menit yang lalu</string>
+    <string name="post_time_placeholder">20 minutes ago</string>
     <string name="post_content_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
     <string name="post_image_desc">Post Image</string>
     <string name="streak_awarded_desc">Streak Awarded</string>
@@ -64,10 +67,66 @@
     <string name="dislike_count_placeholder">5</string>
     <string name="comment_count_placeholder">20</string>
     <string name="see_all_comments">See all comments</string>
-    <string name="error_text">Error</string>
 
-    <!-- Additional colors needed -->
-    <color name="avatar_background">@android:color/darker_gray</color>
-    <color name="post_image_background">@android:color/darker_gray</color>
+    <string name="my_post">My Post</string>
+    <string name="no_posts_today">You haven’t created any posts today!</string>
+    <string name="other_user_posts">Other users posts</string>
+    <string name="no_challenge_posts">There are no posts for this challenge yet.</string>
+
+    <!-- Comments Section -->
+    <string name="all_comments_title">All Comments</string>
+    <string name="add_comment_hint">Add a comment...</string>
+    <string name="submit_comment">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_comments_message">No comments yet. Be the first to comment!</string>
+
+    <!-- Common UI Elements -->
+    <string name="error_text">Error</string>
+    <string name="loading">Loading...</string>
+    <string name="retry">Retry</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="back">Back</string>
+    <string name="close">Close</string>
+    <string name="ok">OK</string>
+
+    <!-- Empty States -->
+    <string name="no_challenges_message">No challenges available</string>
+    <string name="no_posts_message">No posts yet</string>
+    <string name="no_leaderboard_message">No members yet</string>
+
+    <!-- Tabs -->
+    <string name="tab_posts">Posts</string>
+    <string name="tab_leaderboard">Leaderboard</string>
+
+    <string name="select_image">Select Image</string>
+
+    <!-- Landing Page -->
+    <string name="app_welcome_message">Welcome to DOMoJo, your personal streak app!</string>
+    <string name="get_started">Get Started</string>
+    <string name="app_logo_desc">App Logo</string>
+
+    <!-- Error Messages -->
+    <string name="validation_error">Error</string>
+    <string name="required_field">This field is required</string>
+    <string name="invalid_input">Invalid input</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_title_post">Create Post</string>
+    <string name="dialog_title_comment">Add Comment</string>
+    <string name="post_content_hint">What\'s on your mind?</string>
+    <string name="comment_content_hint">Write a comment...</string>
+
+    <!-- Common Buttons -->
+    <string name="submit">Submit</string>
+    <string name="post">Post</string>
+
+    <!-- Navigation -->
+    <string name="challenge_details">Challenge Details</string>
+
+    <!-- Empty States -->
+    <string name="no_leaderboard_text">No leaderboard data available</string>
+
 
 </resources>

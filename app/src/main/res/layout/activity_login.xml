@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="edu.bluejack24_2.domojo.viewmodels.LoginViewModel" />
@@ -41,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:text="@={viewModel.email}"/>
+                android:text="@={viewModel.email}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Error"
+            android:text="@string/error_text"
             android:textColor="@color/red"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -70,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:text="@={viewModel.password}"/>
+                android:text="@={viewModel.password}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,9 +79,9 @@
             android:id="@+id/password_error_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Error"
-            android:textColor="@color/red"
             android:layout_marginBottom="16dp"
+            android:text="@string/error_text"
+            android:textColor="@color/red"
             android:textSize="12sp"
             android:textStyle="bold"
             android:visibility="invisible" />

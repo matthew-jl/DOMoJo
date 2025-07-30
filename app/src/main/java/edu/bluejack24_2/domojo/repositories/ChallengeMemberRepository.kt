@@ -13,9 +13,9 @@ import java.util.Date
 class ChallengeMemberRepository() {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-
     private val TAG = "ChallengeMemberRepo"
 
+    // <Get Challenge Member Section>
     fun getChallengeMemberForChallenge(
         challengeId: String,
         onSuccess: (ChallengeMember?) -> Unit,
@@ -23,26 +23,19 @@ class ChallengeMemberRepository() {
     ) {
         val currentUserId = firebaseAuth.currentUser?.uid
         if (currentUserId.isNullOrBlank()) {
-            Log.d(TAG, "No user logged in. Not fetching challenge member for $challengeId.")
-            onSuccess(null) // Cannot be a member if no user is logged in
+            onSuccess(null)
             return
         }
 
-        // Query the 'challenge_members' collection
-        // looking for documents where 'challengeId' matches and 'userId' matches the current user.
         firestore.collection("challenge_members")
             .whereEqualTo("challengeId", challengeId)
             .whereEqualTo("userId", currentUserId)
             .get()
             .addOnSuccessListener { querySnapshot ->
                 if (!querySnapshot.isEmpty) {
-                    // Found a document, deserialize the first one (should be unique for a user-challenge pair)
                     val member = querySnapshot.documents[0].toObject<ChallengeMember>()
-                    Log.d(TAG, "Found ChallengeMember for challenge $challengeId, user $currentUserId. Current Streak: ${member?.currentStreak}")
                     onSuccess(member)
                 } else {
-                    // No matching document found, user is not a member of this specific challenge
-                    Log.d(TAG, "No ChallengeMember document found for challenge $challengeId, user $currentUserId.")
                     onSuccess(null)
                 }
             }
@@ -53,8 +46,9 @@ class ChallengeMemberRepository() {
             }
     }
 
+    // <Join Challenge Section>
     fun joinChallenge(
-        challenge: Challenge, // Pass the Challenge object to ensure correct data
+        challenge: Challenge,
         onSuccess: (ChallengeMember) -> Unit,
         onFailure: (String) -> Unit
     ) {
@@ -64,24 +58,20 @@ class ChallengeMemberRepository() {
             return
         }
 
-        // Create the ChallengeMember object to be saved
         val newMember = ChallengeMember(
-            challengeId = challenge.id, // Use the ID from the Challenge object
+            challengeId = challenge.id,
             userId = currentUserId,
-            currentStreak = 0, // New member starts with 0 streak
-            longestStreak = 0, // Longest streak also starts at 0
+            currentStreak = 0,
+            longestStreak = 0,
             isActiveMember = true,
             hasCompleted = false,
         )
 
-        // Add a new document to the challenge_members collection. Firestore will generate the ID.
         firestore.collection("challenge_members")
             .add(newMember)
             .addOnSuccessListener { documentReference ->
-                // After success, create a copy of the newMember with the Firestore-generated ID
                 val createdMemberWithId = newMember.copy(id = documentReference.id)
-                Log.d(TAG, "User ${currentUserId} joined challenge ${challenge.id}. Member ID: ${createdMemberWithId.id}")
-                onSuccess(createdMemberWithId) // Pass the member with its new ID
+                onSuccess(createdMemberWithId)
             }
             .addOnFailureListener { e ->
                 val errorMessage = e.localizedMessage ?: "Failed to join challenge."
@@ -90,9 +80,7 @@ class ChallengeMemberRepository() {
             }
     }
 
-    /**
-     * Updates an existing ChallengeMember's streak data and activity status after a post.
-     */
+    // <Update Streak Section>
     fun updateStreak(
         challengeMemberId: String,
         newCurrentStreak: Int,
@@ -111,9 +99,8 @@ class ChallengeMemberRepository() {
             "lastActivityDate" to lastActivityDate
         )
         firestore.collection("challenge_members").document(challengeMemberId)
-            .update(updates as Map<String, Any>) // Cast needed for HashMap type safety
+            .update(updates as Map<String, Any>)
             .addOnSuccessListener {
-                Log.d(TAG, "Updated streak for ChallengeMember $challengeMemberId. Current: $newCurrentStreak, Longest: $newLongestStreak")
                 onSuccess()
             }
             .addOnFailureListener { e ->
@@ -123,11 +110,7 @@ class ChallengeMemberRepository() {
             }
     }
 
-
-    /**
-     * Provides a real-time leaderboard for a specific challenge.
-     * Uses addSnapshotListener for real-time updates.
-     */
+    // <Get Leaderboard Section>
     fun getLeaderboard(
         challengeId: String,
         onData: (List<ChallengeMember>) -> Unit,
@@ -135,8 +118,8 @@ class ChallengeMemberRepository() {
     ): ListenerRegistration {
         return firestore.collection("challenge_members")
             .whereEqualTo("challengeId", challengeId)
-            .orderBy("longestStreak", Query.Direction.DESCENDING) // Order by longest streak
-            .limit(10) // Optional: limit to top 10
+            .orderBy("longestStreak", Query.Direction.DESCENDING)
+            .limit(10)
             .addSnapshotListener { querySnapshot, e ->
                 if (e != null) {
                     val errorMessage = e.localizedMessage ?: "Failed to get real-time leaderboard."
@@ -150,13 +133,11 @@ class ChallengeMemberRepository() {
                     for (doc in querySnapshot.documents) {
                         val member = doc.toObject<ChallengeMember>()
                         if (member != null) {
-                            leaderboard.add(member.copy(id = doc.id)) // Ensure ID is set
+                            leaderboard.add(member.copy(id = doc.id))
                         }
                     }
-                    Log.d(TAG, "Leaderboard for $challengeId updated. Size: ${leaderboard.size}")
                     onData(leaderboard)
                 } else {
-                    Log.d(TAG, "Leaderboard for $challengeId is null (no data).")
                     onData(emptyList())
                 }
             }

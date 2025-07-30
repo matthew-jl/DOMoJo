@@ -74,12 +74,10 @@ class AuthRepository(private val userRepository: UserRepository) {
                         }
                     }
                     .addOnFailureListener { e ->
-                        // Firebase Auth registration failed
                         onResult(e.localizedMessage ?: "Registration failed: Invalid credentials or user exists.")
                     }
             },
             onError = { message ->
-                // Cloudinary upload failed
                 onResult("Profile picture upload failed: $message")
             }
         )

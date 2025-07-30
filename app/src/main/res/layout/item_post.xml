@@ -4,17 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="post"
             type="edu.bluejack24_2.domojo.models.Post" />
+
         <variable
             name="user"
             type="edu.bluejack24_2.domojo.models.User" />
+
         <variable
             name="viewModel"
             type="edu.bluejack24_2.domojo.viewmodels.ChallengeDetailViewModel" />
-        <import type="edu.bluejack24_2.domojo.R"/>
+
+        <import type="edu.bluejack24_2.domojo.R" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -35,13 +40,13 @@
                 android:id="@+id/post_user_avatar_image_view"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:scaleType="centerCrop"
                 android:background="@android:color/darker_gray"
+                android:contentDescription="User Avatar"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{user.avatar}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:imageUrl="@{user.avatar}"
-                tools:src="@drawable/default_avatar"
-                android:contentDescription="User Avatar" />
+                tools:src="@drawable/default_avatar" />
 
             <TextView
                 android:id="@+id/post_username_text_view"
@@ -52,23 +57,23 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/post_user_avatar_image_view"
-                app:layout_constraintTop_toTopOf="@id/post_user_avatar_image_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
-                tools:text="Username"/>
+                app:layout_constraintStart_toEndOf="@id/post_user_avatar_image_view"
+                app:layout_constraintTop_toTopOf="@id/post_user_avatar_image_view"
+                tools:text="Username" />
 
             <TextView
                 android:id="@+id/post_date_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="20 menit yang lalu"
-                android:textColor="@color/color5" android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@id/post_user_avatar_image_view"
-                app:layout_constraintTop_toBottomOf="@id/post_username_text_view"
+                android:textColor="@color/color5"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0" />
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/post_user_avatar_image_view"
+                app:layout_constraintTop_toBottomOf="@id/post_username_text_view" />
 
             <TextView
                 android:id="@+id/post_content_text_view"
@@ -78,9 +83,9 @@
                 android:text="@{post.content}"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@id/post_user_avatar_image_view"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/post_user_avatar_image_view"
                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
 
             <ImageView
@@ -88,121 +93,121 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
                 android:background="@android:color/darker_gray"
-                app:imageUrl="@{post.imageUrl}"
-                app:layout_constraintTop_toBottomOf="@id/post_content_text_view"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:contentDescription="Post Image"
+                android:scaleType="centerCrop"
                 android:visibility="@{post.imageUrl != null &amp;&amp; !post.imageUrl.empty ? View.VISIBLE : View.GONE}"
+                app:imageUrl="@{post.imageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/post_content_text_view"
                 tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/streak_awarded_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/fire_icon"
-                android:contentDescription="Streak Awarded"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:contentDescription="Streak Awarded"
+                android:src="@drawable/fire_icon"
                 android:visibility="@{post.streakAwarded ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
 
             <LinearLayout
                 android:id="@+id/post_actions_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/post_image_view"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/post_image_view">
 
                 <ImageButton
                     android:id="@+id/like_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="Like Post"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    android:onClick="@{() -> viewModel.onLikeClicked(post.id, &quot;like&quot;)}"
                     android:clickable="true"
+                    android:contentDescription="Like Post"
                     android:focusable="true"
-                    tools:src="@drawable/ic_like_outline"/>
+                    android:onClick="@{() -> viewModel.onLikeClicked(post.id, &quot;like&quot;)}"
+                    android:padding="8dp"
+                    tools:src="@drawable/ic_like_outline" />
 
                 <TextView
                     android:id="@+id/like_count_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(post.likeCount)}"
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
                     android:layout_marginEnd="16dp"
-                    tools:text="123"/>
+                    android:text="@{String.valueOf(post.likeCount)}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:text="123" />
 
                 <ImageButton
                     android:id="@+id/dislike_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="Dislike Post"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    android:onClick="@{() -> viewModel.onLikeClicked(post.id, &quot;dislike&quot;)}"
                     android:clickable="true"
+                    android:contentDescription="Dislike Post"
                     android:focusable="true"
-                    tools:src="@drawable/ic_dislike_outline"/>
+                    android:onClick="@{() -> viewModel.onLikeClicked(post.id, &quot;dislike&quot;)}"
+                    android:padding="8dp"
+                    tools:src="@drawable/ic_dislike_outline" />
 
                 <TextView
                     android:id="@+id/dislike_count_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(post.dislikeCount)}"
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
                     android:layout_marginEnd="16dp"
-                    tools:text="5"/>
+                    android:text="@{String.valueOf(post.dislikeCount)}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:text="5" />
 
                 <!--android:onClick="@{() -> viewModel.onCommentClicked(post.id, post.commentCount)}"-->
                 <ImageButton
                     android:id="@+id/comment_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_comment_outline"
-                    android:contentDescription="View Comments"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    android:onClick="@{() -> viewModel.onCommentClicked(post.id)}"
                     android:clickable="true"
+                    android:contentDescription="View Comments"
                     android:focusable="true"
-                    tools:src="@drawable/ic_comment_outline"/>
+                    android:onClick="@{() -> viewModel.onCommentClicked(post.id)}"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_comment_outline"
+                    tools:src="@drawable/ic_comment_outline" />
 
                 <TextView
                     android:id="@+id/comment_count_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{String.valueOf(post.commentCount)}"
-                    android:textSize="14sp"
                     android:textColor="@color/black"
+                    android:textSize="14sp"
                     tools:text="20" />
 
             </LinearLayout>
 
-<!--            @{post.commentCount > 0 ? View.VISIBLE : View.GONE}-->
+            <!--            @{post.commentCount > 0 ? View.VISIBLE : View.GONE}-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/comments_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/post_actions_layout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:nestedScrollingEnabled="false"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/post_actions_layout"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_comment" />
 
@@ -210,16 +215,17 @@
                 android:id="@+id/see_more_comments_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/see_all_comments"
-                android:textColor="@color/color2" android:textSize="14sp"
-                android:layout_marginTop="8dp"
-                android:onClick="@{() -> viewModel.onViewAllCommentsClicked(post.id)}"
                 android:layout_gravity="end"
+                android:layout_marginTop="8dp"
                 android:clickable="true"
                 android:focusable="true"
+                android:onClick="@{() -> viewModel.onViewAllCommentsClicked(post.id)}"
+                android:text="@string/see_all_comments"
+                android:textColor="@color/color2"
+                android:textSize="14sp"
                 android:visibility="@{post.commentCount > 3 ? View.VISIBLE : View.GONE}"
-                app:layout_constraintTop_toBottomOf="@id/comments_recycler_view"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/comments_recycler_view"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,13 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="member"
             type="edu.bluejack24_2.domojo.models.ChallengeMember" />
+
         <variable
             name="user"
             type="edu.bluejack24_2.domojo.models.User" />
+
         <variable
             name="position"
             type="Integer" />
@@ -19,93 +23,93 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="1dp"
         android:background="@android:color/white"
-        android:layout_marginBottom="1dp">
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
 
-<!--        android:text="@{String.valueOf(position + 1) + (position == 0 ? '🥇' : position == 1 ? '🥈' : position == 2 ? '🥉' : '.')}"-->
+        <!--        android:text="@{String.valueOf(position + 1) + (position == 0 ? '🥇' : position == 1 ? '🥈' : position == 2 ? '🥉' : '.')}"-->
 
         <TextView
             android:id="@+id/leaderboard_rank_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:text="@{String.valueOf(position + 1)}"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="8dp"
             tools:text="1." />
 
         <ImageView
             android:id="@+id/leaderboard_member_avatar"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:scaleType="centerCrop"
-            android:background="@android:color/darker_gray"
-            app:imageUrl="@{user.avatar}"
-            app:layout_constraintStart_toEndOf="@id/leaderboard_rank_text_view"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            tools:src="@drawable/default_avatar"
-            android:contentDescription="User Avatar" />
+            android:background="@android:color/darker_gray"
+            android:contentDescription="User Avatar"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{user.avatar}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/leaderboard_rank_text_view"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/default_avatar" />
 
         <LinearLayout
             android:id="@+id/leaderboard_user_info_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:orientation="vertical"
-            app:layout_constraintStart_toEndOf="@id/leaderboard_member_avatar"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/leaderboard_streak_layout"
-            android:layout_marginEnd="8dp">
+            app:layout_constraintStart_toEndOf="@id/leaderboard_member_avatar"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/leaderboard_member_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{user.username}"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{user.username}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 tools:text="Nama Pengguna" />
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/leaderboard_badges_container"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_marginTop="4dp"-->
-<!--                app:badgeUrls="@{user.earnedBadges}"-->
-<!--                android:visibility="@{!user.earnedBadges.empty ? View.VISIBLE : View.GONE}"-->
-<!--                tools:visibility="visible"/>-->
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/leaderboard_badges_container"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="horizontal"-->
+            <!--                android:layout_marginTop="4dp"-->
+            <!--                app:badgeUrls="@{user.earnedBadges}"-->
+            <!--                android:visibility="@{!user.earnedBadges.empty ? View.VISIBLE : View.GONE}"-->
+            <!--                tools:visibility="visible"/>-->
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/leaderboard_streak_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginStart="8dp"
             android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="8dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/fire_icon"
+                android:layout_marginEnd="4dp"
                 android:contentDescription="@string/fire_icon_desc"
-                android:layout_marginEnd="4dp" />
+                android:src="@drawable/fire_icon" />
 
             <TextView
                 android:id="@+id/leaderboard_member_streak_count"
