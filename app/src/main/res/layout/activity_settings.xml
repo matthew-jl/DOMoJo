@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/notifications_subheading"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="?attr/colorPrimaryContainer"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"/>
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/theme_subheading"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="?attr/colorPrimaryContainer"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"/>
@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/language_subheading"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="?attr/colorPrimaryContainer"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"/>
@@ -123,6 +123,7 @@
                 android:hint="@string/choose_language"
                 app:boxStrokeColor="@color/color3"
                 app:hintTextColor="@color/color3"
+                app:boxBackgroundColor="?attr/colorSurfaceContainer"
                 android:layout_marginBottom="32dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 

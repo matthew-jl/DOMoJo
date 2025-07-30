@@ -38,7 +38,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/setting_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/color5"
+                app:tint="?attr/colorPrimary"
                 tools:src="@drawable/ic_settings" />
 
             <TextView
@@ -46,7 +46,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{setting.name}"
-                android:textColor="@color/color5"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="16sp"
                 android:textStyle="normal"
                 app:layout_constraintBottom_toTopOf="@id/setting_description"
@@ -63,7 +63,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@{setting.description}"
-                android:textColor="@color/color4"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/setting_name"
@@ -81,7 +81,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/setting_name"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/color2"
+                app:tint="?attr/colorOnSurface"
                 tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

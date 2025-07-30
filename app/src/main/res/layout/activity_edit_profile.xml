@@ -29,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_arrow_left"
+                app:tint="?attr/colorOnSurface"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/back_button_desc"
                 android:layout_marginBottom="16dp"/>
@@ -38,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/edit_profile_title"
-                android:textColor="@color/color1"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textAlignment="center"
@@ -63,27 +64,29 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/change_avatar"
-                android:textColor="@color/color4"
+                android:textColor="?attr/colorPrimaryContainer"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_marginBottom="32dp"/>
 
             <!-- Your Information Subheading -->
+
+            <!-- Username Field -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:text="@string/your_information"
-                android:textColor="@color/color5"
+                android:textColor="?attr/colorPrimaryContainer"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"/>
+                android:textStyle="bold" />
 
-            <!-- Username Field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/username"
                 app:boxStrokeColor="@color/color4"
-                app:hintTextColor="@color/color3">
+                app:hintTextColor="@color/color3"
+                app:boxBackgroundColor="?attr/colorSurfaceContainer">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/username_et"
@@ -91,7 +94,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:text="@={viewModel.username}"/>
+                    android:text="@={viewModel.username}"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -111,7 +115,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
                 app:boxStrokeColor="@color/color4"
-                app:hintTextColor="@color/color3">
+                app:hintTextColor="@color/color3"
+                app:boxBackgroundColor="?attr/colorSurfaceContainer">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_et"
@@ -141,6 +146,7 @@
                 android:hint="@string/password"
                 app:boxStrokeColor="@color/color4"
                 app:hintTextColor="@color/color3"
+                app:boxBackgroundColor="?attr/colorSurfaceContainer"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -170,6 +176,7 @@
                 android:hint="@string/confirm_password"
                 app:boxStrokeColor="@color/color4"
                 app:hintTextColor="@color/color3"
+                app:boxBackgroundColor="?attr/colorSurfaceContainer"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
