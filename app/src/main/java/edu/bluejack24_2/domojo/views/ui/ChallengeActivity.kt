@@ -29,12 +29,19 @@ class ChallengeActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        challengeAdapter = ChallengeAdapter(ArrayList())
+        challengeAdapter = ChallengeAdapter(ArrayList()).apply {
+            setOnJoinClickListener { challengeId ->
+                viewModel.onJoinChallengeClicked(challengeId)
+            }
+            setOnItemClickListener { challengeId ->
+                viewModel.onChallengeItemClicked(challengeId)
+            }
+        }
         binding.challengesRecyclerView.adapter = challengeAdapter
 
         binding.challengesRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@ChallengeActivity) // Ensure LayoutManager is set
-            adapter = challengeAdapter // <--- THIS IS THE CRUCIAL MISSING LINE
+            layoutManager = LinearLayoutManager(this@ChallengeActivity)
+            adapter = challengeAdapter
         }
 
         viewModel.fetchChallenges()
@@ -43,7 +50,6 @@ class ChallengeActivity : AppCompatActivity() {
         binding.addChallengeFab.setOnClickListener{
             val intent = Intent(this, CreateChallengeActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         binding.filterButton.setOnClickListener {
@@ -75,6 +81,16 @@ class ChallengeActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.navigateToChallengeDetail.observe(this, Observer { challengeId ->
+            challengeId?.let { id ->
+                val intent = Intent(this, ChallengeDetailActivity::class.java).apply {
+                    putExtra(ChallengeDetailActivity.EXTRA_CHALLENGE_ID, id)
+                }
+                startActivity(intent)
+                viewModel.onNavigationToChallengeDetailHandled()
+            }
+        })
+
     }
 
     override fun onResume() {
@@ -84,7 +100,6 @@ class ChallengeActivity : AppCompatActivity() {
     }
 
     private fun showCategoryFilterDialog() {
-        // Get categories from ViewModel
         val categories = viewModel.availableCategories.value ?: emptyList()
         val allCategoriesOption = "All Categories"
 

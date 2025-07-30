@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="challenge"
             type="edu.bluejack24_2.domojo.models.Challenge" />
-        <variable
-            name="isJoined"
-            type="Boolean" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
+        android:clickable="true"
+        android:focusable="true"
         app:cardCornerRadius="8dp"
         app:cardElevation="2dp"
         app:strokeColor="@color/color3"
@@ -28,13 +28,13 @@
 
             <ImageView
                 android:id="@+id/challenge_icon_image_view"
+                imageUrl="@{challenge.iconUrl}"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:contentDescription="@string/challenge_icon_placeholder"
                 android:scaleType="centerCrop"
-                imageUrl="@{challenge.iconUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/challenge_icon_placeholder"
                 tools:src="@drawable/default_avatar" />
 
             <TextView
@@ -43,15 +43,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="@{challenge.title}"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:maxLines="1"
-                android:ellipsize="end"
+                app:layout_constraintEnd_toStartOf="@id/right_side_content_group"
                 app:layout_constraintStart_toEndOf="@id/challenge_icon_image_view"
                 app:layout_constraintTop_toTopOf="@id/challenge_icon_image_view"
-                app:layout_constraintEnd_toStartOf="@id/right_side_content_group"
                 tools:text="@string/default_challenge_title" />
 
             <TextView
@@ -61,69 +61,69 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@{challenge.description}"
                 android:textSize="14sp"
-                android:maxLines="2"
-                android:ellipsize="end"
+                app:layout_constraintEnd_toStartOf="@id/right_side_content_group"
                 app:layout_constraintStart_toEndOf="@id/challenge_icon_image_view"
                 app:layout_constraintTop_toBottomOf="@id/challenge_title_text_view"
-                app:layout_constraintEnd_toStartOf="@id/right_side_content_group"
                 tools:text="@string/default_challenge_description" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/right_side_content_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <Button
                     android:id="@+id/join_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/join_challenge_button"
                     android:backgroundTint="@color/color2"
-                    android:textColor="@android:color/white"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
+                    android:paddingStart="8dp"
                     android:paddingTop="8dp"
+                    android:paddingEnd="8dp"
                     android:paddingBottom="8dp"
+                    android:text="@string/join_challenge_button"
+                    android:textColor="@android:color/white"
                     android:textSize="12sp"
-                    android:visibility="@{isJoined ? android.view.View.GONE : android.view.View.VISIBLE}"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="@{challenge.isJoined ? android.view.View.GONE : android.view.View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:visibility="gone"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
 
                 <LinearLayout
                     android:id="@+id/streak_info_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:visibility="@{isJoined ? android.view.View.VISIBLE : android.view.View.GONE}"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:orientation="horizontal"
+                    android:visibility="@{challenge.isJoined ? android.view.View.VISIBLE : android.view.View.GONE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:visibility="visible">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="gone">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/fire_icon"
-                        android:contentDescription="@string/fire_icon_desc" />
+                        android:contentDescription="@string/fire_icon_desc"
+                        android:src="@drawable/fire_icon" />
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/streak_count_text_view"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="4dp"-->
-<!--                        android:text="@{String.valueOf(challenge.streakCount)}"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="16sp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        tools:text="@string/streak_info_placeholder" />-->
+                    <TextView
+                        android:id="@+id/streak_count_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@{String.valueOf(challenge.userCurrentStreak)}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="7" />
 
                 </LinearLayout>
 

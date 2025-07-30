@@ -6,18 +6,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.databinding.ActivityCreateChallengeBinding
-import edu.bluejack24_2.domojo.databinding.ActivityLoginBinding
 import edu.bluejack24_2.domojo.viewmodels.CreateChallengeViewModel
-import edu.bluejack24_2.domojo.viewmodels.LoginViewModel
 import java.io.File
 import java.io.FileOutputStream
 
@@ -49,6 +44,10 @@ class CreateChallengeActivity : AppCompatActivity() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.setNavigationOnClickListener { onBackPressed() }
 
         binding.selectIconButton.setOnClickListener{
             val intent = Intent(Intent.ACTION_PICK)

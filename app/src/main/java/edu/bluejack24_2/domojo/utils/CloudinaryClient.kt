@@ -45,17 +45,17 @@ object CloudinaryClient {
                     override fun onSuccess(requestId: String, resultData: MutableMap<Any?, Any?>) {
                         val imageUrl = resultData["secure_url"].toString()
                         Log.d("CLOUDINARY", "Upload success: $imageUrl")
-                        onSuccess(imageUrl) // ✅ Return URL to caller
+                        onSuccess(imageUrl)
                     }
 
                     override fun onError(requestId: String, error: ErrorInfo) {
                         Log.e("CLOUDINARY", "Upload error: ${error.description}")
-                        onError(error.description) // ✅ Return error to caller
+                        onError(error.description)
                     }
 
                     override fun onReschedule(requestId: String, error: ErrorInfo) {
                         Log.w("CLOUDINARY", "Upload rescheduled: ${error.description}")
-                        onError("Rescheduled: ${error.description}") // ✅ Also handle this as error
+                        onError("Rescheduled: ${error.description}")
                     }
                 })
                 .dispatch()

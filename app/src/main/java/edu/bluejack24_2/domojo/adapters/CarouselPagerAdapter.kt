@@ -9,7 +9,7 @@ import edu.bluejack24_2.domojo.models.CarouselItem
 
 class CarouselPagerAdapter : RecyclerView.Adapter<CarouselPagerAdapter.CarouselPageViewHolder>() {
 
-    private var items: List<CarouselItem> = emptyList() // Internal list of carousel items
+    private var items: List<CarouselItem> = emptyList()
 
     fun updateItems(newItems: List<CarouselItem>) {
         this.items = newItems
@@ -38,8 +38,8 @@ class CarouselPagerAdapter : RecyclerView.Adapter<CarouselPagerAdapter.CarouselP
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(carouselItem: CarouselItem) {
-            binding.carouselItem = carouselItem // Binds the data to the layout
-            binding.executePendingBindings() // Updates views immediately
+            binding.carouselItem = carouselItem
+            binding.executePendingBindings()
         }
     }
 }

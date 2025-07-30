@@ -4,14 +4,22 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import edu.bluejack24_2.domojo.models.Challenge
+import edu.bluejack24_2.domojo.models.ChallengeMember
+import edu.bluejack24_2.domojo.repositories.ChallengeMemberRepository
 import edu.bluejack24_2.domojo.repositories.ChallengeRepository
 
 class ChallengeViewModel: ViewModel() {
+    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val challengeRepository: ChallengeRepository = ChallengeRepository()
+    private val challengeMemberRepository: ChallengeMemberRepository = ChallengeMemberRepository()
 
     private val _navigateToCreateChallenge = MutableLiveData<Boolean>()
     val navigateToCreateChallenge: LiveData<Boolean> get() = _navigateToCreateChallenge
+
+    private val _navigateToChallengeDetail = MutableLiveData<String>()
+    val navigateToChallengeDetail: LiveData<String> get() = _navigateToChallengeDetail
 
     private val _challengeList = MutableLiveData<List<Challenge>>()
     val challengeList: LiveData<List<Challenge>> get() = _challengeList
@@ -21,7 +29,7 @@ class ChallengeViewModel: ViewModel() {
     val searchQuery = MutableLiveData<String>("")
     val selectedCategoryFilter = MutableLiveData<String?>()
 
-    private val _availableCategories = MutableLiveData<List<String>>() // NEW: For filter dialog options
+    private val _availableCategories = MutableLiveData<List<String>>()
     val availableCategories: LiveData<List<String>> get() = _availableCategories
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -31,15 +39,13 @@ class ChallengeViewModel: ViewModel() {
     val errorMessage: LiveData<String?> get() = _errorMessage
 
     init {
-        Log.d("ChallengeViewModel", "Initializing ChallengeViewModel")
         fetchChallenges()
 
         searchQuery.observeForever {
-            Log.d("ChallengeViewModel", "searchQuery changed to: '$it'. Triggering filterChallenges().")
             filterChallenges()
         }
+
         selectedCategoryFilter.observeForever {
-            Log.d("ChallengeViewModel", "selectedCategoryFilter changed to: '$it'. Triggering filterChallenges().")
             filterChallenges()
         }
     }
@@ -72,11 +78,6 @@ class ChallengeViewModel: ViewModel() {
         selectedCategoryFilter.value = category
     }
 
-    fun clearFilters() {
-        searchQuery.value = ""
-        selectedCategoryFilter.value = null
-    }
-
     fun fetchAvailableCategories() {
         val categories = _allChallenges.value?.map { it.category }?.distinct()?.sorted() ?: emptyList()
         _availableCategories.value = categories
@@ -88,20 +89,105 @@ class ChallengeViewModel: ViewModel() {
 
         challengeRepository.getAllChallenges(
             onSuccess = { challenges ->
-                Log.d("ChallengeViewModel", "Challenges fetched successfully from repo. Count: ${challenges.size}.")
-                _allChallenges.value = challenges
-                _isLoading.value = false
-                filterChallenges()
                 if (challenges.isEmpty()) {
+                    _allChallenges.value = emptyList()
+                    _challengeList.value = emptyList()
+                    _isLoading.value = false
+                    filterChallenges()
+                    fetchAvailableCategories()
                     _errorMessage.value = "No challenges available at the moment."
+                    return@getAllChallenges
                 }
-                fetchAvailableCategories()
+
+                val challengesWithMembership = mutableListOf<Challenge>()
+                val totalChallenges = challenges.size
+                var challengesProcessed = 0
+
+                challenges.forEach { challenge ->
+                    challengeMemberRepository.getChallengeMemberForChallenge(
+                        challenge.id,
+                        onSuccess = { member ->
+                            val updatedChallenge = challenge.copy(
+                                isJoined = (member != null),
+                                userCurrentStreak = member?.currentStreak ?: 0
+                            )
+                            challengesWithMembership.add(updatedChallenge)
+                            challengesProcessed++
+
+                            if (challengesProcessed == totalChallenges) {
+                                _allChallenges.value = challengesWithMembership.sortedBy { it.id }
+                                _isLoading.value = false
+                                filterChallenges()
+                                fetchAvailableCategories()
+                            }
+                        },
+                        onFailure = { memberError ->
+                            challengesWithMembership.add(challenge.copy(isJoined = false, userCurrentStreak = 0))
+                            challengesProcessed++
+                            if (challengesProcessed == totalChallenges) {
+                                _allChallenges.value = challengesWithMembership.sortedBy { it.id }
+                                _isLoading.value = false
+                                filterChallenges()
+                                fetchAvailableCategories()
+                            }
+                        }
+                    )
+                }
             },
             onFailure = { message ->
                 _errorMessage.value = message
                 _isLoading.value = false
                 _challengeList.value = emptyList()
                 _allChallenges.value = emptyList()
+            }
+        )
+    }
+
+    fun onChallengeItemClicked(challengeId: String) {
+        _navigateToChallengeDetail.value = challengeId
+    }
+
+    fun onNavigationToChallengeDetailHandled() {
+        _navigateToChallengeDetail.value = null
+    }
+
+    fun onJoinChallengeClicked(challengeId: String) {
+        val userId = firebaseAuth.currentUser?.uid
+        if (userId.isNullOrBlank()) {
+            Log.i("ChallengeViewModel", "User is not logged in. Cannot join challenge.")
+            return
+        }
+
+        val challengeToJoin = _allChallenges.value?.find { it.id == challengeId }
+        if (challengeToJoin == null) {
+            Log.i("ChallengeViewModel", "Challenge with ID ${challengeId} not found in current list. Cannot join.")
+            return
+        }
+        if (challengeToJoin.isJoined) {
+            Log.i("ChallengeViewModel", "User ${userId} is already a member of challenge ${challengeId}. No action taken.")
+            return
+        }
+
+        _isLoading.value = true
+
+        val newMember = ChallengeMember(
+            challengeId = challengeId,
+            userId = userId,
+            currentStreak = 0,
+            longestStreak = 0,
+            isActiveMember = true,
+            hasCompleted = false
+        )
+
+        challengeMemberRepository.joinChallenge(
+            challengeToJoin,
+            onSuccess = { createdMember ->
+                _isLoading.value = false
+                fetchChallenges()
+            },
+            onFailure = { errorMessage ->
+                _isLoading.value = false
+                Log.e("ChallengeViewModel", "Error joining challenge ${challengeId}: $errorMessage")
             }
         )
     }

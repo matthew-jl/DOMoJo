@@ -269,7 +269,6 @@ class AuthRepository(private val userRepository: UserRepository) {
                     }
             },
             onError = { message ->
-                // Cloudinary upload failed
                 onResult("Profile picture upload failed: $message")
             }
         )

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="edu.bluejack24_2.domojo.viewmodels.LandingViewModel" />
@@ -14,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="vertical"
         android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:padding="24dp"
         tools:context=".views.ui.LandingActivity">
 
@@ -34,7 +35,10 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="16dp" />
+            android:text="@string/app_name"
+            android:textColor="@color/color1"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -43,13 +47,15 @@
             android:textSize="14sp"
             android:textColor="@color/color4"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="48dp" />
+            android:text="@string/app_welcome_message"
+            android:textColor="@color/color4"
+            android:textSize="14sp" />
 
         <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager_carousel"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginBottom="16dp" />
+            android:id="@+id/view_pager_carousel"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="16dp" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout_dots"
@@ -61,33 +67,33 @@
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp"
             app:tabMode="scrollable"
-            app:tabPaddingStart="0dp"
+            app:tabPaddingBottom="0dp"
             app:tabPaddingEnd="0dp"
-            app:tabPaddingTop="0dp"
-            app:tabPaddingBottom="0dp" />
+            app:tabPaddingStart="0dp"
+            app:tabPaddingTop="0dp" />
 
         <Button
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="@string/login"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/color4"
-            android:layout_marginBottom="16dp" />
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/register_button"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="@string/register"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/color4"
             android:backgroundTint="@android:color/transparent"
             android:strokeColor="@color/color4"
-            style="?attr/materialButtonOutlinedStyle"/>
+            android:text="@string/register"
+            android:textColor="@color/color4"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     <TextView
         android:id="@+id/profile_link"
