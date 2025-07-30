@@ -155,10 +155,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     app:tabGravity="fill"
-                    app:tabIndicatorColor="?attr/colorTertiary"
+                    app:tabIndicatorColor="?attr/colorPrimary"
                     app:tabMode="fixed"
-                    app:tabSelectedTextColor="?attr/colorTertiary"
-                    app:tabTextColor="@color/black" />
+                    app:tabSelectedTextColor="?attr/colorPrimary"
+                    app:tabTextColor="@android:color/darker_gray" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/detail_view_pager"

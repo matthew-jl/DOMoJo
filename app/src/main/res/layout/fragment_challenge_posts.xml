@@ -53,7 +53,7 @@
             android:layout_marginBottom="16dp"
             android:gravity="center_horizontal"
             android:text="@string/no_posts_today"
-            android:textColor="?attr/colorOnSurface"
+            android:textColor="?attr/colorSecondary"
             android:textSize="16sp"
             android:visibility="@{viewModel.challengeDetails.isJoined &amp;&amp; viewModel.usersTodayPost == null ? View.VISIBLE : View.GONE}"
             tools:visibility="visible" />
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/no_challenge_posts"
-            android:textColor="@color/color5"
+            android:textColor="?attr/colorSecondary"
             android:visibility="@{viewModel.posts.empty &amp;&amp; !viewModel.isLoading &amp;&amp; viewModel.usersTodayPost == null ? View.VISIBLE : View.GONE}"
             tools:visibility="gone" />
 

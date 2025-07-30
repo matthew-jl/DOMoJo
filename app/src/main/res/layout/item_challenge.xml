@@ -120,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:text="@{String.valueOf(challenge.userCurrentStreak)}"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="7" />

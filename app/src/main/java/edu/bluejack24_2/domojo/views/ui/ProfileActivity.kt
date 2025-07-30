@@ -17,9 +17,12 @@ import edu.bluejack24_2.domojo.viewmodels.ProfileViewModel
 
 private const val TAG = "ProfileFlow"
 
-class ProfileActivity : BaseActivity() {
+class ProfileActivity : AppBaseActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var viewModel: ProfileViewModel
+
+    override val currentBottomNavItemId: Int
+        get() = R.id.nav_profile
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,10 @@ class ProfileActivity : BaseActivity() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+//        Setup bottom navbar
+        val bottomNavigationView = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
+        setupBottomNavigation(bottomNavigationView)
 
 //        Setup observers
         viewModel.currentUser.observe(this) { user ->

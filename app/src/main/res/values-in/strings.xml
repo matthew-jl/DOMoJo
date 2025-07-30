@@ -7,6 +7,10 @@
     <string name="no">Tidak</string>
     <string name="back_button_desc">Kembali</string>
 
+    <string name="nav_home">Home</string>
+    <string name="nav_challenges">Tantangan</string>
+    <string name="nav_profile">Profil</string>
+
     <string name="carousel_heading_1">Temukan Tantangan Baru</string>
     <string name="carousel_description_1">Ikuti tantangan seru di berbagai kategori dan pertahankan streak Anda setiap hari!</string>
 

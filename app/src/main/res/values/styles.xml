@@ -17,4 +17,7 @@
         <item name="trackTint">@color/color3</item>
         <item name="thumbTint">@color/color4</item>
     </style>
+    <style name="Theme.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorTertiary</item>
+    </style>
 </resources>

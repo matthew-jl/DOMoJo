@@ -26,7 +26,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_arrow_back"
                 app:navigationIconTint="?attr/colorOnSurface"
-                app:title="Create Challenge" />
+                app:title="@string/create_challenge_page_title" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
