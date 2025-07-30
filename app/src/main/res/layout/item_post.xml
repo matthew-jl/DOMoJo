@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@{user.username}"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:textColor="@color/color5"
+                android:textColor="?attr/colorSecondary"
+                android:hint="23 Jan 2005"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
@@ -81,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@{post.content}"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +138,8 @@
                     android:focusable="true"
                     android:onClick="@{() -> viewModel.onLikeClicked(post.id, &quot;like&quot;)}"
                     android:padding="8dp"
-                    tools:src="@drawable/ic_like_outline" />
+                    tools:src="@drawable/ic_like_outline"
+                    app:tint="?attr/colorOnSurface"/>
 
                 <TextView
                     android:id="@+id/like_count_text_view"
@@ -145,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:text="@{String.valueOf(post.likeCount)}"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="14sp"
                     tools:text="123" />
 
@@ -159,7 +161,8 @@
                     android:focusable="true"
                     android:onClick="@{() -> viewModel.onLikeClicked(post.id, &quot;dislike&quot;)}"
                     android:padding="8dp"
-                    tools:src="@drawable/ic_dislike_outline" />
+                    tools:src="@drawable/ic_dislike_outline"
+                    app:tint="?attr/colorOnSurface"/>
 
                 <TextView
                     android:id="@+id/dislike_count_text_view"
@@ -167,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:text="@{String.valueOf(post.dislikeCount)}"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="14sp"
                     tools:text="5" />
 
@@ -183,14 +186,15 @@
                     android:onClick="@{() -> viewModel.onCommentClicked(post.id)}"
                     android:padding="8dp"
                     android:src="@drawable/ic_comment_outline"
-                    tools:src="@drawable/ic_comment_outline" />
+                    tools:src="@drawable/ic_comment_outline"
+                    app:tint="?attr/colorOnSurface"/>
 
                 <TextView
                     android:id="@+id/comment_count_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{String.valueOf(post.commentCount)}"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="14sp"
                     tools:text="20" />
 
@@ -221,7 +225,7 @@
                 android:focusable="true"
                 android:onClick="@{() -> viewModel.onViewAllCommentsClicked(post.id)}"
                 android:text="@string/see_all_comments"
-                android:textColor="@color/color2"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="14sp"
                 android:visibility="@{post.commentCount > 3 ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"

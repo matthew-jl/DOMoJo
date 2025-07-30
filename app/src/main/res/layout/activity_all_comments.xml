@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_arrow_back"
+                app:navigationIconTint="?attr/colorOnSurface"
                 app:title="Comments" />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -72,7 +73,8 @@
                 android:elevation="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="8dp">
+                android:padding="8dp"
+                android:backgroundTint="?attr/colorSurfaceContainer">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
@@ -89,7 +91,8 @@
                         android:hint="Add a comment..."
                         android:inputType="textMultiLine"
                         android:maxLines="3"
-                        android:padding="12dp" />
+                        android:padding="12dp"
+                        android:textColor="?attr/colorOnSurface"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageButton
@@ -99,7 +102,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Submit Comment"
                     android:src="@drawable/ic_send"
-                    app:tint="@color/color2" />
+                    app:tint="?attr/colorTertiary" />
 
             </LinearLayout>
 

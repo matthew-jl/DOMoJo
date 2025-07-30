@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
-        android:background="@android:color/white"
+        android:background="?attr/colorSurfaceContainer"
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp">
 
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@{String.valueOf(position + 1)}"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +78,7 @@
                 android:maxLines="1"
                 android:layout_marginStart="8dp"
                 android:text="@{user.username}"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="Nama Pengguna" />
@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(member.longestStreak)}"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="133" />

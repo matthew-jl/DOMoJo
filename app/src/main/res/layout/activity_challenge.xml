@@ -13,7 +13,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="?attr/colorSurface"
         tools:context=".views.ui.ChallengesFeedActivity">
 
         <LinearLayout
@@ -29,7 +29,7 @@
                 android:paddingEnd="24dp"
                 android:paddingBottom="16dp"
                 android:text="@string/challenges_feed_title"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
@@ -47,7 +47,8 @@
                     android:layout_height="24dp"
                     android:layout_marginEnd="8dp"
                     android:contentDescription="@string/search_icon_desc"
-                    android:src="@drawable/search_icon" />
+                    android:src="@drawable/search_icon"
+                    app:tint="?attr/colorOnSurface"/>
 
                 <EditText
                     android:id="@+id/search_edit_text"
@@ -56,6 +57,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:hint="@string/search_hint"
+                    android:textColor="?attr/colorOnSurface"
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingTop="8dp"
@@ -71,7 +73,8 @@
                     android:contentDescription="@string/sort_button_desc"
                     android:focusable="true"
                     android:padding="4dp"
-                    android:src="@drawable/filter_icon" />
+                    android:src="@drawable/filter_icon"
+                    app:tint="?attr/colorOnSurface"/>
 
             </LinearLayout>
 
@@ -119,7 +122,8 @@
             android:contentDescription="@string/add_challenge_fab_desc"
             android:focusable="true"
             app:backgroundTint="@color/color2"
-            app:srcCompat="@drawable/plus_icon" />
+            app:srcCompat="@drawable/plus_icon"
+            app:tint="@color/white"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/add_comment_hint"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:hint="Type your comment here...">
+            android:hint="Type your comment here..."
+            app:boxBackgroundColor="?attr/colorSurfaceContainer">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/comment_content_edit_text"
@@ -51,7 +52,8 @@
                 android:id="@+id/submit_comment_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/submit" />
+                android:text="@string/submit"
+                android:textColor="?attr/colorOnSurfaceInverse"/>
         </LinearLayout>
     </LinearLayout>
 </layout>
