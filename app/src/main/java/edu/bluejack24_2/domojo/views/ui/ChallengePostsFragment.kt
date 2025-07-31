@@ -1,5 +1,6 @@
 package edu.bluejack24_2.domojo.views.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -61,7 +62,9 @@ class ChallengePostsFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        postAdapter = ChallengePostAdapter(emptyList(), viewModel)
+        postAdapter = ChallengePostAdapter(emptyList(), viewModel) { userId ->
+            navigateToUserProfile(userId)
+        }
         binding.challengePostsRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = postAdapter
@@ -94,7 +97,9 @@ class ChallengePostsFragment : Fragment() {
         viewModel: ChallengeDetailViewModel,
         lifecycleOwner: LifecycleOwner
     ) {
-        val commentAdapter = PostCommentAdapter(emptyList(), UserRepository())
+        val commentAdapter = PostCommentAdapter(emptyList(), UserRepository()) { userId ->
+            navigateToUserProfile(userId)
+        }
         binding.commentsRecyclerView.adapter = commentAdapter
         binding.commentsRecyclerView.layoutManager = LinearLayoutManager(binding.root.context)
 
@@ -147,5 +152,12 @@ class ChallengePostsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun navigateToUserProfile(userId: String) {
+        val intent = Intent(requireActivity(), ProfileOthersActivity::class.java).apply {
+            putExtra(ProfileOthersActivity.EXTRA_USER_ID, userId)
+        }
+        startActivity(intent)
     }
 }

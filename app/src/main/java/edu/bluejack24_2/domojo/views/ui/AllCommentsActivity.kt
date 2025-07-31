@@ -1,5 +1,6 @@
 package edu.bluejack24_2.domojo.views.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -49,7 +50,12 @@ class AllCommentsActivity : BaseActivity() {
         binding.toolbar.setNavigationOnClickListener { onBackPressed() }
 
         // <RecyclerView Setup Section>
-        commentsAdapter = PostCommentAdapter(emptyList())
+        commentsAdapter = PostCommentAdapter(emptyList()) { userId ->
+            val intent = Intent(this, ProfileOthersActivity::class.java).apply {
+                putExtra(ProfileOthersActivity.EXTRA_USER_ID, userId)
+            }
+            startActivity(intent)
+        }
         binding.allCommentsRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@AllCommentsActivity)
             adapter = commentsAdapter

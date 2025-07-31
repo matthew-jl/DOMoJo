@@ -6,10 +6,10 @@ import java.util.Date
 
 data class PostComment(
     @DocumentId
-    var id: String = "", // Firestore document ID for this comment
-    var postId: String = "", // ID of the post this comment belongs to
-    var userId: String = "", // ID of the user who made the comment
-    var content: String = "", // The actual text content of the comment
+    var id: String = "",
+    var postId: String = "",
+    var userId: String = "",
+    var content: String = "",
     @ServerTimestamp
-    var createdAt: Date? = null // Timestamp when the comment was created
+    var createdAt: Date? = null
 )

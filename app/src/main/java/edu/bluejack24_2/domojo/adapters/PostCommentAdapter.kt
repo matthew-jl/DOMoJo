@@ -14,7 +14,8 @@ import java.util.Locale
 
 class PostCommentAdapter(
     private var comments: List<PostComment>,
-    private val userRepository: UserRepository = UserRepository()
+    private val userRepository: UserRepository = UserRepository(),
+    private val onItemClicked: (userId: String) -> Unit
 ) : RecyclerView.Adapter<PostCommentAdapter.PostCommentViewHolder>() {
     private val TAG = "PostCommentAdapter"
 
@@ -27,7 +28,7 @@ class PostCommentAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostCommentViewHolder {
         val binding = ItemCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostCommentViewHolder(binding, userRepository, dateFormatter)
+        return PostCommentViewHolder(binding, userRepository, dateFormatter, onItemClicked)
     }
 
     override fun getItemCount(): Int = comments.size
@@ -39,12 +40,16 @@ class PostCommentAdapter(
     class PostCommentViewHolder(
         private val binding: ItemCommentBinding,
         private val userRepository: UserRepository,
-        private val dateFormatter: SimpleDateFormat
+        private val dateFormatter: SimpleDateFormat,
+        private val onItemClicked: (userId: String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         private val TAG = "PostCommentAdapter"
         fun bind(comment: PostComment) {
             binding.comment = comment
-            binding.executePendingBindings()
+
+            itemView.setOnClickListener {
+                onItemClicked(comment.userId)
+            }
 
             userRepository.getUser(comment.userId,
                 onSuccess = { user ->
@@ -54,6 +59,8 @@ class PostCommentAdapter(
                     } else {
                         binding.commentUsername.text = "[Unknown User]"
                     }
+
+                    binding.executePendingBindings()
                 },
                 onFailure = { errorMessage ->
                     binding.commentUsername.text = "[Error User]"
