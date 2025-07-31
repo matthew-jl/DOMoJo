@@ -15,10 +15,13 @@ import edu.bluejack24_2.domojo.adapters.JoinedChallengeAdapter
 import edu.bluejack24_2.domojo.databinding.ActivityHomeBinding
 import edu.bluejack24_2.domojo.viewmodels.HomeViewModel
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppBaseActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var viewModel: HomeViewModel
     private lateinit var joinedChallengeAdapter: JoinedChallengeAdapter
+
+    override val currentBottomNavItemId: Int
+        get() = R.id.nav_home
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,10 @@ class HomeActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        //        Setup bottom navbar
+        val bottomNavigationView = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
+        setupBottomNavigation(bottomNavigationView)
 
         joinedChallengeAdapter = JoinedChallengeAdapter(ArrayList()).apply {
             setOnItemClickListener { challengeId ->

@@ -1,5 +1,6 @@
 package edu.bluejack24_2.domojo.views.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -55,7 +56,13 @@ class ChallengeLeaderboardFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        leaderboardAdapter = LeaderboardAdapter(emptyList())
+        leaderboardAdapter = LeaderboardAdapter(emptyList()) { userId ->
+            // Block to execute when leaderboard item is clicked
+            val intent = Intent(requireActivity(), ProfileOthersActivity::class.java).apply {
+                putExtra(ProfileOthersActivity.EXTRA_USER_ID, userId)
+            }
+            startActivity(intent)
+        }
         binding.leaderboardFragmentRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = leaderboardAdapter

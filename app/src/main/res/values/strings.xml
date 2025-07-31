@@ -7,8 +7,20 @@
     <string name="no">No</string>
     <string name="back_button_desc">Navigate back</string>
 
+    <!-- Bottom Navbar -->
+    <string name="nav_home">Home</string>
+    <string name="nav_challenges">Challenges</string>
+    <string name="nav_profile">Profile</string>
+
     <!-- Landing Page -->
-    <string name="landing_tagline">Welcome to DOMoJo, your personal streak app!</string>
+    <string name="carousel_heading_1">Discover New Challenges</string>
+    <string name="carousel_description_1">Join exciting challenges across various categories and grow your streak every day!</string>
+
+    <string name="carousel_heading_2">Connect with Communities</string>
+    <string name="carousel_description_2">Share your progress with friends and be a part of a community that conquers goals together.</string>
+
+    <string name="carousel_heading_3">Track Your Progress</string>
+    <string name="carousel_description_3">Monitor your streaks, earn cosmetic badges, and celebrate your success.</string>
     <string name="app_welcome_message">Welcome to DOMoJo, your personal streak app!</string>
     <string name="get_started">Get Started</string>
     <string name="app_logo_desc">App Logo</string>
@@ -88,7 +100,6 @@
     <string name="all_comments_title">All Comments</string>
     <string name="add_comment_hint">Add a comment...</string>
     <string name="submit_comment">Submit</string>
-    <string name="cancel">Cancel</string>
     <string name="no_comments_message">No comments yet. Be the first to comment!</string>
 
     <!-- Common UI -->
@@ -129,6 +140,10 @@
     <string name="required_field">This field is required</string>
     <string name="invalid_input">Invalid input</string>
 
+    <!-- Profile (Others) -->
+    <string name="ongoing_challenges_title">Ongoing Challenges</string>
+    <string name="user_has_no_challenges">This user has no active challenges.</string>
+
     <!-- Profile -->
     <string name="profile_title">Profile</string>
     <string name="profile_button_edit">Edit Profile</string>
@@ -155,13 +170,31 @@
     <string name="preview_subheading">Preview</string>
     <string name="select_badge_subheading">Select New Badge</string>
     <string name="badge_image_desc">Badge image</string>
+    <string name="badge_bronze_name">Bronze Badge</string>
+    <string name="badge_silver_name">Silver Badge</string>
+    <string name="badge_gold_name">Gold Badge</string>
+    <string name="badge_diamond_name">Diamond Badge</string>
+    <string name="badge_purple_name">Purple Badge</string>
+    <string name="badge_bronze_desc">A mark of your early dedication. Earned after maintaining a 10-day streak.</string>
+    <string name="badge_silver_desc">Proof of your growing commitment. Earned after maintaining a 30-day streak.</string>
+    <string name="badge_gold_desc">A symbol of true perseverance. Earned after maintaining a 50-day streak.</string>
+    <string name="badge_diamond_desc">The jewel of consistent effort. Earned after maintaining a 100-day streak.</string>
+    <string name="badge_purple_desc">The crown of unwavering dedication. Earned after maintaining a 365-day streak.</string>
+    <string name="badge_toast_success">Badge updated successfully</string>
+    <string name="badge_locked">Locked</string>
 
     <string name="notifications_subheading">Notifications</string>
     <string name="enable_notifications">Enable Notifications</string>
     <string name="notification_permission_title">Notification Permission Needed</string>
     <string name="notification_permission_message">To receive notifications, please allow the notification permission.</string>
 
+    <string name="daily_reminder_time">Daily reminder time</string>
+    <string name="set_time">Set Time</string>
+    <string name="daily_reminder_title">Streak Reminder</string>
+    <string name="daily_reminder_message">It\'s time to continue your streaks for today!</string>
+
     <string name="continue_text">Continue</string>
+    <string name="cancel">Cancel</string>
 
     <string name="theme_subheading">Theme</string>
     <string name="dark_mode">Dark Mode</string>

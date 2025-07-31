@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/post_activity_button"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="What did you do today?">
+            android:hint="What did you do today?"
+            app:boxBackgroundColor="?attr/colorSurfaceContainer">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/post_content_edit_text"
@@ -39,13 +40,15 @@
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/transparent"
             android:clickable="true"
             android:contentDescription="Post Image Preview"
             android:focusable="true"
             android:scaleType="centerCrop"
             android:src="@drawable/default_avatar"
-            android:visibility="visible" />
+            android:visibility="visible"
+            app:strokeColor="?attr/colorTertiary"
+            app:tint="?attr/colorTertiary"/>
 
         <Button
             android:id="@+id/select_post_image_button"
@@ -53,7 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
-            android:text="@string/select_image" />
+            android:text="@string/select_image"
+            android:backgroundTint="?attr/colorTertiary"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,7 +77,8 @@
                 android:id="@+id/post_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/post" />
+                android:text="@string/post"
+                android:textColor="?attr/colorOnSurfaceInverse"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

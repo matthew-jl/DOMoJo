@@ -13,7 +13,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="?attr/colorSurface"
         tools:context=".views.ui.HomeActivity">
 
         <LinearLayout
@@ -29,7 +29,7 @@
                 android:paddingEnd="24dp"
                 android:paddingBottom="16dp"
                 android:text="My Challenges"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
@@ -51,7 +51,8 @@
                     android:focusable="true"
                     android:padding="4dp"
                     android:src="@drawable/filter_icon"
-                    android:contentDescription="Filter by Category" />
+                    android:contentDescription="Filter by Category"
+                    app:tint="?attr/colorOnSurface"/>
 
                 <TextView
                     android:id="@+id/selected_category_text"
@@ -60,7 +61,7 @@
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
                     android:text="@{viewModel.selectedCategoryFilter == null ? &quot;All Categories&quot; : viewModel.selectedCategoryFilter}"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="14sp"
                     tools:text="Category: All" />
 
@@ -73,7 +74,8 @@
                     android:focusable="true"
                     android:padding="4dp"
                     android:src="@drawable/sort_icon"
-                    android:contentDescription="Sort by Streak" />
+                    android:contentDescription="Sort by Streak"
+                    app:tint="?attr/colorOnSurface"/>
 
                 <TextView
                     android:id="@+id/sort_direction_text"
@@ -81,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@{viewModel.sortByStreakDirection == null ? &quot;No Sort&quot; : (viewModel.sortByStreakDirection == &quot;asc&quot; ? &quot;Streak (Asc)&quot; : &quot;Streak (Desc)&quot;)}"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="14sp"
                     tools:text="Sort: Desc" />
 
@@ -117,7 +119,7 @@
                 android:clipToPadding="false"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:paddingBottom="16dp"
+                android:paddingBottom="96dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_joined_challenge" />
 
@@ -133,5 +135,14 @@
                 tools:visibility="gone" />
 
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/bottom_navigation_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+            <include layout="@layout/view_bottom_navigation" />
+        </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

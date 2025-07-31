@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/notifications_subheading"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="?attr/colorPrimaryContainer"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"/>
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="8dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -75,12 +75,47 @@
                     app:trackColor="@color/color4"/>
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/daily_reminder_time"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp"
+                android:enabled="@{viewModel.notificationsEnabled}">
+
+                <TextView
+                    android:id="@+id/time_display"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="16sp"
+                    android:text="@{viewModel.notificationTime}"
+                    tools:text="8:00"/>
+
+                <Button
+                    android:id="@+id/btn_set_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_time"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:textColor="?attr/colorPrimary"/>
+            </LinearLayout>
+
             <!-- Theme Section -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/theme_subheading"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="?attr/colorPrimaryContainer"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"/>
@@ -112,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/language_subheading"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="?attr/colorPrimaryContainer"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"/>
@@ -123,6 +158,7 @@
                 android:hint="@string/choose_language"
                 app:boxStrokeColor="@color/color3"
                 app:hintTextColor="@color/color3"
+                app:boxBackgroundColor="?attr/colorSurfaceContainer"
                 android:layout_marginBottom="32dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 

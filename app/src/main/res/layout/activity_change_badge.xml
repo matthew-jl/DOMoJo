@@ -10,198 +10,225 @@
         <variable
             name="user"
             type="edu.bluejack24_2.domojo.models.User" />
-<!--        <variable-->
-<!--            name="badgeName"-->
-<!--            type="String" />-->
-<!--        <variable-->
-<!--            name="badgeDescription"-->
-<!--            type="String" />-->
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <!-- Header Section -->
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp">
+                android:orientation="vertical"
+                android:padding="24dp">
 
-                <ImageButton
-                    android:id="@+id/back_button"
-                    android:layout_width="wrap_content"
+                <!-- Header Section -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_left"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/back_button_desc"/>
+                    android:layout_marginBottom="24dp">
 
+                    <ImageButton
+                        android:id="@+id/back_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/back_button_desc"
+                        android:src="@drawable/ic_arrow_left"
+                        app:tint="?attr/colorOnSurface" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/setting_title_change_badge"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <!-- User Preview Card -->
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/setting_title_change_badge"
-                    android:textColor="@color/color1"
-                    android:textSize="24sp"
-                    android:textStyle="bold"/>
-            </RelativeLayout>
+                    android:layout_marginBottom="12dp"
+                    android:text="@string/preview_subheading"
+                    android:textColor="?attr/colorPrimaryContainer"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <!-- User Preview Card -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/preview_subheading"
-                android:textColor="@color/color5"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="12dp"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    app:cardBackgroundColor="@color/color1"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp"
+                    app:strokeColor="@color/color3"
+                    app:strokeWidth="1dp">
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="@color/color1"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp"
-                app:strokeColor="@color/color3"
-                app:strokeWidth="1dp">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
 
+                        <ImageView
+                            android:id="@+id/user_profile_image_view"
+                            imageUrl="@{user.avatar}"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/circle_background"
+                            android:clipToOutline="true"
+                            android:contentDescription="@string/profile_picture_placeholder"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/username_text_view"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{user.username}"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/user_profile_image_view"
+                            app:layout_constraintTop_toTopOf="@id/user_profile_image_view"
+                            tools:text="JohnDoe123" />
+
+                        <ImageView
+                            android:id="@+id/badge_preview"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintStart_toEndOf="@+id/user_profile_image_view"
+                            app:layout_constraintTop_toBottomOf="@+id/username_text_view"
+                            tools:src="@drawable/ic_badge_bronze" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Badge Selection Section -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/select_badge_subheading"
+                    android:textColor="?attr/colorPrimaryContainer"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Badge Carousel -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp">
+                    android:layout_marginBottom="24dp">
+
+                    <ImageButton
+                        android:id="@+id/btn_prev"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_arrow_left"
+                        app:layout_constraintBottom_toBottomOf="@id/badge_display"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/badge_display"
+                        app:tint="?attr/colorPrimary" />
 
                     <ImageView
-                        android:id="@+id/user_profile_image_view"
-                        imageUrl="@{user.avatar}"
+                        android:id="@+id/badge_display"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="16dp"
+                        android:contentDescription="@string/badge_image_desc"
+                        app:layout_constraintEnd_toStartOf="@id/btn_next"
+                        app:layout_constraintStart_toEndOf="@id/btn_prev"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/ic_badge_bronze" />
+
+                    <ImageView
+                        android:id="@+id/lock_icon"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/circle_background"
-                        android:clipToOutline="true"
-                        android:contentDescription="@string/profile_picture_placeholder"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:elevation="10dp"
+                        android:src="@drawable/ic_lock"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@id/badge_display"
+                        app:layout_constraintEnd_toEndOf="@id/badge_display"
+                        app:layout_constraintStart_toStartOf="@id/badge_display"
+                        app:layout_constraintTop_toTopOf="@id/badge_display"
+                        app:tint="@android:color/darker_gray"
+                        tools:visibility="visible"
+                        android:contentDescription="@string/badge_locked" />
 
-                    <TextView
-                        android:id="@+id/username_text_view"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{user.username}"
-                        tools:text="JohnDoe123"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                    <ImageButton
+                        android:id="@+id/btn_next"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_arrow_right"
+                        app:layout_constraintBottom_toBottomOf="@id/badge_display"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/user_profile_image_view"
-                        app:layout_constraintTop_toTopOf="@id/user_profile_image_view" />
-
-                    <ImageView
-                        android:id="@+id/badge_preview"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        tools:src="@drawable/ic_badge_bronze"
-                        app:layout_constraintStart_toEndOf="@+id/user_profile_image_view"
-                        app:layout_constraintTop_toBottomOf="@+id/username_text_view" />
+                        app:layout_constraintTop_toTopOf="@id/badge_display"
+                        app:tint="?attr/colorPrimary" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Badge Selection Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/select_badge_subheading"
-                android:textColor="@color/color5"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"/>
+                <!-- Badge Info -->
+                <TextView
+                    android:id="@+id/badge_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Badge Name" />
 
-            <!-- Badge Carousel -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp">
+                <TextView
+                    android:id="@+id/badge_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    tools:text="This is a description of the current badge. You can get this badge by achieving a streak of X days." />
 
-                <ImageButton
-                    android:id="@+id/btn_prev"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_arrow_left"
-                    app:tint="?attr/colorPrimary"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    app:layout_constraintBottom_toBottomOf="@id/badge_display"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/badge_display"/>
+                <!-- Action Button -->
+                <Button
+                    android:id="@+id/save_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:backgroundTint="@color/color4"
+                    android:text="@string/save_changes"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-                <ImageView
-                    android:id="@+id/badge_display"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="16dp"
-                    tools:src="@drawable/ic_badge_bronze"
-                    android:contentDescription="@string/badge_image_desc"
-                    app:layout_constraintEnd_toStartOf="@id/btn_next"
-                    app:layout_constraintStart_toEndOf="@id/btn_prev"
-                    app:layout_constraintTop_toTopOf="parent"/>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:indeterminateTint="@color/color4" />
+    </FrameLayout>
 
-                <ImageButton
-                    android:id="@+id/btn_next"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_arrow_right"
-                    app:tint="?attr/colorPrimary"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    app:layout_constraintBottom_toBottomOf="@id/badge_display"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/badge_display"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Badge Info -->
-            <TextView
-                android:id="@+id/badge_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Badge Name"
-                android:textColor="@color/color1"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:layout_marginBottom="8dp"/>
-
-            <TextView
-                android:id="@+id/badge_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="This is a description of the current badge. You can get this badge by achieving a streak of X days."
-                android:textColor="@color/color5"
-                android:textSize="14sp"
-                android:textAlignment="center"
-                android:layout_marginBottom="24dp"/>
-
-            <!-- Action Button -->
-            <Button
-                android:id="@+id/save_button"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:backgroundTint="@color/color4"
-                android:text="@string/save_changes"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 </layout>

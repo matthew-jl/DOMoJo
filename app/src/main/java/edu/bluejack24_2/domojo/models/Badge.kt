@@ -4,5 +4,7 @@ data class Badge(
     val id: String,
     val name: String,
     val description: String,
-    val imageRes: Int
+    val imageRes: Int,
+    val requirement: Int,
+    var isUnlocked: Boolean = false
 )

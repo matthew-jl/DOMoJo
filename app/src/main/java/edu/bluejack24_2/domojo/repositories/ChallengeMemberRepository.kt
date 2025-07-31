@@ -222,4 +222,37 @@ class ChallengeMemberRepository() {
                 }
             }
     }
+
+    fun getUserMaxLongestStreak(
+        userId: String,
+        onSuccess: (Int) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        if (userId.isBlank()) {
+            onFailure("User ID cannot be blank.")
+            return
+        }
+
+        firestore.collection("challenge_members")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (querySnapshot.isEmpty) {
+                    onSuccess(0)
+                    return@addOnSuccessListener
+                }
+
+                val maxStreak = querySnapshot.documents.maxOfOrNull {
+                    it.toObject<ChallengeMember>()?.longestStreak ?: 0
+                } ?: 0
+
+                Log.d(TAG, "User $userId max longest streak is $maxStreak")
+                onSuccess(maxStreak)
+            }
+            .addOnFailureListener { e ->
+                val errorMessage = e.localizedMessage ?: "Failed to get user's streak data."
+                Log.e(TAG, "Error fetching max streak for user $userId: $errorMessage", e)
+                onFailure(errorMessage)
+            }
+    }
 }

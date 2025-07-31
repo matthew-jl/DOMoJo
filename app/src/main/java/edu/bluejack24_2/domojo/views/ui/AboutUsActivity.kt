@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.databinding.ActivityAboutUsBinding
 
-class AboutUsActivity : AppCompatActivity() {
+class AboutUsActivity : BaseActivity() {
     private lateinit var binding : ActivityAboutUsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

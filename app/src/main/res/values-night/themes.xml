@@ -1,11 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.DOMoJo" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary_dark</item>
-        <item name="colorSecondary">@color/secondary_dark</item>
+        <item name="colorPrimary">@color/color1_dark</item>
+        <item name="colorPrimaryContainer">@color/color5_dark</item>
+        <item name="colorSecondary">@color/color2_dark</item>
+        <item name="colorSecondaryContainer">@color/color3_dark</item>
         <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorSurfaceVariant">@color/color3_dark</item>
+        <item name="colorTertiary">@color/color4_dark</item>
+
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+
         <item name="android:statusBarColor">?attr/colorPrimary</item>
     </style>
 </resources>

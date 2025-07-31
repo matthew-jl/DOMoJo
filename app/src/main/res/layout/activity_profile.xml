@@ -4,143 +4,167 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="edu.bluejack24_2.domojo.viewmodels.ProfileViewModel" />
+
         <variable
             name="user"
             type="edu.bluejack24_2.domojo.models.User" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="24dp"
         tools:context=".views.ui.ProfileActivity">
 
-        <TextView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="48dp"
-            android:text="@string/profile_title"
-            android:textColor="@color/color1"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_navigation_container">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardBackgroundColor="@color/color1"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
-            app:strokeColor="@color/color3"
-            app:strokeWidth="1dp">
+            <LinearLayout
 
-            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp">
-
-                <ImageView
-                    android:id="@+id/user_profile_image_view"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    imageUrl="@{user.avatar}"
-                    android:background="@drawable/circle_background"
-                    android:clipToOutline="true"
-                    android:contentDescription="@string/profile_picture_placeholder"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="24dp">
 
                 <TextView
-                    android:id="@+id/username_text_view"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@{user.username}"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/right_side_content_group"
-                    app:layout_constraintStart_toEndOf="@id/user_profile_image_view"
-                    app:layout_constraintTop_toTopOf="@id/user_profile_image_view"
-                    tools:text="JohnDoe123" />
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="48dp"
+                    android:text="@string/profile_title"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/email_text_view"
-                    android:layout_width="0dp"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@{user.email}"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toStartOf="@id/right_side_content_group"
-                    app:layout_constraintStart_toEndOf="@id/user_profile_image_view"
-                    app:layout_constraintTop_toBottomOf="@id/username_text_view"
-                    tools:text="john.doe@example.com" />
+                    android:layout_marginBottom="12dp"
+                    app:cardBackgroundColor="@color/color1"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp"
+                    app:strokeColor="@color/color3"
+                    app:strokeWidth="1dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/right_side_content_group"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <Button
-                        android:id="@+id/edit_profile_button"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/color4"
-                        android:paddingStart="16dp"
-                        android:paddingTop="8dp"
-                        android:paddingEnd="16dp"
-                        android:paddingBottom="8dp"
-                        android:text="@string/profile_button_edit"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:visibility="visible" />
+                        android:padding="16dp">
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
+                        <ImageView
+                            android:id="@+id/user_profile_image_view"
+                            imageUrl="@{user.avatar}"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/circle_background"
+                            android:clipToOutline="true"
+                            android:contentDescription="@string/profile_picture_placeholder"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/setting_change_badge"
-            layout="@layout/item_setting" />
+                        <TextView
+                            android:id="@+id/username_text_view"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{user.username}"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@id/right_side_content_group"
+                            app:layout_constraintStart_toEndOf="@id/user_profile_image_view"
+                            app:layout_constraintTop_toTopOf="@id/user_profile_image_view"
+                            tools:text="JohnDoe123" />
 
-        <include
-            android:id="@+id/setting_main"
-            layout="@layout/item_setting" />
+                        <TextView
+                            android:id="@+id/email_text_view"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{user.email}"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toStartOf="@id/right_side_content_group"
+                            app:layout_constraintStart_toEndOf="@id/user_profile_image_view"
+                            app:layout_constraintTop_toBottomOf="@id/username_text_view"
+                            tools:text="john.doe@example.com" />
 
-        <include
-            android:id="@+id/setting_about_us"
-            layout="@layout/item_setting" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/right_side_content_group"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-        <include
-            android:id="@+id/setting_logout"
-            layout="@layout/item_setting" />
+                            <Button
+                                android:id="@+id/edit_profile_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/color4"
+                                android:paddingStart="16dp"
+                                android:paddingTop="8dp"
+                                android:paddingEnd="16dp"
+                                android:paddingBottom="8dp"
+                                android:text="@string/profile_button_edit"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:visibility="visible" />
 
-        <include
-            android:id="@+id/setting_delete_account"
-            layout="@layout/item_setting" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-    </LinearLayout>
+                <include
+                    android:id="@+id/setting_change_badge"
+                    layout="@layout/item_setting" />
+
+                <include
+                    android:id="@+id/setting_main"
+                    layout="@layout/item_setting" />
+
+                <include
+                    android:id="@+id/setting_about_us"
+                    layout="@layout/item_setting" />
+
+                <include
+                    android:id="@+id/setting_logout"
+                    layout="@layout/item_setting" />
+
+                <include
+                    android:id="@+id/setting_delete_account"
+                    layout="@layout/item_setting" />
+
+            </LinearLayout>
+
+        </ScrollView>
+        <FrameLayout
+            android:id="@+id/bottom_navigation_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <include layout="@layout/view_bottom_navigation" />
+
+        </FrameLayout>
+    </RelativeLayout>
+
 
 </layout>

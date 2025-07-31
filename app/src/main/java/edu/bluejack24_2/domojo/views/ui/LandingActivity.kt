@@ -13,6 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.adapters.CarouselPagerAdapter
 import edu.bluejack24_2.domojo.databinding.ActivityLandingBinding
+import edu.bluejack24_2.domojo.models.CarouselItem
 import edu.bluejack24_2.domojo.viewmodels.LandingViewModel
 
 class LandingActivity : BaseActivity() {
@@ -30,12 +31,12 @@ class LandingActivity : BaseActivity() {
         carouselPagerAdapter = CarouselPagerAdapter()
         binding.viewPagerCarousel.adapter = carouselPagerAdapter
 
+        binding.tabLayoutDots.setSelectedTabIndicatorHeight(0)
+
         TabLayoutMediator(binding.tabLayoutDots, binding.viewPagerCarousel) { tab, position ->
         }.attach()
 
-        viewModel.carouselItems.observe(this, Observer { items ->
-            carouselPagerAdapter.updateItems(items)
-        })
+        loadCarouselItems()
 
         binding.registerButton.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -47,20 +48,38 @@ class LandingActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        binding.profileLink.setOnClickListener{
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
     }
 
 
     override fun onStart(){
         super.onStart()
-//        if (viewModel.isUserLoggedIn()) {
-//            val intent = Intent(this, ChallengeActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
+        if (viewModel.isUserLoggedIn()) {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun loadCarouselItems() {
+        // NOTE: Replace R.drawable.carousel_image_1, etc., with your actual drawable resources.
+        val items = listOf(
+            CarouselItem(
+                "https://res.cloudinary.com/dbllc6nd9/image/upload/v1753852984/carousel_1_thg7z4.png",
+                getString(R.string.carousel_heading_1),
+                getString(R.string.carousel_description_1)
+            ),
+            CarouselItem(
+                "https://res.cloudinary.com/dbllc6nd9/image/upload/v1753865713/carousel_2_q0mbag.png",
+                getString(R.string.carousel_heading_2),
+                getString(R.string.carousel_description_2)
+            ),
+            CarouselItem(
+                "https://res.cloudinary.com/dbllc6nd9/image/upload/v1753865713/carousel_3_kobnm7.png",
+                getString(R.string.carousel_heading_3),
+                getString(R.string.carousel_description_3)
+            )
+        )
+        // Update the adapter with the newly created list
+        carouselPagerAdapter.updateItems(items)
     }
 }

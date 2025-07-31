@@ -5,12 +5,34 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import edu.bluejack24_2.domojo.utils.ThemeHelper
+import java.util.Locale
 
 class SettingsViewModel() : ViewModel() {
     // Setting states
     val notificationsEnabled = MutableLiveData<Boolean>(true)
     val darkModeEnabled = MutableLiveData<Boolean>(false)
     val selectedLanguage = MutableLiveData<String>(null)
+    val notificationTime = MutableLiveData<String>("")
+    private val _notificationHour = MutableLiveData<Int>(8)
+    private val _notificationMinute = MutableLiveData<Int>(0)
+
+    fun setNotificationTime(hour: Int, minute: Int) {
+        _notificationHour.value = hour
+        _notificationMinute.value = minute
+        notificationTime.value = String.format(Locale.getDefault(),
+            "%02d:%02d", hour, minute)
+    }
+
+    fun getNotificationHour() = _notificationHour.value ?: 8
+    fun getNotificationMinute() = _notificationMinute.value ?: 0
+
+    // Add this to save time prefs
+    fun saveNotificationTime(context: Context) {
+        context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE).edit()
+            .putInt("notification_hour", getNotificationHour())
+            .putInt("notification_minute", getNotificationMinute())
+            .apply()
+    }
 
     fun updateNotificationPreference(enabled: Boolean) {
         notificationsEnabled.value = enabled

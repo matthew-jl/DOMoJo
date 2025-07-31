@@ -10,7 +10,8 @@ import edu.bluejack24_2.domojo.repositories.UserRepository
 
 class LeaderboardAdapter(
     private var members: List<ChallengeMember>,
-    private val userRepository: UserRepository = UserRepository()
+    private val userRepository: UserRepository = UserRepository(),
+    private val onItemClicked: (userId: String) -> Unit
 ) : RecyclerView.Adapter<LeaderboardAdapter.LeaderboardViewHolder>() {
 
     fun updateMembers(newMembers: List<ChallengeMember>) {
@@ -20,7 +21,7 @@ class LeaderboardAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeaderboardViewHolder {
         val binding = ItemLeaderboardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LeaderboardViewHolder(binding, userRepository)
+        return LeaderboardViewHolder(binding, userRepository, onItemClicked)
     }
 
     override fun getItemCount(): Int = members.size
@@ -32,13 +33,16 @@ class LeaderboardAdapter(
 
     class LeaderboardViewHolder(
         private val binding: ItemLeaderboardBinding,
-        private val userRepository: UserRepository
+        private val userRepository: UserRepository,
+        private val onItemClicked: (userId: String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(member: ChallengeMember, position: Int) {
             binding.member = member
             binding.position = position
-            binding.executePendingBindings()
+            itemView.setOnClickListener {
+                onItemClicked(member.userId)
+            }
 
             userRepository.getUser(member.userId,
                 onSuccess = { user ->
@@ -47,7 +51,9 @@ class LeaderboardAdapter(
                     } else {
                         binding.leaderboardMemberUsername.text = "[Deleted User]"
 //                        Glide.with(binding.root.context).load(R.drawable.default_avatar).into(binding.leaderboardMemberAvatar)
+                        itemView.isClickable = false
                     }
+                    binding.executePendingBindings()
                 },
                 onFailure = { errorMessage ->
                     binding.leaderboardMemberUsername.text = "[Error User]"

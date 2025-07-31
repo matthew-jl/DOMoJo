@@ -24,7 +24,7 @@ import edu.bluejack24_2.domojo.viewmodels.ChallengeDetailViewModel
 import java.io.File
 import java.io.FileOutputStream
 
-class ChallengeDetailActivity : AppCompatActivity() {
+class ChallengeDetailActivity : BaseActivity() {
     private lateinit var binding: ActivityChallengeDetailBinding
     private lateinit var viewModel: ChallengeDetailViewModel
 

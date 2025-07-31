@@ -18,7 +18,7 @@ import edu.bluejack24_2.domojo.viewmodels.EditProfileViewModel
 import java.io.File
 import java.io.FileOutputStream
 
-class EditProfileActivity : AppCompatActivity() {
+class EditProfileActivity : BaseActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     private lateinit var viewModel: EditProfileViewModel
     private var selectedImageUri: Uri? = null

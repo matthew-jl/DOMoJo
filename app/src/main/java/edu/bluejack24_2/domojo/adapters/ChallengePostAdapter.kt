@@ -14,7 +14,11 @@ import edu.bluejack24_2.domojo.viewmodels.ChallengeDetailViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class ChallengePostAdapter(private var posts: List<Post>, private val viewModel: ChallengeDetailViewModel) :
+class ChallengePostAdapter(
+    private var posts: List<Post>,
+    private val viewModel: ChallengeDetailViewModel,
+    private val onCommentUserClicked: (userId: String) -> Unit
+) :
     RecyclerView.Adapter<ChallengePostAdapter.ChallengePostViewHolder>() {
 
     fun updatePosts(newPosts: List<Post>) {
@@ -24,7 +28,7 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChallengePostViewHolder {
         val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ChallengePostViewHolder(binding, viewModel)
+        return ChallengePostViewHolder(binding, viewModel, onCommentUserClicked)
     }
 
     override fun getItemCount(): Int = posts.size
@@ -34,8 +38,11 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
         holder.bind(posts[position])
     }
 
-    class ChallengePostViewHolder(val binding: ItemPostBinding,
-                                  private val viewModel: ChallengeDetailViewModel) :
+    class ChallengePostViewHolder(
+        val binding: ItemPostBinding,
+        private val viewModel: ChallengeDetailViewModel,
+        private val onCommentUserClicked: (userId: String) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         private val dateFormatter = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault())
@@ -43,7 +50,9 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
         private val commentAdapter: PostCommentAdapter
 
         init {
-            commentAdapter = PostCommentAdapter(comments = emptyList(), userRepository)
+            commentAdapter = PostCommentAdapter(comments = emptyList(), userRepository) { userId ->
+                onCommentUserClicked(userId)
+            }
 
             binding.commentsRecyclerView.apply {
                 layoutManager = LinearLayoutManager(context)
@@ -101,7 +110,10 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
                             val recentComments = commentsMap[postId] ?: emptyList()
 
                             commentAdapter.updateComments(recentComments)
-                            Log.d("Challenge Post Adapter", "Updated comments for post $postId: ${recentComments.size}")
+                            Log.d(
+                                "Challenge Post Adapter",
+                                "Updated comments for post $postId: ${recentComments.size}"
+                            )
                         }
 
                         viewModel.postUserActions.removeObservers(owner)
@@ -113,10 +125,12 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
                                     binding.likeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_like_filled)
                                     binding.dislikeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_dislike_outline)
                                 }
+
                                 "dislike" -> {
                                     binding.likeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_like_outline)
                                     binding.dislikeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_dislike_filled)
                                 }
+
                                 else -> {
                                     binding.likeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_like_outline)
                                     binding.dislikeButton.setImageResource(edu.bluejack24_2.domojo.R.drawable.ic_dislike_outline)
@@ -129,7 +143,10 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
                 }
 
                 override fun onViewDetachedFromWindow(v: View) {
-                    Log.d("ChallengePostAdapter", "View detached from window for post: ${binding.post?.id}")
+                    Log.d(
+                        "ChallengePostAdapter",
+                        "View detached from window for post: ${binding.post?.id}"
+                    )
                 }
             })
         }
@@ -138,7 +155,8 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
             binding.post = post
             binding.viewModel = viewModel
 
-            userRepository.getUser(post.userId,
+            userRepository.getUser(
+                post.userId,
                 onSuccess = { user ->
                     if (user != null) {
                         binding.user = user
@@ -148,7 +166,10 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
                 },
                 onFailure = { errorMessage ->
                     binding.postUsernameTextView.text = "[Error User]"
-                    Log.e("ChallengePostAdapter", "Failed to fetch user for post ${post.id}: $errorMessage")
+                    Log.e(
+                        "ChallengePostAdapter",
+                        "Failed to fetch user for post ${post.id}: $errorMessage"
+                    )
                 }
             )
 
@@ -157,6 +178,10 @@ class ChallengePostAdapter(private var posts: List<Post>, private val viewModel:
             } ?: run {
                 binding.postDateTextView.text = "Date Unavailable"
             }
+
+            binding.root.setOnClickListener { }
+            binding.postUserAvatarImageView.setOnClickListener { onCommentUserClicked(post.userId) }
+            binding.postUsernameTextView.setOnClickListener { onCommentUserClicked(post.userId) }
 
             binding.executePendingBindings()
         }

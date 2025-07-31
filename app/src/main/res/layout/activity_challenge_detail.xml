@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_arrow_back"
+                app:navigationIconTint="?attr/colorOnSurface"
                 app:title="Challenge Details" />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -73,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@{viewModel.challengeDetails.title}"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         tools:text="Challenge Title" />
@@ -85,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:text="@{viewModel.challengeDetails.description}"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp"
                     tools:text="This is a detailed description of the challenge..." />
 
@@ -94,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="@string/progress"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:visibility="@{viewModel.currentUserChallengeMember != null ? View.VISIBLE : View.GONE}" />
@@ -118,7 +119,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{@string/your_current_streak(viewModel.currentUserChallengeMember.currentStreak)}"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="Your current streak: 7" />
@@ -132,7 +133,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{@string/your_longest_streak(viewModel.currentUserChallengeMember.longestStreak)}"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="Your longest streak: 15" />
@@ -154,10 +155,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     app:tabGravity="fill"
-                    app:tabIndicatorColor="@color/color2"
+                    app:tabIndicatorColor="?attr/colorPrimary"
                     app:tabMode="fixed"
-                    app:tabSelectedTextColor="@color/color2"
-                    app:tabTextColor="@color/black" />
+                    app:tabSelectedTextColor="?attr/colorPrimary"
+                    app:tabTextColor="@android:color/darker_gray" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/detail_view_pager"
