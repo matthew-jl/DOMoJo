@@ -121,6 +121,7 @@ class CreateChallengeActivity : AppCompatActivity() {
                 Handler().postDelayed({
                     val intent = Intent(this, ChallengeActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }, 2500)
             }
         })
