@@ -177,6 +177,7 @@
     <string name="badge_diamond_desc">The jewel of consistent effort. Earned after maintaining a 100-day streak.</string>
     <string name="badge_purple_desc">The crown of unwavering dedication. Earned after maintaining a 365-day streak.</string>
     <string name="badge_toast_success">Badge updated successfully</string>
+    <string name="badge_locked">Locked</string>
 
     <string name="notifications_subheading">Notifications</string>
     <string name="enable_notifications">Enable Notifications</string>
