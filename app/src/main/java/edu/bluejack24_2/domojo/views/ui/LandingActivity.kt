@@ -53,11 +53,11 @@ class LandingActivity : BaseActivity() {
 
     override fun onStart(){
         super.onStart()
-//        if (viewModel.isUserLoggedIn()) {
-//            val intent = Intent(this, ChallengeActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
+        if (viewModel.isUserLoggedIn()) {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun loadCarouselItems() {

@@ -24,7 +24,7 @@ abstract class AppBaseActivity : BaseActivity() {
             }
 
             val intent = when (item.itemId) {
-                R.id.nav_home -> Intent(this, ChallengeActivity::class.java) // TODO: Change to Home
+                R.id.nav_home -> Intent(this, HomeActivity::class.java)
                 R.id.nav_challenges -> Intent(this, ChallengeActivity::class.java)
                 R.id.nav_profile -> Intent(this, ProfileActivity::class.java)
                 else -> null
