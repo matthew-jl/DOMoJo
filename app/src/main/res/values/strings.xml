@@ -63,7 +63,7 @@
     <string name="progress">Your Progress</string>
     <string name="your_current_streak">%1$d</string>
     <string name="your_longest_streak">Your longest streak: %1$d</string>
-    <string name="post_activity_button">Post Today's Activity</string>
+    <string name="post_activity_button">Post Today\'s Activity</string>
 
     <!-- Posts -->
     <string name="user_avatar_desc">User Avatar</string>
@@ -121,7 +121,7 @@
     <!-- Dialogs -->
     <string name="dialog_title_post">Create Post</string>
     <string name="dialog_title_comment">Add Comment</string>
-    <string name="post_content_hint">What's on your mind?</string>
+    <string name="post_content_hint">What\'s on your mind?</string>
     <string name="comment_content_hint">Write a comment...</string>
 
     <!-- Error Messages -->
@@ -193,8 +193,8 @@
     <string name="contact_subheading">Contact DOMoJo</string>
     <string name="support_email">support@domojo.app</string>
     <string name="support_phone">+62-803-2637-1838</string>
-    <string name="location_subheading">DOMoJo's Location</string>
-    <string name="map_desc">Map showing DOMoJo's location</string>
+    <string name="location_subheading">DOMoJo\'s Location</string>
+    <string name="map_desc">Map showing DOMoJo\'s location</string>
     <string name="domojo_address">Jl. Jalur Sutera Bar. No.Kavling 17, Panunggangan Timur, Kecamatan Pinang, Kota Tangerang, Banten</string>
 
     <string name="setting_title_logout">Log out</string>

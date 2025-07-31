@@ -1,12 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DOMoJo</string>
 
+    <!-- General -->
     <string name="yes">Ya</string>
     <string name="no">Tidak</string>
     <string name="back_button_desc">Kembali</string>
 
+    <!-- Landing Page -->
     <string name="landing_tagline">Selamat datang ke DOMoJo, aplikasi streak personal Anda!</string>
+    <string name="app_welcome_message">Selamat datang ke DOMoJo, aplikasi streak personal Anda!</string>
+    <string name="get_started">Mulai</string>
+    <string name="app_logo_desc">Logo Aplikasi</string>
 
+    <!-- Login -->
     <string name="login">Masuk</string>
     <string name="login_title">Selamat Datang Kembali!</string>
     <string name="login_email">Email</string>
@@ -14,6 +21,7 @@
     <string name="login_button">Masuk</string>
     <string name="login_link">Belum punya akun? Daftar!</string>
 
+    <!-- Register -->
     <string name="register">Daftar</string>
     <string name="register_title">Daftar Akun!</string>
     <string name="register_avatar">Foto Profil</string>
@@ -25,6 +33,7 @@
     <string name="register_terms">Saya setuju dengan syarat dan ketentuan</string>
     <string name="register_link">Sudah punya akun? Masuk!</string>
 
+    <!-- Create Challenge -->
     <string name="create_challenge_page_title">Buat Tantangan Baru</string>
     <string name="create_challenge_title">Judul</string>
     <string name="create_challenge_category">Kategori</string>
@@ -32,22 +41,95 @@
     <string name="create_challenge_icon">Ikon</string>
     <string name="create_challenge_banner">Banner</string>
     <string name="create_challenge_button">Buat Tantangan</string>
-
     <string name="choose_file">Pilih File</string>
 
+    <!-- Challenges Feed -->
     <string name="challenges_feed_title">Tantangan</string>
     <string name="search_hint">Cari...</string>
     <string name="search_icon_desc">Ikon pencarian</string>
     <string name="sort_button_desc">Tombol urut/filter</string>
     <string name="add_challenge_fab_desc">Tambah tantangan baru</string>
 
+    <!-- Challenge Detail -->
     <string name="challenge_icon_placeholder">Ikon tantangan</string>
     <string name="default_challenge_title">Nama Tantangan</string>
     <string name="default_challenge_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="join_challenge_button">Ikuti</string>
     <string name="fire_icon_desc">Ikon api untuk streak</string>
     <string name="streak_info_placeholder">5</string>
+    <string name="longest_streak_leaderboard">Streak Terlama: %1$d</string>
+    <string name="make_post_button">Buat Postingan</string>
+    <string name="top_user">Pengguna Teratas</string>
+    <string name="progress">Kemajuan Anda</string>
+    <string name="your_current_streak">Streak saat ini: %1$d</string>
+    <string name="your_longest_streak">Streak terlama Anda: %1$d</string>
+    <string name="post_activity_button">Posting Aktivitas Hari Ini</string>
 
+    <!-- Posts -->
+    <string name="user_avatar_desc">Avatar Pengguna</string>
+    <string name="username_placeholder">Nama Pengguna</string>
+    <string name="post_time_placeholder">20 menit yang lalu</string>
+    <string name="post_content_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="post_image_desc">Gambar Postingan</string>
+    <string name="streak_awarded_desc">Streak Diberikan</string>
+    <string name="like_post_desc">Suka Postingan</string>
+    <string name="dislike_post_desc">Tidak Suka Postingan</string>
+    <string name="view_comments_desc">Lihat Komentar</string>
+    <string name="like_count_placeholder">123</string>
+    <string name="dislike_count_placeholder">5</string>
+    <string name="comment_count_placeholder">20</string>
+    <string name="see_all_comments">Lihat semua komentar</string>
+    <string name="my_post">Postingan Saya</string>
+    <string name="no_posts_today">Anda belum membuat postingan hari ini!</string>
+    <string name="other_user_posts">Postingan pengguna lain</string>
+    <string name="no_challenge_posts">Belum ada postingan untuk tantangan ini.</string>
+
+    <!-- Comments -->
+    <string name="all_comments_title">Semua Komentar</string>
+    <string name="add_comment_hint">Tambahkan komentar...</string>
+    <string name="submit_comment">Kirim</string>
+    <string name="cancel">Batal</string>
+    <string name="no_comments_message">Belum ada komentar. Jadilah yang pertama berkomentar!</string>
+
+    <!-- Common UI -->
+    <string name="error_text">Kesalahan</string>
+    <string name="loading">Memuat...</string>
+    <string name="retry">Coba Lagi</string>
+    <string name="save">Simpan</string>
+    <string name="delete">Hapus</string>
+    <string name="edit">Edit</string>
+    <string name="back">Kembali</string>
+    <string name="close">Tutup</string>
+    <string name="ok">OK</string>
+    <string name="submit">Kirim</string>
+    <string name="post">Posting</string>
+    <string name="select_image">Pilih Gambar</string>
+
+    <!-- Empty States -->
+    <string name="no_challenges_message">Belum ada tantangan</string>
+    <string name="no_posts_message">Belum ada postingan</string>
+    <string name="no_leaderboard_message">Belum ada anggota</string>
+    <string name="no_leaderboard_text">Data papan peringkat belum tersedia</string>
+
+    <!-- Tabs -->
+    <string name="tab_posts">Postingan</string>
+    <string name="tab_leaderboard">Papan Peringkat</string>
+
+    <!-- Navigation -->
+    <string name="challenge_details">Detail Tantangan</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_title_post">Buat Postingan</string>
+    <string name="dialog_title_comment">Tambah Komentar</string>
+    <string name="post_content_hint">Apa yang ingin Anda bagikan?</string>
+    <string name="comment_content_hint">Tulis komentar...</string>
+
+    <!-- Error Messages -->
+    <string name="validation_error">Kesalahan</string>
+    <string name="required_field">Kolom ini wajib diisi</string>
+    <string name="invalid_input">Input tidak valid</string>
+
+    <!-- Profile -->
     <string name="profile_title">Profil</string>
     <string name="profile_button_edit">Edit Profil</string>
     <string name="profile_picture_placeholder">Foto Profil</string>
@@ -64,37 +146,43 @@
     <string name="password_error">Kata sandi minimal 6 karakter</string>
     <string name="confirm_password_error">Kata sandi tidak cocok</string>
 
-    <string name="setting_title_change_badge">Ubah Lencana</string>
-    <string name="setting_description_change_badge">Pilih lencana profil yang Anda inginkan!</string>
-
+    <!-- Settings -->
     <string name="setting_title_main">Pengaturan</string>
     <string name="setting_description_main">Konfigurasi notifikasi, tema, dan pengaturan bahasa.</string>
+    <string name="setting_title_change_badge">Ubah Lencana</string>
+    <string name="setting_description_change_badge">Pilih lencana profil yang Anda inginkan!</string>
+    <string name="preview_subheading">Pratinjau</string>
+    <string name="select_badge_subheading">Pilih Lencana Baru</string>
+    <string name="badge_image_desc">Gambar lencana</string>
+
     <string name="notifications_subheading">Notifikasi</string>
     <string name="enable_notifications">Aktifkan Notifikasi</string>
     <string name="notification_permission_title">Izin Notifikasi Diperlukan</string>
     <string name="notification_permission_message">Untuk menerima notifikasi, harap izinkan akses notifikasi.</string>
+
     <string name="continue_text">Lanjutkan</string>
-    <string name="cancel">Batal</string>
 
     <string name="theme_subheading">Tema</string>
     <string name="dark_mode">Mode Gelap</string>
+
     <string name="language_subheading">Bahasa</string>
     <string name="choose_language">Pilih Bahasa</string>
     <string name="save_settings">Simpan Pengaturan</string>
+
+    <string name="restart_required">Perlu Restart</string>
+    <string name="restart_app_to_apply_changes">Silakan restart aplikasi untuk menerapkan perubahan bahasa</string>
+    <string name="restart_now">Restart Sekarang</string>
+    <string name="later">Nanti</string>
+
+    <string name="language_automatic">Otomatis</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_english">English</string>
 
     <string-array name="language_options">
         <item>Otomatis</item>
         <item>Bahasa Indonesia</item>
         <item>English</item>
     </string-array>
-
-    <string name="language_automatic">Otomatis</string>
-    <string name="language_indonesian">Bahasa Indonesia</string>
-    <string name="language_english">English</string>
-    <string name="restart_required">Perlu Restart</string>
-    <string name="restart_app_to_apply_changes">Silakan restart aplikasi untuk menerapkan perubahan bahasa</string>
-    <string name="restart_now">Restart Sekarang</string>
-    <string name="later">Nanti</string>
 
     <string name="setting_title_about_us">Tentang Kami</string>
     <string name="setting_description_about_us">Informasi detail tentang DOMoJo.</string>
@@ -118,5 +206,4 @@
     <string name="delete_account_confirmation_title">Hapus Akun</string>
     <string name="delete_account_confirmation_message">Apakah Anda yakin ingin menghapus akun Anda? Tindakan ini tidak dapat dibatalkan.</string>
     <string name="account_deleted_successfully">Akun berhasil dihapus</string>
-
 </resources>
