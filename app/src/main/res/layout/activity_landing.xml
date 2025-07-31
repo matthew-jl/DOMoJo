@@ -48,22 +48,19 @@
             android:id="@+id/view_pager_carousel"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/rounded_corner_background"
+            />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout_dots"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_height="28dp"
             android:layout_marginBottom="32dp"
             app:tabBackground="@drawable/tab_indicator_selector"
             app:tabGravity="center"
-            app:tabIndicatorHeight="0dp"
-            app:tabMode="scrollable"
-            app:tabPaddingBottom="0dp"
-            app:tabPaddingEnd="0dp"
-            app:tabPaddingStart="0dp"
-            app:tabPaddingTop="0dp" />
+            />
 
         <Button
             android:id="@+id/login_button"
