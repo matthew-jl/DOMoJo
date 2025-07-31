@@ -8,6 +8,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
 import edu.bluejack24_2.domojo.models.Challenge
 import edu.bluejack24_2.domojo.models.ChallengeMember
+import java.util.Calendar // Import Calendar
 import java.util.Date
 
 class ChallengeMemberRepository() {
@@ -15,7 +16,37 @@ class ChallengeMemberRepository() {
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val TAG = "ChallengeMemberRepo"
 
-    // <Get Challenge Member Section>
+    private fun isDateToday(date: Date?): Boolean {
+        if (date == null) return false
+        val cal = Calendar.getInstance()
+        val today = cal.apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.time
+        return date.after(today) || date.equals(today)
+    }
+
+    private fun isDateYesterday(date: Date?): Boolean {
+        if (date == null) return false
+        val cal = Calendar.getInstance()
+        val yesterday = cal.apply {
+            add(Calendar.DAY_OF_YEAR, -1)
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.time
+        val todayStart = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.time
+        return date.before(todayStart) && date.after(yesterday) || date.equals(yesterday)
+    }
+
     fun getChallengeMemberForChallenge(
         challengeId: String,
         onSuccess: (ChallengeMember?) -> Unit,
@@ -33,8 +64,37 @@ class ChallengeMemberRepository() {
             .get()
             .addOnSuccessListener { querySnapshot ->
                 if (!querySnapshot.isEmpty) {
-                    val member = querySnapshot.documents[0].toObject<ChallengeMember>()
-                    onSuccess(member)
+                    var member = querySnapshot.documents[0].toObject<ChallengeMember>()?.copy(id = querySnapshot.documents[0].id)
+
+                    if (member != null) {
+                        val lastActivityDate = member.lastActivityDate
+                        val currentStreak = member.currentStreak
+
+                        if (currentStreak > 0) {
+                            if (lastActivityDate == null || (!isDateToday(lastActivityDate) && !isDateYesterday(lastActivityDate))) {
+                                Log.d(TAG, "Streak broken for member ${member.id}. Last activity: $lastActivityDate. Resetting streak to 0.")
+                                member = member.copy(currentStreak = 0)
+                                updateStreakInFirestore(
+                                    member.id,
+                                    0,
+                                    member.longestStreak,
+                                    member.isActiveMember,
+                                    member.hasCompleted,
+                                    member.lastActivityDate,
+                                    onSuccess = {
+                                        onSuccess(member)
+                                    }
+                                )
+                                return@addOnSuccessListener
+                            }
+                            // If lastActivityDate is today or yesterday, streak is maintained.
+                            // If it's yesterday, the user hasn't posted today yet, but the streak isn't broken.
+                            // If it's today, streak is maintained.
+                        }
+                        onSuccess(member)
+                    } else {
+                        onSuccess(null)
+                    }
                 } else {
                     onSuccess(null)
                 }
@@ -46,7 +106,6 @@ class ChallengeMemberRepository() {
             }
     }
 
-    // <Join Challenge Section>
     fun joinChallenge(
         challenge: Challenge,
         onSuccess: (ChallengeMember) -> Unit,
@@ -80,8 +139,7 @@ class ChallengeMemberRepository() {
             }
     }
 
-    // <Update Streak Section>
-    fun updateStreak(
+    private fun updateStreakInFirestore(
         challengeMemberId: String,
         newCurrentStreak: Int,
         newLongestStreak: Int,
@@ -89,7 +147,7 @@ class ChallengeMemberRepository() {
         newHasCompleted: Boolean,
         lastActivityDate: Date?,
         onSuccess: () -> Unit,
-        onFailure: (String) -> Unit
+        onFailure: (String) -> Unit = {}
     ) {
         val updates = hashMapOf(
             "currentStreak" to newCurrentStreak,
@@ -101,16 +159,38 @@ class ChallengeMemberRepository() {
         firestore.collection("challenge_members").document(challengeMemberId)
             .update(updates as Map<String, Any>)
             .addOnSuccessListener {
+                Log.d(TAG, "Streak updated in Firestore for member $challengeMemberId. New streak: $newCurrentStreak")
                 onSuccess()
             }
             .addOnFailureListener { e ->
-                val errorMessage = e.localizedMessage ?: "Failed to update streak."
-                Log.e(TAG, "Error updating streak for ChallengeMember $challengeMemberId: $errorMessage", e)
+                val errorMessage = e.localizedMessage ?: "Failed to update streak in Firestore."
+                Log.e(TAG, "Error updating streak in Firestore for ChallengeMember $challengeMemberId: $errorMessage", e)
                 onFailure(errorMessage)
             }
     }
 
-    // <Get Leaderboard Section>
+    fun updateStreak(
+        challengeMemberId: String,
+        newCurrentStreak: Int,
+        newLongestStreak: Int,
+        newIsActive: Boolean,
+        newHasCompleted: Boolean,
+        lastActivityDate: Date?,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        updateStreakInFirestore(
+            challengeMemberId,
+            newCurrentStreak,
+            newLongestStreak,
+            newIsActive,
+            newHasCompleted,
+            lastActivityDate,
+            onSuccess,
+            onFailure
+        )
+    }
+
     fun getLeaderboard(
         challengeId: String,
         onData: (List<ChallengeMember>) -> Unit,

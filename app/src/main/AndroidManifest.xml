@@ -18,13 +18,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DOMoJo">
-      
-      
+        <activity
+            android:name=".views.ui.HomeActivity"
+            android:exported="false" />
         <activity
             android:name=".views.ui.AllCommentsActivity"
             android:exported="false" />
-        <activity
-            android:name=".views.ui.ChallengeDetailActivity" />
+        <activity android:name=".views.ui.ChallengeDetailActivity" />
         <activity
             android:name=".views.ui.ChangeBadgeActivity"
             android:exported="false" />

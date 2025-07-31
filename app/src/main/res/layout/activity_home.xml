@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="edu.bluejack24_2.domojo.viewmodels.HomeViewModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".views.ui.HomeActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="24dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="24dp"
+                android:paddingBottom="16dp"
+                android:text="My Challenges"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/filter_category_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="4dp"
+                    android:src="@drawable/filter_icon"
+                    android:contentDescription="Filter by Category" />
+
+                <TextView
+                    android:id="@+id/selected_category_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="@{viewModel.selectedCategoryFilter == null ? &quot;All Categories&quot; : viewModel.selectedCategoryFilter}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:text="Category: All" />
+
+                <ImageView
+                    android:id="@+id/sort_streak_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="4dp"
+                    android:src="@drawable/sort_icon"
+                    android:contentDescription="Sort by Streak" />
+
+                <TextView
+                    android:id="@+id/sort_direction_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{viewModel.sortByStreakDirection == null ? &quot;No Sort&quot; : (viewModel.sortByStreakDirection == &quot;asc&quot; ? &quot;Streak (Asc)&quot; : &quot;Streak (Desc)&quot;)}"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:text="Sort: Desc" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/error_message_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@{viewModel.errorMessage}"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="@{viewModel.errorMessage != null ? View.VISIBLE : View.GONE}"
+                tools:text="An error occurred!"
+                tools:visibility="visible" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:indeterminateTint="@color/color4"
+                android:textAlignment="center"
+                android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/joined_challenges_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_joined_challenge" />
+
+            <TextView
+                android:id="@+id/no_joined_challenges_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You haven't joined any challenges yet."
+                android:textColor="@color/color5"
+                android:gravity="center"
+                android:layout_marginTop="32dp"
+                android:visibility="@{viewModel.joinedChallenges.empty &amp;&amp; !viewModel.isLoading &amp;&amp; viewModel.errorMessage == null ? View.VISIBLE : View.GONE}"
+                tools:visibility="gone" />
+
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
