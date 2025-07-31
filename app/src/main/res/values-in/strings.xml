@@ -140,6 +140,10 @@
     <string name="required_field">Kolom ini wajib diisi</string>
     <string name="invalid_input">Input tidak valid</string>
 
+    <!-- Profile (Others) -->
+    <string name="ongoing_challenges_title">Tantangan Saat Ini</string>
+    <string name="user_has_no_challenges">Pengguna ini tidak memiliki tantangan aktif.</string>
+
     <!-- Profile -->
     <string name="profile_title">Profil</string>
     <string name="profile_button_edit">Edit Profil</string>

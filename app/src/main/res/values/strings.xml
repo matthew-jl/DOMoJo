@@ -140,6 +140,10 @@
     <string name="required_field">This field is required</string>
     <string name="invalid_input">Invalid input</string>
 
+    <!-- Profile (Others) -->
+    <string name="ongoing_challenges_title">Ongoing Challenges</string>
+    <string name="user_has_no_challenges">This user has no active challenges.</string>
+
     <!-- Profile -->
     <string name="profile_title">Profile</string>
     <string name="profile_button_edit">Edit Profile</string>
