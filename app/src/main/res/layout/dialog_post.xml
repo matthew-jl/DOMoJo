@@ -47,8 +47,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/default_avatar"
             android:visibility="visible"
-            app:strokeColor="?attr/colorTertiary"
-            app:tint="?attr/colorTertiary"/>
+            app:strokeColor="?attr/colorTertiary"/>
 
         <Button
             android:id="@+id/select_post_image_button"
