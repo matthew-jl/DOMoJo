@@ -28,7 +28,7 @@
                 android:paddingTop="16dp"
                 android:paddingEnd="24dp"
                 android:paddingBottom="16dp"
-                android:text="My Challenges"
+                android:text="@string/home_title"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="28sp"
                 android:textStyle="bold" />

@@ -178,8 +178,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:strokeColor="?attr/colorTertiary"
-                            app:strokeWidth="1dp"
-                            app:tint="?attr/colorTertiary"/>
+                            app:strokeWidth="1dp"/>
 
                         <Button
                             android:id="@+id/select_icon_button"
@@ -244,7 +243,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:strokeColor="?attr/colorTertiary"
-                            app:tint="?attr/colorTertiary"
                             app:strokeWidth="1dp" />
 
                         <Button

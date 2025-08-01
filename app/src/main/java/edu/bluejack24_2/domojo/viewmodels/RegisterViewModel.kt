@@ -35,7 +35,7 @@ class RegisterViewModel : ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>()
 
-    fun onRegisterClicked(context: Context, image: File){
+    fun onRegisterClicked(context: Context, image: File) {
         val usernameValue = username.value
         val emailValue = email.value
         val passwordValue = password.value
@@ -56,7 +56,7 @@ class RegisterViewModel : ViewModel() {
             return
         }
 
-        if( passwordValue.isNullOrBlank()) {
+        if (passwordValue.isNullOrBlank()) {
             passwordError.value = "Password is required!"
             return
         }
@@ -71,29 +71,55 @@ class RegisterViewModel : ViewModel() {
             return
         }
 
-        if (passwordValue != confirmPasswordValue){
+        if (passwordValue != confirmPasswordValue) {
             confirmPasswordError.value = "Passwords do not match"
             return
         }
 
         isLoading.value = true
 
-        authRepository.registerUser(
-            context = context,
-            username = usernameValue,
-            email = emailValue,
-            password = passwordValue,
-            profilePicFile = image,
-            onResult = { result ->
+        userRepository.isUsernameTaken(usernameValue, { exists ->
+            if (exists) {
                 isLoading.value = false
-                if (result.isNotEmpty()) {
-                    _navigateToHome.value = true
-                    Log.i("Register Success", "Registration successful, navigating to home")
-                } else {
-                    Log.e("Register Error", "Registration failed")
-                    Toast.makeText(context, "Registration failed", Toast.LENGTH_SHORT).show()
-                }
+                usernameError.value = "Username already taken"
+                return@isUsernameTaken
             }
-        )
+
+            userRepository.isEmailTaken(emailValue, { exists ->
+                if (exists) {
+                    isLoading.value = false
+                    emailError.value = "Email already taken"
+                    return@isEmailTaken
+                }
+
+                authRepository.registerUser(
+                    context = context,
+                    username = usernameValue,
+                    email = emailValue,
+                    password = passwordValue,
+                    profilePicFile = image,
+                    onResult = { result ->
+                        isLoading.value = false
+                        if (result.isNotEmpty()) {
+                            _navigateToHome.value = true
+                            Log.i("Register Success", "Registration successful, navigating to home")
+                        } else {
+                            Log.e("Register Error", "Registration failed")
+                            Toast.makeText(context, "Registration failed", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                )
+            }, { error ->
+                isLoading.value = false
+                Log.e("Register Error", "Error checking email: $error")
+                Toast.makeText(context, "Error checking email: $error", Toast.LENGTH_SHORT)
+                    .show()
+            })
+        }, { error ->
+            isLoading.value = false
+            Log.e("Register Error", "Error checking username: $error")
+            Toast.makeText(context, "Error checking username: $error", Toast.LENGTH_SHORT).show()
+        })
     }
 }

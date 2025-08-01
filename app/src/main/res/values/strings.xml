@@ -12,6 +12,9 @@
     <string name="nav_challenges">Challenges</string>
     <string name="nav_profile">Profile</string>
 
+    <!--    Home    -->
+    <string name="home_title">My Challenges</string>
+
     <!-- Landing Page -->
     <string name="carousel_heading_1">Discover New Challenges</string>
     <string name="carousel_description_1">Join exciting challenges across various categories and grow your streak every day!</string>

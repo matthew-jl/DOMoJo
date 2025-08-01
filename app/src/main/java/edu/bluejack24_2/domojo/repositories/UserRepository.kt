@@ -71,4 +71,30 @@ class UserRepository {
                 onFailure(e.localizedMessage ?: "Failed to update badge")
             }
     }
+
+    fun isUsernameTaken(username: String, onResult: (Boolean) -> Unit, onError: (String) -> Unit) {
+        firestore.collection("users")
+            .whereEqualTo("username", username)
+            .limit(1)
+            .get()
+            .addOnSuccessListener { documents ->
+                onResult(!documents.isEmpty)
+            }
+            .addOnFailureListener { e ->
+                onError(e.localizedMessage ?: "Failed to check username")
+            }
+    }
+
+    fun isEmailTaken(email: String, onResult: (Boolean) -> Unit, onError: (String) -> Unit) {
+        firestore.collection("users")
+            .whereEqualTo("email", email)
+            .limit(1)
+            .get()
+            .addOnSuccessListener { documents ->
+                onResult(!documents.isEmpty)
+            }
+            .addOnFailureListener { e ->
+                onError(e.localizedMessage ?: "Failed to check email")
+            }
+    }
 }

@@ -196,6 +196,11 @@ class ChallengeDetailActivity : BaseActivity() {
                 getRealFileFromUri(this, uri)
             }
 
+            if(content == "" || content.isBlank()) {
+                Toast.makeText(this, "Content cannot be empty", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             viewModel.postActivity(
                 context = this,
                 content = content,
