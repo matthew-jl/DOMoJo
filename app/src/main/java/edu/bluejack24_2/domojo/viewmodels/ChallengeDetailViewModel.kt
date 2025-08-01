@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ListenerRegistration
+import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.models.Challenge
 import edu.bluejack24_2.domojo.models.Post
 import edu.bluejack24_2.domojo.models.PostComment
@@ -25,6 +26,14 @@ import java.util.Calendar
 import java.util.Date
 
 class ChallengeDetailViewModel : ViewModel() {
+
+    data class ChallengeBadge(
+        val id: String,
+        val requirement: Int,
+        val imageRes: Int,
+        var isUnlocked: Boolean = false
+    )
+
     private val challengeRepository: ChallengeRepository = ChallengeRepository()
     private val userRepository: UserRepository = UserRepository()
     private val challengeMemberRepository: ChallengeMemberRepository = ChallengeMemberRepository()
@@ -38,6 +47,9 @@ class ChallengeDetailViewModel : ViewModel() {
 
     private val _currentUserChallengeMember = MutableLiveData<ChallengeMember?>()
     val currentUserChallengeMember: LiveData<ChallengeMember?> get() = _currentUserChallengeMember
+
+    private val _challengeBadges = MutableLiveData<List<ChallengeBadge>>()
+    val challengeBadges: LiveData<List<ChallengeBadge>> get() = _challengeBadges
 
     private val _leaderboard = MutableLiveData<List<ChallengeMember>>()
     val leaderboard: LiveData<List<ChallengeMember>> get() = _leaderboard
@@ -116,6 +128,7 @@ class ChallengeDetailViewModel : ViewModel() {
         val currentUserId = firebaseAuth.currentUser?.uid
         if (currentUserId.isNullOrBlank()) {
             _currentUserChallengeMember.value = null
+            updateBadgeUnlockStatus(0)
             return
         }
 
@@ -124,13 +137,28 @@ class ChallengeDetailViewModel : ViewModel() {
             onSuccess = { member ->
                 _currentUserChallengeMember.value = member
                 _challengeDetails.value = _challengeDetails.value?.copy(isJoined = (member != null))
+                updateBadgeUnlockStatus(member?.longestStreak ?: 0)
             },
             onFailure = { message ->
                 _errorMessage.value = message
                 Log.e(TAG, "Failed to fetch current user's membership: $message")
                 _challengeDetails.value = _challengeDetails.value?.copy(isJoined = false)
+                updateBadgeUnlockStatus(0)
             }
         )
+    }
+
+    private fun updateBadgeUnlockStatus(longestStreak: Int) {
+        val badges = listOf(
+            ChallengeBadge(id = "bronze", requirement = 10, imageRes = R.drawable.ic_badge_bronze),
+            ChallengeBadge(id = "silver", requirement = 30, imageRes = R.drawable.ic_badge_silver),
+            ChallengeBadge(id = "gold", requirement = 50, imageRes = R.drawable.ic_badge_gold),
+            ChallengeBadge(id = "diamond", requirement = 100, imageRes = R.drawable.ic_badge_diamond),
+            ChallengeBadge(id = "purple", requirement = 365, imageRes = R.drawable.ic_badge_purple)
+        ).map { badge ->
+            badge.copy(isUnlocked = longestStreak >= badge.requirement)
+        }
+        _challengeBadges.value = badges
     }
 
     private fun startLeaderboardListener(challengeId: String) {

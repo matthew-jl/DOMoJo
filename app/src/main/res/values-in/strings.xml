@@ -78,6 +78,7 @@
     <string name="your_current_streak">Streak saat ini: %1$d</string>
     <string name="your_longest_streak">Streak terlama Anda: %1$d</string>
     <string name="post_activity_button">Posting Aktivitas Hari Ini</string>
+    <string name="badges">Lencana</string>
 
     <!-- Posts -->
     <string name="user_avatar_desc">Avatar Pengguna</string>

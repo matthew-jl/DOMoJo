@@ -79,6 +79,7 @@
     <string name="your_current_streak">%1$d</string>
     <string name="your_longest_streak">Your longest streak: %1$d</string>
     <string name="post_activity_button">Post Today\'s Activity</string>
+    <string name="badges">Badges</string>
 
     <!-- Posts -->
     <string name="user_avatar_desc">User Avatar</string>

@@ -90,6 +90,139 @@
                     android:textSize="16sp"
                     tools:text="This is a detailed description of the challenge..." />
 
+                <LinearLayout
+                    android:id="@+id/badges_section_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="24dp"
+                    android:visibility="@{viewModel.currentUserChallengeMember != null ? View.VISIBLE : View.GONE}"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/badges"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <!-- Badge Slot: Bronze -->
+                            <FrameLayout
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:layout_marginEnd="16dp">
+                                <ImageView
+                                    android:id="@+id/badge_bronze"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_badge_bronze"/>
+                                <ImageView
+                                    android:id="@+id/badge_bronze_lock"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_lock"
+                                    app:tint="@android:color/darker_gray"
+                                    android:visibility="gone"
+                                    tools:visibility="visible"/>
+                            </FrameLayout>
+
+                            <!-- Badge Slot: Silver -->
+                            <FrameLayout
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:layout_marginEnd="16dp">
+                                <ImageView
+                                    android:id="@+id/badge_silver"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_badge_silver"/>
+                                <ImageView
+                                    android:id="@+id/badge_silver_lock"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_lock"
+                                    app:tint="@android:color/darker_gray"
+                                    android:visibility="gone"/>
+                            </FrameLayout>
+
+                            <!-- Badge Slot: Gold -->
+                            <FrameLayout
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:layout_marginEnd="16dp">
+                                <ImageView
+                                    android:id="@+id/badge_gold"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_badge_gold"/>
+                                <ImageView
+                                    android:id="@+id/badge_gold_lock"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_lock"
+                                    app:tint="@android:color/darker_gray"
+                                    android:visibility="gone"/>
+                            </FrameLayout>
+
+                            <!-- Badge Slot: Diamond -->
+                            <FrameLayout
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:layout_marginEnd="16dp">
+                                <ImageView
+                                    android:id="@+id/badge_diamond"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_badge_diamond"/>
+                                <ImageView
+                                    android:id="@+id/badge_diamond_lock"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_lock"
+                                    app:tint="@android:color/darker_gray"
+                                    android:visibility="gone"/>
+                            </FrameLayout>
+
+                            <!-- Badge Slot: Purple -->
+                            <FrameLayout
+                                android:layout_width="64dp"
+                                android:layout_height="64dp">
+                                <ImageView
+                                    android:id="@+id/badge_purple"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_badge_purple"/>
+                                <ImageView
+                                    android:id="@+id/badge_purple_lock"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_lock"
+                                    app:tint="@android:color/darker_gray"
+                                    android:visibility="gone"/>
+                            </FrameLayout>
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

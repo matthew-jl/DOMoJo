@@ -71,6 +71,11 @@ class ChallengeDetailActivity : BaseActivity() {
             supportActionBar?.title = challenge?.title ?: "Challenge Details"
         })
 
+        viewModel.challengeBadges.observe(this, Observer { badges ->
+            updateBadgesUI(badges)
+        })
+
+
         viewModel.isLoading.observe(this, Observer { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.actionButton.isEnabled = !isLoading
@@ -140,6 +145,27 @@ class ChallengeDetailActivity : BaseActivity() {
         if (requestCode == PICK_POST_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             val uri = data?.data
             viewModel.selectedPostImageUri.value = uri
+        }
+    }
+
+    private fun updateBadgesUI(badges: List<ChallengeDetailViewModel.ChallengeBadge>) {
+        badges.forEach { badge ->
+            val (badgeView, lockView) = when (badge.id) {
+                "bronze" -> Pair(binding.badgeBronze, binding.badgeBronzeLock)
+                "silver" -> Pair(binding.badgeSilver, binding.badgeSilverLock)
+                "gold" -> Pair(binding.badgeGold, binding.badgeGoldLock)
+                "diamond" -> Pair(binding.badgeDiamond, binding.badgeDiamondLock)
+                "purple" -> Pair(binding.badgePurple, binding.badgePurpleLock)
+                else -> Pair(null, null)
+            }
+
+            if (badge.isUnlocked) {
+                badgeView?.alpha = 1.0f
+                lockView?.visibility = View.GONE
+            } else {
+                badgeView?.alpha = 0.3f
+                lockView?.visibility = View.VISIBLE
+            }
         }
     }
 
