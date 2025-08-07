@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -126,7 +125,6 @@ class RegisterActivity : BaseActivity() {
 
         viewModel.navigateToHome.observe(this, Observer { navigateToHome ->
             if (navigateToHome) {
-                // Navigate to HomeActivity
                 Handler().postDelayed({
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)

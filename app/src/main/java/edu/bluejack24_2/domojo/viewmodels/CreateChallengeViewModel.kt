@@ -1,15 +1,12 @@
 package edu.bluejack24_2.domojo.viewmodels
 
 import android.content.Context
-import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import edu.bluejack24_2.domojo.models.Challenge
 import edu.bluejack24_2.domojo.repositories.ChallengeRepository
-import edu.bluejack24_2.domojo.utils.CloudinaryClient
 import java.io.File
 
 class CreateChallengeViewModel : ViewModel() {
@@ -71,11 +68,9 @@ class CreateChallengeViewModel : ViewModel() {
             onSuccess = {
                 isLoading.value = false
                 _navigateToChallenge.value = true
-                Log.i("Create Challenge Success", "Challenge added successfully, navigating to challenge feed")
             },
             onFailure = { errorMessage ->
                 isLoading.value = false
-                Log.e("Create Challenge Error", "Create Challenge failed")
                 Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
             }
         )

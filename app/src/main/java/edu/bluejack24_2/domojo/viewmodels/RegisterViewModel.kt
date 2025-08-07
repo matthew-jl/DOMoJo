@@ -1,18 +1,12 @@
 package edu.bluejack24_2.domojo.viewmodels
 
 import android.content.Context
-import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import edu.bluejack24_2.domojo.repositories.AuthRepository
 import edu.bluejack24_2.domojo.repositories.UserRepository
-import edu.bluejack24_2.domojo.utils.CloudinaryClient
-import edu.bluejack24_2.domojo.views.ui.RegisterActivity
 import java.io.File
 
 class RegisterViewModel : ViewModel() {
@@ -102,9 +96,7 @@ class RegisterViewModel : ViewModel() {
                         isLoading.value = false
                         if (result.isNotEmpty()) {
                             _navigateToHome.value = true
-                            Log.i("Register Success", "Registration successful, navigating to home")
                         } else {
-                            Log.e("Register Error", "Registration failed")
                             Toast.makeText(context, "Registration failed", Toast.LENGTH_SHORT)
                                 .show()
                         }
@@ -112,13 +104,11 @@ class RegisterViewModel : ViewModel() {
                 )
             }, { error ->
                 isLoading.value = false
-                Log.e("Register Error", "Error checking email: $error")
                 Toast.makeText(context, "Error checking email: $error", Toast.LENGTH_SHORT)
                     .show()
             })
         }, { error ->
             isLoading.value = false
-            Log.e("Register Error", "Error checking username: $error")
             Toast.makeText(context, "Error checking username: $error", Toast.LENGTH_SHORT).show()
         })
     }

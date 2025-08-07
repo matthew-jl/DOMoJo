@@ -2,7 +2,6 @@ package edu.bluejack24_2.domojo.viewmodels
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,15 +9,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ListenerRegistration
 import edu.bluejack24_2.domojo.R
 import edu.bluejack24_2.domojo.models.Challenge
+import edu.bluejack24_2.domojo.models.ChallengeMember
 import edu.bluejack24_2.domojo.models.Post
 import edu.bluejack24_2.domojo.models.PostComment
-import edu.bluejack24_2.domojo.models.ChallengeMember
 import edu.bluejack24_2.domojo.models.User
-import edu.bluejack24_2.domojo.repositories.ChallengeRepository
 import edu.bluejack24_2.domojo.repositories.ChallengeMemberRepository
-import edu.bluejack24_2.domojo.repositories.PostRepository
-import edu.bluejack24_2.domojo.repositories.PostLikeRepository
+import edu.bluejack24_2.domojo.repositories.ChallengeRepository
 import edu.bluejack24_2.domojo.repositories.PostCommentRepository
+import edu.bluejack24_2.domojo.repositories.PostLikeRepository
+import edu.bluejack24_2.domojo.repositories.PostRepository
 import edu.bluejack24_2.domojo.repositories.UserRepository
 import edu.bluejack24_2.domojo.utils.CloudinaryClient
 import java.io.File
@@ -75,12 +74,9 @@ class ChallengeDetailViewModel : ViewModel() {
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> get() = _errorMessage
     private val _showToast = MutableLiveData<String?>()
-    val showToast: LiveData<String?> get() = _showToast
 
     private val _postUserActions = MutableLiveData<MutableMap<String, String>>(mutableMapOf())
     val postUserActions: LiveData<MutableMap<String, String>> get() = _postUserActions
-
-    fun getPostUserAction(postId: String): String = _postUserActions.value?.get(postId) ?: "none"
 
     private val _recentCommentsMap = MutableLiveData<MutableMap<String, List<PostComment>>>(mutableMapOf())
     val recentCommentsMap: LiveData<MutableMap<String, List<PostComment>>> get() = _recentCommentsMap // Make this publicly observable
@@ -91,7 +87,6 @@ class ChallengeDetailViewModel : ViewModel() {
     private val _showAddCommentDialog = MutableLiveData<String>()
     val showAddCommentDialog: LiveData<String> = _showAddCommentDialog
 
-    private val TAG = "ChallengeDetailVM"
     val selectedPostImageUri = MutableLiveData<Uri?>()
 
     fun loadChallengeDetails(challengeId: String) {
@@ -119,7 +114,6 @@ class ChallengeDetailViewModel : ViewModel() {
             onFailure = { message ->
                 _errorMessage.value = message
                 _isLoading.value = false
-                Log.e(TAG, "Failed to load challenge details: $message")
             }
         )
     }
@@ -141,7 +135,6 @@ class ChallengeDetailViewModel : ViewModel() {
             },
             onFailure = { message ->
                 _errorMessage.value = message
-                Log.e(TAG, "Failed to fetch current user's membership: $message")
                 _challengeDetails.value = _challengeDetails.value?.copy(isJoined = false)
                 updateBadgeUnlockStatus(0)
             }
@@ -172,7 +165,6 @@ class ChallengeDetailViewModel : ViewModel() {
             onError = { message ->
                 _errorMessage.value = message
                 _isLoading.value = false
-                Log.e(TAG, "Leaderboard real-time update error: $message")
             }
         )
     }
@@ -203,14 +195,13 @@ class ChallengeDetailViewModel : ViewModel() {
                                 currentActions[post.id] = action
                                 _postUserActions.value = currentActions
                             },
-                            onFailure = { Log.e(TAG, "Failed to get user action for post ${post.id}: $it") }
+                            onFailure = { }
                         )
                     }
                     fetchRecentCommentsForPost(post.id)
                 }
             },
             onFailure = { message ->
-                Log.e(TAG, "Failed to load all posts for challenge $challengeId: $message")
                 _errorMessage.value = message
             }
         )
@@ -407,14 +398,13 @@ class ChallengeDetailViewModel : ViewModel() {
                         onSuccess = { user ->
                             _usersTodayPostUser.value = user
                         },
-                        onFailure = { Log.e(TAG, "Failed to get user for today's post: $it") }
+                        onFailure = {}
                     )
                 } else {
                     _usersTodayPostUser.value = null
                 }
             },
             onFailure = { message ->
-                Log.e(TAG, "Failed to check today's post status: $message")
                 _hasPostedToday.value = false
                 _usersTodayPost.value = null
                 _usersTodayPostUser.value = null
@@ -544,7 +534,6 @@ class ChallengeDetailViewModel : ViewModel() {
                 _recentCommentsMap.value = currentMap
             },
             onFailure = { errorMessage ->
-                Log.e(TAG, "Failed to fetch recent comments for post $postId: $errorMessage")
                 val currentMap = _recentCommentsMap.value?.toMutableMap() ?: mutableMapOf()
                 currentMap[postId] = emptyList()
                 _recentCommentsMap.value = null

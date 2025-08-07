@@ -1,6 +1,5 @@
 package edu.bluejack24_2.domojo.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -53,13 +52,11 @@ class LoginViewModel : ViewModel() {
                 onSuccess = {
                     isLoading.value = false
                     _navigateToHome.value = true
-                    Log.i("Login Success", "Login successful, navigating to home")
                 },
                 onFailure = { errorMessage ->
                     isLoading.value = false
                     passwordError.value = errorMessage
                     _navigateToHome.value = false
-                    Log.e("Login Error", errorMessage)
                 }
             )
         }

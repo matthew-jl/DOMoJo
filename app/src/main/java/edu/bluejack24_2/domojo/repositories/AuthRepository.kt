@@ -2,7 +2,6 @@ package edu.bluejack24_2.domojo.repositories
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -27,7 +26,6 @@ class AuthRepository(private val userRepository: UserRepository) {
                     )
                 },
                 onFailure = { error ->
-                    Log.e("AuthRepository", "Failed to fetch user: $error")
                     result.value = User(
                         id = firebaseUser.uid,
                         email = firebaseUser.email ?: "",
@@ -47,7 +45,6 @@ class AuthRepository(private val userRepository: UserRepository) {
             firebaseAuth.signOut()
             true
         } catch (e: Exception) {
-            Log.e("AuthRepository", "Logout failed", e)
             false
         }
     }
@@ -100,7 +97,6 @@ class AuthRepository(private val userRepository: UserRepository) {
                                         onSuccess(updatedUser)
                                     }
                                     .addOnFailureListener { e ->
-                                        e.message?.let { Log.d("AuthRepository", it) }
                                         onFailure("Password update failed: ${e.localizedMessage}")
                                     }
                             } ?: run {
@@ -122,7 +118,7 @@ class AuthRepository(private val userRepository: UserRepository) {
         newAvatarFile?.let { file ->
             CloudinaryClient.uploadImage(
                 context = context,
-                uri = Uri.fromFile(file), // Convert File to Uri here
+                uri = Uri.fromFile(file),
                 onSuccess = { imageUrl ->
                     updateUserData(imageUrl)
                 },
@@ -150,11 +146,9 @@ class AuthRepository(private val userRepository: UserRepository) {
             currentUser.uid,
             newBadge,
             onSuccess = {
-                Log.d("AuthRepository", "Successfully updated badge to: $newBadge")
                 onSuccess()
             },
             onFailure = { error ->
-                Log.e("AuthRepository", "Failed to update badge: $error")
                 onFailure("Failed to update badge: $error")
             }
         )
@@ -170,23 +164,25 @@ class AuthRepository(private val userRepository: UserRepository) {
             return
         }
 
-        // Delete the user data from Firestore
-        userRepository.deleteUser(
-            currentUser.uid,
-            onSuccess = {
-                // Delete the auth account
-                currentUser.delete()
-                    .addOnSuccessListener {
+        val uid = currentUser.uid
+
+        currentUser.delete()
+            .addOnSuccessListener {
+
+                userRepository.deleteUser(uid,
+                    onSuccess = {
                         onSuccess()
+                    },
+                    onFailure = { firestoreError ->
+                        val errorMessage = "CRITICAL: Auth account deleted, but failed to delete Firestore data: $firestoreError"
+                        onFailure(errorMessage)
                     }
-                    .addOnFailureListener { e ->
-                        onFailure("Failed to delete authentication account: ${e.localizedMessage}")
-                    }
-            },
-            onFailure = { error ->
-                onFailure("Failed to delete user data: $error")
+                )
             }
-        )
+            .addOnFailureListener { authError ->
+                val errorMessage = "Failed to delete authentication account. Please re-authenticate and try again: ${authError.localizedMessage}"
+                onFailure(errorMessage)
+            }
     }
 
     fun loginUser(
@@ -198,16 +194,13 @@ class AuthRepository(private val userRepository: UserRepository) {
             .addOnSuccessListener { authResult ->
                 val uid = authResult.user?.uid
                 if (uid.isNullOrEmpty()) {
-                    Log.w("AuthRepository", "Login failed: User ID is null or empty")
                     return@addOnSuccessListener
                 } else {
                     userRepository.getUser(
                         uid,
                         onSuccess = { user ->
-                            Log.i("AuthRepository", "User exists: ${user?.username}")
                         },
                         onFailure = { error ->
-                            Log.e("AuthRepository", "Failed to fetch user: $error")
                         })
                 }
                 onSuccess()
@@ -246,14 +239,9 @@ class AuthRepository(private val userRepository: UserRepository) {
                                 newUser,
                                 onSuccess = {
                                     onResult("Registration successful! Welcome, $username!")
-                                    Log.i(
-                                        "AuthRepo",
-                                        "User registered and data saved successfully: $newUser"
-                                    )
                                 },
                                 onFailure = { errorMessage ->
                                     onResult("Registration failed: $errorMessage")
-                                    Log.e("AuthRepo", "Failed to save user data: $errorMessage")
                                 }
                             )
                         } else {

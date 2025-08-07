@@ -2,8 +2,6 @@ package edu.bluejack24_2.domojo.views.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import edu.bluejack24_2.domojo.utils.LocaleHelper
@@ -24,12 +22,10 @@ open class BaseActivity : AppCompatActivity() {
     private fun initializeFCM() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.w("FCM", "Fetching FCM registration token failed", task.exception)
                 return@addOnCompleteListener
             }
 
             val token = task.result
-            Log.d("FCM", "FCM Token: $token")
             MyFirebaseMessagingService.currentToken = token
         }
     }

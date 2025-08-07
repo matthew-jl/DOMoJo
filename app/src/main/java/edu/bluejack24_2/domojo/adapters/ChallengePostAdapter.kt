@@ -1,6 +1,5 @@
 package edu.bluejack24_2.domojo.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -110,10 +109,6 @@ class ChallengePostAdapter(
                             val recentComments = commentsMap[postId] ?: emptyList()
 
                             commentAdapter.updateComments(recentComments)
-                            Log.d(
-                                "Challenge Post Adapter",
-                                "Updated comments for post $postId: ${recentComments.size}"
-                            )
                         }
 
                         viewModel.postUserActions.removeObservers(owner)
@@ -143,10 +138,6 @@ class ChallengePostAdapter(
                 }
 
                 override fun onViewDetachedFromWindow(v: View) {
-                    Log.d(
-                        "ChallengePostAdapter",
-                        "View detached from window for post: ${binding.post?.id}"
-                    )
                 }
             })
         }
@@ -166,10 +157,6 @@ class ChallengePostAdapter(
                 },
                 onFailure = { errorMessage ->
                     binding.postUsernameTextView.text = "[Error User]"
-                    Log.e(
-                        "ChallengePostAdapter",
-                        "Failed to fetch user for post ${post.id}: $errorMessage"
-                    )
                 }
             )
 

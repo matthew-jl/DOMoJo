@@ -1,6 +1,5 @@
 package edu.bluejack24_2.domojo.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -50,14 +49,12 @@ class LeaderboardAdapter(
                         binding.user = user
                     } else {
                         binding.leaderboardMemberUsername.text = "[Deleted User]"
-//                        Glide.with(binding.root.context).load(R.drawable.default_avatar).into(binding.leaderboardMemberAvatar)
                         itemView.isClickable = false
                     }
                     binding.executePendingBindings()
                 },
                 onFailure = { errorMessage ->
                     binding.leaderboardMemberUsername.text = "[Error User]"
-                    Log.e("LeaderboardViewHolder", "Failed to fetch user for ${member.userId}: $errorMessage")
                 }
             )
         }

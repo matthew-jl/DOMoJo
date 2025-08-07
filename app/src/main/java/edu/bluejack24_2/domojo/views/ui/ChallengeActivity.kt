@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,7 +31,6 @@ class ChallengeActivity : AppBaseActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-//      Setup bottom navbar
         val bottomNavigationView = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
         setupBottomNavigation(bottomNavigationView)
 

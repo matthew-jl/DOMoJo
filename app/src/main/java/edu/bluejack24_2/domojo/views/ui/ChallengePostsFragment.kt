@@ -2,7 +2,6 @@ package edu.bluejack24_2.domojo.views.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,8 @@ import edu.bluejack24_2.domojo.databinding.ItemPostBinding
 import edu.bluejack24_2.domojo.models.Post
 import edu.bluejack24_2.domojo.repositories.UserRepository
 import edu.bluejack24_2.domojo.viewmodels.ChallengeDetailViewModel
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class ChallengePostsFragment : Fragment() {
     private var _binding: FragmentChallengePostsBinding? = null
@@ -25,6 +26,8 @@ class ChallengePostsFragment : Fragment() {
 
     private lateinit var viewModel: ChallengeDetailViewModel
     private lateinit var postAdapter: ChallengePostAdapter
+
+    private val dateFormatter = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault())
 
     private var challengeId: String? = null
 
@@ -79,7 +82,7 @@ class ChallengePostsFragment : Fragment() {
         })
 
         challengeId?.let { id ->
-        } ?: Log.e("ChallengePostsFragment", "Challenge ID is null for posts fragment!")
+        }
 
         viewModel.usersTodayPost.observe(viewLifecycleOwner) { post ->
             if (post != null) {
@@ -97,6 +100,12 @@ class ChallengePostsFragment : Fragment() {
         viewModel: ChallengeDetailViewModel,
         lifecycleOwner: LifecycleOwner
     ) {
+        post.createdAt?.let {
+            binding.postDateTextView.text = dateFormatter.format(it)
+        } ?: run {
+            binding.postDateTextView.text = "Date Unavailable"
+        }
+
         val commentAdapter = PostCommentAdapter(emptyList(), UserRepository()) { userId ->
             navigateToUserProfile(userId)
         }
@@ -146,7 +155,7 @@ class ChallengePostsFragment : Fragment() {
         challengeId?.let { id ->
             viewModel.fetchChallengePosts(id)
             viewModel.checkTodayPostStatus(id)
-        } ?: Log.e("ChallengePostsFragment", "onResume: Challenge ID is null!")
+        }
     }
 
     override fun onDestroyView() {

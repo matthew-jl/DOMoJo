@@ -53,7 +53,6 @@ class ProfileOthersActivity : BaseActivity() {
         binding.ongoingChallengesRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@ProfileOthersActivity)
             adapter = challengeAdapter
-            // Important for use inside a ScrollView
             isNestedScrollingEnabled = false
         }
     }

@@ -1,6 +1,5 @@
 package edu.bluejack24_2.domojo.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,8 +16,6 @@ class ProfileOthersViewModel : ViewModel() {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val userRepository = UserRepository()
     private val challengeRepository = ChallengeRepository()
-
-    private val TAG = "ProfileOthersViewModel"
 
     private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> get() = _user
@@ -72,7 +69,6 @@ class ProfileOthersViewModel : ViewModel() {
                 if (querySnapshot.isEmpty) {
                     _ongoingChallenges.value = emptyList()
                     _isLoadingChallenges.value = false
-                    Log.d(TAG, "No challenges joined by user $userId.")
                     return@addOnSuccessListener
                 }
 
@@ -99,14 +95,13 @@ class ProfileOthersViewModel : ViewModel() {
                                 challengeDisplays.add(JoinedChallengeDisplay(challenge, member, hasPostedToday))
                             }
                             if (processedCount == totalChallenges) {
-                                // Sort by title for consistent order
+                                // Sort by title
                                 _ongoingChallenges.value = challengeDisplays.sortedBy { it.challenge.title }
                                 _isLoadingChallenges.value = false
                             }
                         },
                         onFailure = { error ->
                             processedCount++
-                            Log.e(TAG, "Failed to fetch challenge details for ID ${member.challengeId}: $error")
                             if (processedCount == totalChallenges) {
                                 _ongoingChallenges.value = challengeDisplays.sortedBy { it.challenge.title }
                                 _isLoadingChallenges.value = false
@@ -118,7 +113,6 @@ class ProfileOthersViewModel : ViewModel() {
             .addOnFailureListener { e ->
                 _errorMessage.value = "Failed to fetch user's challenges."
                 _isLoadingChallenges.value = false
-                Log.e(TAG, "Error fetching challenges for user $userId: ", e)
             }
     }
 

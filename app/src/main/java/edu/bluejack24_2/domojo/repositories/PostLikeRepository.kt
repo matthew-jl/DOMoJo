@@ -1,6 +1,5 @@
 package edu.bluejack24_2.domojo.repositories
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -9,7 +8,6 @@ import edu.bluejack24_2.domojo.models.PostLike
 class PostLikeRepository() {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val TAG = "PostLikeRepo"
     private val likesCollection = firestore.collection("post_likes")
     private val postsCollection = firestore.collection("challenge_activity_posts")
 
@@ -80,7 +78,6 @@ class PostLikeRepository() {
                     }
                     .addOnFailureListener { e ->
                         val errorMessage = e.localizedMessage ?: "Failed to execute transaction."
-                        Log.e(TAG, "Transaction failed for post $postId (WORKAROUND): $errorMessage", e)
                         onFailure(errorMessage)
                     }
             }
@@ -109,7 +106,6 @@ class PostLikeRepository() {
             }
             .addOnFailureListener { e ->
                 val errorMessage = e.localizedMessage ?: "Failed to get like status."
-                Log.e(TAG, "Error getting user like status for post $postId, user $userId: $errorMessage", e)
                 onFailure(errorMessage)
             }
     }

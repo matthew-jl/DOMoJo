@@ -1,6 +1,5 @@
 package edu.bluejack24_2.domojo.repositories
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
@@ -8,13 +7,12 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
 import edu.bluejack24_2.domojo.models.Challenge
 import edu.bluejack24_2.domojo.models.ChallengeMember
-import java.util.Calendar // Import Calendar
+import java.util.Calendar
 import java.util.Date
 
 class ChallengeMemberRepository() {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val TAG = "ChallengeMemberRepo"
 
     private fun isDateToday(date: Date?): Boolean {
         if (date == null) return false
@@ -72,7 +70,6 @@ class ChallengeMemberRepository() {
 
                         if (currentStreak > 0) {
                             if (lastActivityDate == null || (!isDateToday(lastActivityDate) && !isDateYesterday(lastActivityDate))) {
-                                Log.d(TAG, "Streak broken for member ${member.id}. Last activity: $lastActivityDate. Resetting streak to 0.")
                                 member = member.copy(currentStreak = 0)
                                 updateStreakInFirestore(
                                     member.id,
@@ -101,7 +98,6 @@ class ChallengeMemberRepository() {
             }
             .addOnFailureListener { e ->
                 val errorMessage = e.localizedMessage ?: "Failed to get challenge member data from Firestore."
-                Log.e(TAG, "Error fetching ChallengeMember for $challengeId, user $currentUserId: $errorMessage", e)
                 onFailure(errorMessage)
             }
     }
@@ -134,7 +130,6 @@ class ChallengeMemberRepository() {
             }
             .addOnFailureListener { e ->
                 val errorMessage = e.localizedMessage ?: "Failed to join challenge."
-                Log.e(TAG, "Error joining challenge ${challenge.id}: $errorMessage", e)
                 onFailure(errorMessage)
             }
     }
@@ -159,12 +154,10 @@ class ChallengeMemberRepository() {
         firestore.collection("challenge_members").document(challengeMemberId)
             .update(updates as Map<String, Any>)
             .addOnSuccessListener {
-                Log.d(TAG, "Streak updated in Firestore for member $challengeMemberId. New streak: $newCurrentStreak")
                 onSuccess()
             }
             .addOnFailureListener { e ->
                 val errorMessage = e.localizedMessage ?: "Failed to update streak in Firestore."
-                Log.e(TAG, "Error updating streak in Firestore for ChallengeMember $challengeMemberId: $errorMessage", e)
                 onFailure(errorMessage)
             }
     }
@@ -203,7 +196,6 @@ class ChallengeMemberRepository() {
             .addSnapshotListener { querySnapshot, e ->
                 if (e != null) {
                     val errorMessage = e.localizedMessage ?: "Failed to get real-time leaderboard."
-                    Log.w(TAG, "Listen failed on leaderboard for $challengeId: $errorMessage", e)
                     onError(errorMessage)
                     return@addSnapshotListener
                 }
@@ -246,12 +238,10 @@ class ChallengeMemberRepository() {
                     it.toObject<ChallengeMember>()?.longestStreak ?: 0
                 } ?: 0
 
-                Log.d(TAG, "User $userId max longest streak is $maxStreak")
                 onSuccess(maxStreak)
             }
             .addOnFailureListener { e ->
                 val errorMessage = e.localizedMessage ?: "Failed to get user's streak data."
-                Log.e(TAG, "Error fetching max streak for user $userId: $errorMessage", e)
                 onFailure(errorMessage)
             }
     }

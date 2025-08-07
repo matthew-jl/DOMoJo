@@ -1,12 +1,10 @@
 package edu.bluejack24_2.domojo.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import edu.bluejack24_2.domojo.models.Challenge
-import edu.bluejack24_2.domojo.models.ChallengeMember
 import edu.bluejack24_2.domojo.repositories.ChallengeMemberRepository
 import edu.bluejack24_2.domojo.repositories.ChallengeRepository
 
@@ -14,9 +12,6 @@ class ChallengeViewModel: ViewModel() {
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val challengeRepository: ChallengeRepository = ChallengeRepository()
     private val challengeMemberRepository: ChallengeMemberRepository = ChallengeMemberRepository()
-
-    private val _navigateToCreateChallenge = MutableLiveData<Boolean>()
-    val navigateToCreateChallenge: LiveData<Boolean> get() = _navigateToCreateChallenge
 
     private val _navigateToChallengeDetail = MutableLiveData<String>()
     val navigateToChallengeDetail: LiveData<String> get() = _navigateToChallengeDetail
@@ -154,30 +149,18 @@ class ChallengeViewModel: ViewModel() {
     fun onJoinChallengeClicked(challengeId: String) {
         val userId = firebaseAuth.currentUser?.uid
         if (userId.isNullOrBlank()) {
-            Log.i("ChallengeViewModel", "User is not logged in. Cannot join challenge.")
             return
         }
 
         val challengeToJoin = _allChallenges.value?.find { it.id == challengeId }
         if (challengeToJoin == null) {
-            Log.i("ChallengeViewModel", "Challenge with ID ${challengeId} not found in current list. Cannot join.")
             return
         }
         if (challengeToJoin.isJoined) {
-            Log.i("ChallengeViewModel", "User ${userId} is already a member of challenge ${challengeId}. No action taken.")
             return
         }
 
         _isLoading.value = true
-
-        val newMember = ChallengeMember(
-            challengeId = challengeId,
-            userId = userId,
-            currentStreak = 0,
-            longestStreak = 0,
-            isActiveMember = true,
-            hasCompleted = false
-        )
 
         challengeMemberRepository.joinChallenge(
             challengeToJoin,
@@ -187,7 +170,6 @@ class ChallengeViewModel: ViewModel() {
             },
             onFailure = { errorMessage ->
                 _isLoading.value = false
-                Log.e("ChallengeViewModel", "Error joining challenge ${challengeId}: $errorMessage")
             }
         )
     }

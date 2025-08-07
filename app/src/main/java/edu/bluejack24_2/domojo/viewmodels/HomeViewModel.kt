@@ -1,7 +1,5 @@
-// HomeViewModel.kt
 package edu.bluejack24_2.domojo.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +7,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import edu.bluejack24_2.domojo.models.ChallengeMember
 import edu.bluejack24_2.domojo.models.JoinedChallengeDisplay
-import edu.bluejack24_2.domojo.repositories.ChallengeMemberRepository
 import edu.bluejack24_2.domojo.repositories.ChallengeRepository
 import java.util.Calendar
 import java.util.Date
@@ -18,9 +15,6 @@ class HomeViewModel : ViewModel() {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val challengeRepository: ChallengeRepository = ChallengeRepository()
-    private val challengeMemberRepository: ChallengeMemberRepository = ChallengeMemberRepository()
-
-    private val TAG = "HomeViewModel"
 
     private val _joinedChallenges = MutableLiveData<List<JoinedChallengeDisplay>>()
     val joinedChallenges: LiveData<List<JoinedChallengeDisplay>> get() = _joinedChallenges
@@ -73,7 +67,6 @@ class HomeViewModel : ViewModel() {
                     _isLoading.value = false
                     filterAndSortChallenges()
                     fetchAvailableCategories()
-                    Log.d(TAG, "No challenges joined by user $currentUserId.")
                     return@addOnSuccessListener
                 }
 
@@ -104,7 +97,6 @@ class HomeViewModel : ViewModel() {
                                     JoinedChallengeDisplay(challenge, member, hasPostedToday)
                                 )
                             } else {
-                                Log.w(TAG, "Challenge details not found for member ${member.id} (Challenge ID: ${member.challengeId})")
                             }
 
                             if (challengesProcessed == totalMembers) {
@@ -112,12 +104,10 @@ class HomeViewModel : ViewModel() {
                                 _isLoading.value = false
                                 filterAndSortChallenges()
                                 fetchAvailableCategories()
-                                Log.d(TAG, "Fetched ${joinedChallengeDisplays.size} joined challenges for user $currentUserId.")
                             }
                         },
                         onFailure = { challengeError ->
                             challengesProcessed++
-                            Log.e(TAG, "Failed to fetch challenge details for member ${member.id}: $challengeError")
                             if (challengesProcessed == totalMembers) {
                                 _joinedChallenges.value = joinedChallengeDisplays
                                 _isLoading.value = false
@@ -130,16 +120,14 @@ class HomeViewModel : ViewModel() {
             }
             .addOnFailureListener { e ->
                 val errorMessage = e.localizedMessage ?: "Failed to fetch joined challenges from Firestore."
-                Log.e(TAG, "Error fetching ChallengeMembers for user $currentUserId: $errorMessage", e)
                 _errorMessage.value = errorMessage
                 _isLoading.value = false
                 _joinedChallenges.value = emptyList()
-                _allJoinedChallengesMasterList.value = emptyList() // Ensure master list is empty on failure
+                _allJoinedChallengesMasterList.value = emptyList()
                 filterAndSortChallenges()
             }
     }
 
-    // In HomeViewModel.kt
     private fun filterAndSortChallenges() {
         val masterList = _allJoinedChallengesMasterList.value ?: emptyList()
 
@@ -181,10 +169,6 @@ class HomeViewModel : ViewModel() {
 
     fun onNavigationToChallengeDetailHandled() {
         _navigateToChallengeDetail.value = null
-    }
-
-    fun clearErrorMessage() {
-        _errorMessage.value = null
     }
 
     private fun isLastActivityToday(lastActivityDate: Date?): Boolean {

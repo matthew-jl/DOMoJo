@@ -42,13 +42,11 @@ class EditProfileViewModel : ViewModel() {
         val passwordValue = password.value
         val confirmPasswordValue = confirmPassword.value
 
-        // Reset errors
         usernameError.value = null
         passwordError.value = null
         confirmPasswordError.value = null
         avatarError.value = null
 
-        // Validation
         if (usernameValue.isNullOrBlank()) {
             usernameError.value = "Username is required"
             return

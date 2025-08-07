@@ -2,10 +2,8 @@ package edu.bluejack24_2.domojo.views.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -14,8 +12,6 @@ import edu.bluejack24_2.domojo.databinding.ActivityProfileBinding
 import edu.bluejack24_2.domojo.models.SettingItem
 import edu.bluejack24_2.domojo.models.User
 import edu.bluejack24_2.domojo.viewmodels.ProfileViewModel
-
-private const val TAG = "ProfileFlow"
 
 class ProfileActivity : AppBaseActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -35,26 +31,19 @@ class ProfileActivity : AppBaseActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-//        Setup bottom navbar
         val bottomNavigationView = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
         setupBottomNavigation(bottomNavigationView)
 
-//        Setup observers
         viewModel.currentUser.observe(this) { user ->
-            Log.d(TAG, "User data received: ${user?.toString().orEmpty()}")
-            Log.d(TAG, "Avatar URL: ${user?.avatar.orEmpty()}")
             user?.let {
                 binding.user = it
-                Log.d(TAG, "Data binding updated with user")
             }
         }
 
-//        Setup Edit Profile button
         binding.editProfileButton.setOnClickListener {
             startActivity(Intent(this, EditProfileActivity::class.java))
         }
 
-//        Setup Setting Item values
         binding.settingChangeBadge.setting = SettingItem(
             icon = ContextCompat.getDrawable(this, R.drawable.ic_setting_badge)!!,
             name = getString(R.string.setting_title_change_badge),
@@ -81,7 +70,6 @@ class ProfileActivity : AppBaseActivity() {
             description = getString(R.string.setting_description_delete_account),
         )
 
-//        Set Setting Item navigation
         binding.settingChangeBadge.materialCardConstraint.setOnClickListener {
             startActivity(Intent(this, ChangeBadgeActivity::class.java))
         }
@@ -92,14 +80,12 @@ class ProfileActivity : AppBaseActivity() {
             startActivity(Intent(this, AboutUsActivity::class.java))
         }
         binding.settingLogout.materialCardConstraint.setOnClickListener {
-            Log.d(TAG, "Click")
             showLogoutConfirmationDialog()
         }
         binding.settingDeleteAccount.materialCardConstraint.setOnClickListener {
             showDeleteAccountConfirmationDialog()
         }
 
-//         Observe logout results
         viewModel.logoutSuccess.observe(this) { success ->
             if (success) {
                 navigateToLanding()
@@ -111,7 +97,6 @@ class ProfileActivity : AppBaseActivity() {
             }
         }
 
-        // Observe delete account results
         viewModel.deleteSuccess.observe(this) { success ->
             if (success) {
                 Toast.makeText(this,

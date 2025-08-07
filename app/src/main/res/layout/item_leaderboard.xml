@@ -28,8 +28,6 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp">
 
-        <!--        android:text="@{String.valueOf(position + 1) + (position == 0 ? '🥇' : position == 1 ? '🥈' : position == 2 ? '🥉' : '.')}"-->
-
         <TextView
             android:id="@+id/leaderboard_rank_text_view"
             android:layout_width="wrap_content"
@@ -95,15 +93,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/username_text_view"
                 tools:src="@drawable/ic_badge_gold" />
 
-            <!--            <LinearLayout-->
-            <!--                android:id="@+id/leaderboard_badges_container"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:orientation="horizontal"-->
-            <!--                android:layout_marginTop="4dp"-->
-            <!--                app:badgeUrls="@{user.earnedBadges}"-->
-            <!--                android:visibility="@{!user.earnedBadges.empty ? View.VISIBLE : View.GONE}"-->
-            <!--                tools:visibility="visible"/>-->
         </LinearLayout>
 
         <LinearLayout

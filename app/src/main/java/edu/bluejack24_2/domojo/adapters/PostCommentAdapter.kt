@@ -1,13 +1,10 @@
 package edu.bluejack24_2.domojo.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
 import edu.bluejack24_2.domojo.databinding.ItemCommentBinding
 import edu.bluejack24_2.domojo.models.PostComment
-import edu.bluejack24_2.domojo.models.User
 import edu.bluejack24_2.domojo.repositories.UserRepository
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -17,7 +14,6 @@ class PostCommentAdapter(
     private val userRepository: UserRepository = UserRepository(),
     private val onItemClicked: (userId: String) -> Unit
 ) : RecyclerView.Adapter<PostCommentAdapter.PostCommentViewHolder>() {
-    private val TAG = "PostCommentAdapter"
 
     private val dateFormatter = SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault())
 
@@ -43,7 +39,6 @@ class PostCommentAdapter(
         private val dateFormatter: SimpleDateFormat,
         private val onItemClicked: (userId: String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        private val TAG = "PostCommentAdapter"
         fun bind(comment: PostComment) {
             binding.comment = comment
 
@@ -64,7 +59,6 @@ class PostCommentAdapter(
                 },
                 onFailure = { errorMessage ->
                     binding.commentUsername.text = "[Error User]"
-                    Log.e(TAG, "Failed to fetch user for comment ${comment.id}: $errorMessage")
                 }
             )
 

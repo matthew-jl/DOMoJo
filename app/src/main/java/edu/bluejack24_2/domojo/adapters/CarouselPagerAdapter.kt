@@ -1,6 +1,5 @@
 package edu.bluejack24_2.domojo.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,10 +22,6 @@ class CarouselPagerAdapter : RecyclerView.Adapter<CarouselPagerAdapter.CarouselP
 
     override fun onBindViewHolder(holder: CarouselPageViewHolder, position: Int) {
         val carouselItem = items[position]
-        Log.d("Carousel Adapter", "onBindViewHolder: Binding position $position, " +
-                "Heading: '${carouselItem.heading}', Description: '${carouselItem.description}', " +
-                "ImageUrl: '${carouselItem.imageUrl}'")
-
         holder.bind(carouselItem)
     }
 

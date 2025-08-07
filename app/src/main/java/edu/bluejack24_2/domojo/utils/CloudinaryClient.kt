@@ -2,10 +2,9 @@ package edu.bluejack24_2.domojo.utils
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import com.cloudinary.android.MediaManager
-import com.cloudinary.android.callback.UploadCallback
 import com.cloudinary.android.callback.ErrorInfo
+import com.cloudinary.android.callback.UploadCallback
 
 object CloudinaryClient {
     private var isCloudinaryInitialized = false
@@ -26,35 +25,27 @@ object CloudinaryClient {
             if (!isCloudinaryInitialized) {
                 MediaManager.init(context.applicationContext, config)
                 isCloudinaryInitialized = true
-                Log.d("CLOUDINARY", "MediaManager initialized.")
             } else {
-                Log.d("CLOUDINARY", "MediaManager already initialized (skipped init).")
             }
 
-            Log.d("CLOUDINARY", "Starting upload for URI: $uri")
             MediaManager.get().upload(uri)
                 .callback(object : UploadCallback {
                     override fun onStart(requestId: String) {
-                        Log.d("CLOUDINARY", "Upload started")
                     }
 
                     override fun onProgress(requestId: String, bytes: Long, totalBytes: Long) {
-                        Log.d("CLOUDINARY", "Progress: $bytes / $totalBytes")
                     }
 
                     override fun onSuccess(requestId: String, resultData: MutableMap<Any?, Any?>) {
                         val imageUrl = resultData["secure_url"].toString()
-                        Log.d("CLOUDINARY", "Upload success: $imageUrl")
                         onSuccess(imageUrl)
                     }
 
                     override fun onError(requestId: String, error: ErrorInfo) {
-                        Log.e("CLOUDINARY", "Upload error: ${error.description}")
                         onError(error.description)
                     }
 
                     override fun onReschedule(requestId: String, error: ErrorInfo) {
-                        Log.w("CLOUDINARY", "Upload rescheduled: ${error.description}")
                         onError("Rescheduled: ${error.description}")
                     }
                 })

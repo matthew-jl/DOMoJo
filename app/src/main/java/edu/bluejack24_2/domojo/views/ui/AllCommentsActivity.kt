@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -37,19 +36,16 @@ class AllCommentsActivity : BaseActivity() {
             return
         }
 
-        // <ViewModel Setup Section>
         viewModel = ViewModelProvider(this)[AllCommentsViewModel::class.java]
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // <Toolbar Setup Section>
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Comments (${totalCommentCount})"
         binding.toolbar.setNavigationOnClickListener { onBackPressed() }
 
-        // <RecyclerView Setup Section>
         commentsAdapter = PostCommentAdapter(emptyList()) { userId ->
             val intent = Intent(this, ProfileOthersActivity::class.java).apply {
                 putExtra(ProfileOthersActivity.EXTRA_USER_ID, userId)
@@ -61,7 +57,6 @@ class AllCommentsActivity : BaseActivity() {
             adapter = commentsAdapter
         }
 
-        // <Observer Setup Section>
         viewModel.comments.observe(this, Observer { comments ->
             commentsAdapter.updateComments(comments)
             if (comments.isEmpty() && !viewModel.isLoading.value!!) {
@@ -84,7 +79,6 @@ class AllCommentsActivity : BaseActivity() {
             }
         })
 
-        // <Submit Comment Setup Section>
         binding.submitCommentButton.setOnClickListener {
             val commentContent = binding.commentEditText.text.toString()
             viewModel.addComment(postId, commentContent)

@@ -1,12 +1,11 @@
 package edu.bluejack24_2.domojo.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import android.preference.PreferenceManager
-import java.util.*
+import java.util.Locale
 
 object LocaleHelper {
     internal const val SELECTED_LANGUAGE = "app_selected_language"

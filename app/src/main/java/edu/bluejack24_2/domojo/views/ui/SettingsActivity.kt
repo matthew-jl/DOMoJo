@@ -8,11 +8,9 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -45,7 +43,6 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun setupTimePicker() {
-        // Load saved time
         val prefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val hour = prefs.getInt("notification_hour", 8)
         val minute = prefs.getInt("notification_minute", 0)
@@ -68,20 +65,17 @@ class SettingsActivity : BaseActivity() {
             },
             hour,
             minute,
-            true // 24-hour format
+            true
         ).show()
     }
 
     private fun setupNotificationSwitch() {
-        // Initialize switch state from SharedPreferences
         val prefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         binding.notificationsSwitch.isChecked = prefs.getBoolean("notifications_enabled", true)
 
-        // Handle toggle changes
         binding.notificationsSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 checkAndRequestNotificationPermission()
-                // Schedule notification with saved time
                 val prefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
                 val hour = prefs.getInt("notification_hour", 8)
                 val minute = prefs.getInt("notification_minute", 0)
@@ -100,7 +94,6 @@ class SettingsActivity : BaseActivity() {
                 this,
                 android.Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED -> {
-                // Permission already granted
                 saveNotificationPreference(true)
             }
 
@@ -108,12 +101,10 @@ class SettingsActivity : BaseActivity() {
                 this,
                 android.Manifest.permission.POST_NOTIFICATIONS
             ) -> {
-                // Explain why permission is needed
                 showPermissionExplanationDialog()
             }
 
             else -> {
-                // Request the permission
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
@@ -161,10 +152,8 @@ class SettingsActivity : BaseActivity() {
             NOTIFICATION_PERMISSION_REQUEST_CODE -> {
                 if (grantResults.isNotEmpty() &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission granted
                     saveNotificationPreference(true)
                 } else {
-                    // Permission denied
                     binding.notificationsSwitch.isChecked = false
                     saveNotificationPreference(false)
                 }
@@ -177,16 +166,13 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun setupDarkModeSwitch() {
-        // Initial state
         val currentTheme = ThemeHelper.getSavedTheme(this)
         binding.darkModeSwitch.isChecked = when (currentTheme) {
             ThemeHelper.THEME_DARK -> true
             ThemeHelper.THEME_LIGHT -> false
             else -> isSystemInDarkMode()
         }
-        Log.d("SettingsActivity", "setupDarkModeSwitch currentTheme: $currentTheme")
 
-        // Handle toggle changes
         binding.darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
             viewModel.updateDarkModeEnabled(this, isChecked)
         }
@@ -209,7 +195,6 @@ class SettingsActivity : BaseActivity() {
         binding.languageDropdown.apply {
             setAdapter(adapter)
 
-            // Set initial selection
             val prefs = PreferenceManager.getDefaultSharedPreferences(this@SettingsActivity)
             val savedLang = prefs.getString(LocaleHelper.SELECTED_LANGUAGE, "auto") ?: "auto"
 
@@ -226,7 +211,6 @@ class SettingsActivity : BaseActivity() {
                 showDropDown()
             }
 
-            // Update ViewModel when selection changes
             setOnItemClickListener { _, _, position, _ ->
                 val selected = languages[position]
                 viewModel.updateSelectedLanguage(selected)
@@ -267,11 +251,10 @@ class SettingsActivity : BaseActivity() {
             .setTitle(R.string.restart_required)
             .setMessage(R.string.restart_app_to_apply_changes)
             .setPositiveButton(R.string.restart_now) { _, _ ->
-                // Fully restart the app
                 val intent = Intent(this, LandingActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
-                Runtime.getRuntime().exit(0) // Force kill process
+                Runtime.getRuntime().exit(0)
             }
             .setNegativeButton(R.string.later) { dialog, _ ->
                 dialog.dismiss()

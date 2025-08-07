@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:textColor="?attr/colorSecondary"
-                android:hint="23 Jan 2005"
+                tools:text="23 Jan 2005"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
@@ -189,7 +189,6 @@
                     android:textSize="14sp"
                     tools:text="5" />
 
-                <!--android:onClick="@{() -> viewModel.onCommentClicked(post.id, post.commentCount)}"-->
                 <ImageButton
                     android:id="@+id/comment_button"
                     android:layout_width="wrap_content"
@@ -215,7 +214,6 @@
 
             </LinearLayout>
 
-            <!--            @{post.commentCount > 0 ? View.VISIBLE : View.GONE}-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/comments_recycler_view"
                 android:layout_width="match_parent"

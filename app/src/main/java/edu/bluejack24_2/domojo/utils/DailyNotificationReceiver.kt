@@ -9,10 +9,8 @@ import androidx.annotation.RequiresPermission
 class DailyNotificationReceiver : BroadcastReceiver() {
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     override fun onReceive(context: Context, intent: Intent?) {
-        // Show notification
         NotificationHelper.showDailyNotification(context)
 
-        // Reschedule for next day
         val prefs = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         if (prefs.getBoolean("notifications_enabled", true)) {
             val hour = prefs.getInt("notification_hour", 8)

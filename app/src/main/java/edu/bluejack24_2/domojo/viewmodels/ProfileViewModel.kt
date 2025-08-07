@@ -1,14 +1,11 @@
 package edu.bluejack24_2.domojo.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import edu.bluejack24_2.domojo.models.User
 import edu.bluejack24_2.domojo.repositories.AuthRepository
 import edu.bluejack24_2.domojo.repositories.UserRepository
-
-private const val TAG = "ProfileFlow"
 
 class ProfileViewModel : ViewModel() {
     private val userRepository = UserRepository()
@@ -33,12 +30,9 @@ class ProfileViewModel : ViewModel() {
     }
 
     private fun loadCurrentUser() {
-        Log.d(TAG, "Loading current user from repository")
         authRepository.getCurrentUser().observeForever { user ->
             _currentUser.value = user
-            Log.d(TAG, "Repository returned user: ${user?.toString().orEmpty()}")
             if (user?.avatar.isNullOrEmpty()) {
-//                TODO: Default Avatar
                 _currentUser.value = user?.copy(avatar = "DEFAULT_AVATAR_URL")
             }
         }

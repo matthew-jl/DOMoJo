@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -33,10 +32,8 @@ class EditProfileActivity : BaseActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // Load current user data
         viewModel.loadCurrentUser()
 
-        // Set click listeners
         binding.changeAvatarButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
@@ -52,7 +49,6 @@ class EditProfileActivity : BaseActivity() {
             onBackPressed()
         }
 
-        // Observe LiveData
         viewModel.usernameError.observe(this) { error ->
             binding.usernameErrorTv.apply {
                 text = error

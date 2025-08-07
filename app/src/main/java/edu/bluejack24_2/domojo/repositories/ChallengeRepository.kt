@@ -2,7 +2,6 @@ package edu.bluejack24_2.domojo.repositories
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
 import edu.bluejack24_2.domojo.models.Challenge
@@ -11,7 +10,6 @@ import java.io.File
 
 class ChallengeRepository() {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val TAG = "ChallengeRepository"
 
     fun createChallenge(
         context: Context,
@@ -90,7 +88,6 @@ class ChallengeRepository() {
                         challenge.id = documentSnapshot.id
                         onSuccess(challenge)
                     } else {
-                        Log.w(TAG, "getChallenge: Failed to parse document ${documentSnapshot.id} to Challenge object (returned null).")
                         onSuccess(null)
                     }
                 } else {
@@ -99,7 +96,6 @@ class ChallengeRepository() {
             }
             .addOnFailureListener { exception ->
                 val errorMessage = exception.localizedMessage ?: "Failed to load challenge details."
-                Log.e(TAG, "getChallenge: Failed to fetch challenge $challengeId: $errorMessage", exception)
                 onFailure(errorMessage)
             }
     }

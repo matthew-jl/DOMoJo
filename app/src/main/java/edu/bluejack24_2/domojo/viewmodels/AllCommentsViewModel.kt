@@ -1,16 +1,14 @@
 package edu.bluejack24_2.domojo.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import edu.bluejack24_2.domojo.models.PostComment
 import edu.bluejack24_2.domojo.repositories.PostCommentRepository
-import com.google.firebase.auth.FirebaseAuth
 
 class AllCommentsViewModel() : ViewModel() {
     private val postCommentRepository: PostCommentRepository = PostCommentRepository()
-    private val TAG = "AllCommentsViewModel"
 
     private val _comments = MutableLiveData<List<PostComment>>()
     val comments: LiveData<List<PostComment>> get() = _comments
@@ -42,7 +40,6 @@ class AllCommentsViewModel() : ViewModel() {
             onFailure = { message ->
                 _errorMessage.value = message
                 _isLoading.value = false
-                Log.e(TAG, "Failed to fetch comments for post $postId: $message")
             }
         )
     }
@@ -82,7 +79,6 @@ class AllCommentsViewModel() : ViewModel() {
             onFailure = { message ->
                 _isLoading.value = false
                 _errorMessage.value = message
-                Log.e(TAG, "Failed to add comment to post $postId: $message")
             }
         )
     }

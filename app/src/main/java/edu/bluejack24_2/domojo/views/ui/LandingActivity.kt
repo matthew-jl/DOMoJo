@@ -2,12 +2,7 @@ package edu.bluejack24_2.domojo.views.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import edu.bluejack24_2.domojo.R
@@ -61,7 +56,6 @@ class LandingActivity : BaseActivity() {
     }
 
     private fun loadCarouselItems() {
-        // NOTE: Replace R.drawable.carousel_image_1, etc., with your actual drawable resources.
         val items = listOf(
             CarouselItem(
                 "https://res.cloudinary.com/dbllc6nd9/image/upload/v1753852984/carousel_1_thg7z4.png",
@@ -79,7 +73,6 @@ class LandingActivity : BaseActivity() {
                 getString(R.string.carousel_description_3)
             )
         )
-        // Update the adapter with the newly created list
         carouselPagerAdapter.updateItems(items)
     }
 }
