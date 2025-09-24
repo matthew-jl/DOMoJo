@@ -15,20 +15,14 @@ This project was developed in collaboration with my fellow lab assistant, Vernan
 
 ### Key Features
 
-**Post with Proof**
-Upload a post each day to show your participation in a challenge. This can be done with an image or by using a timer.
+**Post with Proof →** Upload a post each day to show your participation in a challenge. This can be done with an image or by using a timer.
 
-**Join Ongoing Challenges**
-Choose from a variety of categories such as sport, tech, and education. You can also see your joined challenges on the home screen.
+**Join Ongoing Challenges →** Choose from a variety of categories such as sport, tech, and education. You can also see your joined challenges on the home screen.
 
-**Realtime Leaderboard**
-Earn a streak for every post you make and climb the leaderboard. Compete with other participants and stay motivated to keep your streak going.
+**Realtime Leaderboard →** Earn a streak for every post you make and climb the leaderboard. Compete with other participants and stay motivated to keep your streak going.
 
-**Interact and Support**
-Comment, like, and support on other users' posts. Encourage their efforts and stay motivated through community engagement.
+**Interact and Support →** Comment, like, and support on other users' posts. Encourage their efforts and stay motivated through community engagement.
 
-**Earn Badges**
-Get recognized for your consistency and commitment with badges. Collect different badges for milestones like your 7-day streak, 30-day streak, and more.
+**Earn Badges →** Get recognized for your consistency and commitment with badges. Collect different badges for milestones like your 7-day streak, 30-day streak, and more.
 
-**Stay Connected**
-Get notifications for streak reminders and never lose a streak. The app works offline and will sync your progress once you're back online.
+**Stay Connected →** Get notifications for streak reminders and never lose a streak. The app works offline and will sync your progress once you're back online.
