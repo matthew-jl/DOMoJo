@@ -6,10 +6,9 @@
 
 DOMoJo is a social challenge tracker that helps you stay consistent and accountable by joining daily or weekly challenges in areas like fitness, technology, study, art, and more. Whether you're working out, coding, reading, or learning a new skill, DOMoJo gives you a space to share your progress, build habits, and connect with others on the same journey.
 
+This project was developed to complete the Test Progressive Assistant (TPA) in the subject of Mobile Application. I collaborated with my fellow lab assistant, Vernandio Rivaldo, in creating DOMoJo. Before programming the application, we went through the ideation phase, made the feature specifications, and designed the low-fidelity prototype for DOMoJo. We also followed the standards required for uploading the Android application to the Google Play Store. Vernandio and I were tested by Catherine Alyssa Rapito, assistant development staff in BINUS Software Laboratory Center (SLC). We designed and programmed the app in 3 weeks, achieving a score of 99/100.
 
-This project was developed in collaboration with my fellow lab assistant, Vernandio Rivaldo. We followed the standards required for uploading the application to the Google Play Store.
-
-**Tech Stack:** Kotlin, XML, Firebase.
+**Tech Stack:** Kotlin, XML, Firebase, Android Studio.
 
 -----
 
